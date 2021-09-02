@@ -18,6 +18,23 @@ const index = async (req, res) => {
     }
 };
 
+// User - GET - Retrieve data of one user
+const oneUser = async (req, res) => {
+    let user;
+    try {
+        user = await db.User.findOne({ _id: req.params.id });
+        return res.json({
+            message: "Success: Found User",
+            data: user
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Retrieving user has failed, please try again later",
+            data: err
+        });
+    }
+};
+
 
 // Signup - POST - Creation of new user
 const signup = async (req, res) => {
@@ -110,4 +127,4 @@ const destroy = async (req, res) => {
     
 };
 
-module.exports = { index, signup, update, destroy };
+module.exports = { index, oneUser, signup, update, destroy };
