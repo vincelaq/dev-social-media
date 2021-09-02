@@ -7,8 +7,7 @@ const express = require("express");
 const cors = require("cors");
 
 /* ==== Internal Modules ==== */
-//const routes = require("./routes");
-require("./config/database");
+const routes = require("./routes");
 
 /* ==== Instanced Modules  ==== */
 const app = express();
@@ -31,7 +30,7 @@ app.use((req, res, next) => {
 });
 
 /* ====  Routes & Controllers  ==== */
-// app.use("/api", routes);
+app.use("/api", routes);
 app.all("/api/*", function (req, res, next) {
     res.send("Where you going? This is not route.");
 });
