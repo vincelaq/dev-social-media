@@ -1,14 +1,21 @@
 /* ==== Users Controller ==== */
-const { getNodeText } = require("@testing-library/react");
 const db = require("../models");
 
 // Index - GET - Retrieve data of all users
 const index = async (req, res) => {
-    const users = await db.User.find({});
-    return res.json({
-        message: "Success: Found Users",
-        data: users
-    });
+    let users;
+    try {
+        users = await db.User.find({});
+        return res.json({
+            message: "Success: Found Users",
+            data: users
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Retrieving users has failed, please try again later",
+            data: err
+        });
+    }
 };
 
 
