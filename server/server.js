@@ -8,7 +8,7 @@ const cors = require("cors");
 
 /* ==== Internal Modules ==== */
 //const routes = require("./routes");
-// require("./config/database");
+require("./config/database");
 
 /* ==== Instanced Modules  ==== */
 const app = express();
