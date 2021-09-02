@@ -43,14 +43,46 @@ const signup = async (req, res) => {
         await newUser.save();
         return res.json({
             message: "Success: Added New User",
-            data: newUser});
+            data: newUser
+        });
     } catch (err) {
-        return res.status(400).json({
+        return res.status(500).json({
             message: "Error: Signing up failed, please try again later",
             data: err
         });
     }
 };
+
+// Update - PUT - Update an existing user (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
+const update = async (req, res) => {
+    let foundUser;
+    try {
+        foundUser = await db.User.findById(req.params.id);
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Finding user for update has failed, please try again later",
+            data: err
+        });
+    }
+
+    foundUser.firstName = req.body.firstName;
+    foundUser.lastName = req.body.lastName;
+    foundUser.password = req.body.password;
+
+    try {
+        await foundUser.save();
+        return res.json({
+            message: "Success: Updated User",
+            data: foundUser
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Update user has failed, please try again later",
+            data: err
+        });
+    }
+};
+
 
 // Destroy - DELETE - Remove an existing user
 const destroy = async (req, res) => {    
@@ -78,4 +110,4 @@ const destroy = async (req, res) => {
     
 };
 
-module.exports = { index, signup, destroy };
+module.exports = { index, signup, update, destroy };
