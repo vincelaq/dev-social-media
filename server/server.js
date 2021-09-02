@@ -1,4 +1,4 @@
-/* ==== DOT ENV ==== */
+/* ==== Dotenv Require ==== */
 require("dotenv").config();
 
 /* ==== External Modules ==== */
@@ -23,13 +23,12 @@ app.use(express.static("public"));
 app.use(express.json()); // JSON parsing middleware
 app.use((req, res, next) => {
     console.log(req.url);
-    // is there an auth header
-    console.log("AUTH HEADER: ", req.headers.authorization);
+    console.log("Auth header: ", req.headers.authorization);
     if (req.body) {
-        console.log("BODY BEING SENT: ", req.body);
+        console.log("Request body received: ", req.body);
     }
     next();
-}); // Custom Logger of URL anr req.body
+});
 
 /* ====  Routes & Controllers  ==== */
 // app.use("/api", routes);
@@ -42,7 +41,6 @@ app.use((req, res, next) => {
 });
 
 /* ====  Server Listener / Connection ==== */
-// start express server on port 5000
 app.listen(PORT, () => {
-    console.log("server started on port 5000");
+    console.log(`Server started on port ${PORT}! Dope!`);
 });
