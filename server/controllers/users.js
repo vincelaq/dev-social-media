@@ -38,6 +38,8 @@ const oneUser = async (req, res) => {
 
 // Signup - POST - Creation of new user
 const signup = async (req, res) => {
+    const  { name, email, password } = req.body;
+    
     let existingUser 
     try {
        existingUser = await db.User.findOne({ email: req.body.email })
@@ -55,7 +57,12 @@ const signup = async (req, res) => {
         })
     }
 
-    const newUser = new db.User (req.body);
+    const newUser = new db.User ({
+        name,
+        email,
+        password,
+        posts: [],
+    });
     try {
         await newUser.save();
         return res.json({

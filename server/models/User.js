@@ -9,7 +9,7 @@ const userSchema = new Schema(
         lastName: String,
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true, minlength: 6 },
-
+        posts: [{ type: Schema.Types.ObjectId, required: true, ref: "Post" }]
     },
     {
         timestamps: true,
