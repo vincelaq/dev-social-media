@@ -147,30 +147,43 @@ const createPost = async (req, res) => {
 // };
 
 
-// // Destroy - DELETE - Remove an existing user
-// const destroy = async (req, res) => {    
-//     let foundUser;
-//     try {
-//         foundUser = await db.User.findById(req.params.id)
-//     } catch (err) {
-//         return res.status(500).json({
-//             message: "Error: Finding user has failed, please try again later",
-//             data: err
-//         });
-//     }
+// Destroy - DELETE - Remove an existing user
+const destroyPost = async (req, res) => {    
+    let foundPost;
+    try {
+        foundPost = await db.Post.findById(req.params.pid).populate('author')
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Finding user has failed, please try again later",
+            data: err
+        });
+    }
 
-//     try {
-//         await foundUser.remove();
-//         return res.json({
-//             message: "Success: Destroyed User",
-//             data: foundUser});
-//     } catch (err) {
-//         return res.status(500).json({
-//             message: "Error: Destroying user has failed, please try again later",
-//             data: err
-//         });
-//     }
+    if (!foundPost) {
+        return res.status(404).json({
+            message: "Error: Could not find post",
+            data: foundPost
+        });
+    }
+
+    try {
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        await foundPost.remove({ session: session });
+        foundPost.author.posts.pull(foundPost);
+        await foundPost.author.save({ session: session });
+        await session.commitTransaction();
+        return res.json({
+            message: "Success: Destroyed Post",
+            data: foundPost
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Destroying post has failed, please try again later",
+            data: err
+        });
+    }
     
-// };
+};
 
-module.exports = { index, getOnePost, getAllUserPosts, createPost };
+module.exports = { index, getOnePost, getAllUserPosts, createPost, destroyPost };
