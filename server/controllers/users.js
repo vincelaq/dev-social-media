@@ -6,31 +6,48 @@ const index = async (req, res) => {
     let users;
     try {
         users = await db.User.find({});
-        return res.json({
-            message: "Success: Found Users",
-            data: users
-        });
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving users has failed, please try again later",
             data: err
         });
     }
+
+    if (users.length >= 1) {
+        return res.json({
+            message: "Success: Found Users",
+            data: users
+        });
+    } else {
+        return res.json({
+            message: "Failed: No users yet",
+            data: users
+        });
+    }
+
 };
 
 // User - GET - Retrieve data of one user
 const oneUser = async (req, res) => {
     let user;
     try {
-        user = await db.User.findOne({ _id: req.params.id });
-        return res.json({
-            message: "Success: Found User",
-            data: user
-        });
+        user = await db.User.findOne({ _id: req.params.uid });
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving user has failed, please try again later",
             data: err
+        });
+    }
+
+    if (!user) {
+        return res.status(404).json({
+            message: "Failed: User not found",
+            data: user
+        });
+    } else {
+        return res.json({
+            message: "Success: User found",
+            data: users
         });
     }
 };

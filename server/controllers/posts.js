@@ -34,16 +34,25 @@ const getOnePost = async (req, res) => {
     let post;
     try {
         post = await db.Post.findOne({ _id: req.params.pid });
-        return res.json({
-            message: "Success: Found Post",
-            data: post
-        });
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving post has failed, please try again later",
             data: err
         });
     }
+
+    if (!post) {
+        return res.status(404).json({
+            message: "Failed: Post not found",
+            data: post
+        });
+    } else {
+        return res.json({
+            message: "Success: Found Post",
+            data: post
+        });
+    }
+
 };
 
 // All User Posts - GET - Retrieve all posts of one user (uid = user id)
@@ -51,14 +60,22 @@ const getAllUserPosts = async (req, res) => {
     let posts;
     try {
         posts = await db.Post.find({ author: req.params.uid });
-        return res.json({
-            message: "Success: Found User Posts",
-            data: posts
-        });
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving user posts has failed, please try again later",
             data: err
+        });
+    }
+
+    if (posts.length >= 1) {
+        return res.json({
+            message: "Success: Found User Posts",
+            data: posts
+        });
+    } else {
+        return res.json({
+            message: "Failed: No user posts yet",
+            data: posts
         });
     }
 };
