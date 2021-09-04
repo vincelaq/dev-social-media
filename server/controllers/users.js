@@ -99,7 +99,7 @@ const signup = async (req, res) => {
 const update = async (req, res) => {
     let foundUser;
     try {
-        foundUser = await db.User.findById(req.params.id);
+        foundUser = await db.User.findById(req.params.uid);
     } catch (err) {
         return res.status(500).json({
             message: "Error: Finding user for update has failed, please try again later",
@@ -133,11 +133,11 @@ const update = async (req, res) => {
 };
 
 
-// Destroy - DELETE - Remove an existing user
+// Destroy - DELETE - Remove an existing user (Not recommended)
 const destroy = async (req, res) => {    
     let foundUser;
     try {
-        foundUser = await db.User.findById(req.params.id)
+        foundUser = await db.User.findById(req.params.uid)
     } catch (err) {
         return res.status(500).json({
             message: "Error: Finding user has failed, please try again later",
