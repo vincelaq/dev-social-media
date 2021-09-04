@@ -110,41 +110,43 @@ const createPost = async (req, res) => {
     }
 };
 
-// // Update - PUT - Update an existing post (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
-// const update = async (req, res) => {
-//     let foundPost;
-//     try {
-//         foundPost = await db.Post.findById(req.params.pid);
-//     } catch (err) {
-//         return res.status(500).json({
-//             message: "Error: Finding poar for update has failed, please try again later",
-//             data: err
-//         });
-//     }
+// Update Post - PUT - Update an existing post (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
+const updatePost = async (req, res) => {
+    const { title, body } = req.body;
+    
+    let foundPost;
+    try {
+        foundPost = await db.Post.findById(req.params.pid);
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Finding poar for update has failed, please try again later",
+            data: err
+        });
+    }
 
-//     if (!foundPost) {
-//         return res.status(404).json({
-//             message: "Error: Post could not be found",
-//             data: foundPost
-//         });
-//     }
+    if (!foundPost) {
+        return res.status(404).json({
+            message: "Error: Post could not be found",
+            data: foundPost
+        });
+    }
 
-//     foundPost.title = req.body.title;
-//     foundPost.body = req.body.body;
+    foundPost.title = title;
+    foundPost.body = body;
 
-//     try {
-//         await foundPost.save();
-//         return res.json({
-//             message: "Success: Updated Post",
-//             data: foundPost
-//         });
-//     } catch (err) {
-//         return res.status(500).json({
-//             message: "Error: Update post has failed, please try again later",
-//             data: err
-//         });
-//     }
-// };
+    try {
+        await foundPost.save();
+        return res.json({
+            message: "Success: Updated Post",
+            data: foundPost
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Update post has failed, please try again later",
+            data: err
+        });
+    }
+};
 
 
 // Destroy - DELETE - Remove an existing user
@@ -186,4 +188,4 @@ const destroyPost = async (req, res) => {
     
 };
 
-module.exports = { index, getOnePost, getAllUserPosts, createPost, destroyPost };
+module.exports = { index, getOnePost, getAllUserPosts, createPost, updatePost, destroyPost };
