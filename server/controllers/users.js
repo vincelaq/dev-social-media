@@ -47,7 +47,7 @@ const oneUser = async (req, res) => {
     } else {
         return res.json({
             message: "Success: User found",
-            data: users
+            data: user
         });
     }
 };
@@ -55,7 +55,7 @@ const oneUser = async (req, res) => {
 
 // Signup - POST - Creation of new user
 const signup = async (req, res) => {
-    const  { name, email, password } = req.body;
+    const  { firstName, lastName, email, password } = req.body;
     
     let existingUser 
     try {
@@ -75,7 +75,8 @@ const signup = async (req, res) => {
     }
 
     const newUser = new db.User ({
-        name,
+        firstName,
+        lastName,
         email,
         password,
         posts: [],
