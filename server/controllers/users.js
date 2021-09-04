@@ -19,9 +19,9 @@ const index = async (req, res) => {
             data: users
         });
     } else {
-        return res.json({
-            message: "Failed: No users yet",
-            data: users
+        return res.status(404).json({
+            message: "Failed: No users in database yet",
+            data: user
         });
     }
 
@@ -107,6 +107,13 @@ const update = async (req, res) => {
         });
     }
 
+    if (!foundUser) {
+        return res.status(404).json({
+            message: "Error: Could not find user",
+            data: foundUser
+        });
+    }
+
     foundUser.firstName = req.body.firstName;
     foundUser.lastName = req.body.lastName;
     foundUser.password = req.body.password;
@@ -135,6 +142,13 @@ const destroy = async (req, res) => {
         return res.status(500).json({
             message: "Error: Finding user has failed, please try again later",
             data: err
+        });
+    }
+
+    if (!foundUser) {
+        return res.status(404).json({
+            message: "Error: Could not find user",
+            data: foundUser
         });
     }
 
