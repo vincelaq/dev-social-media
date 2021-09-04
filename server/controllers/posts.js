@@ -57,6 +57,23 @@ const getOnePost = async (req, res) => {
 
 // All User Posts - GET - Retrieve all posts of one user (uid = user id)
 const getAllUserPosts = async (req, res) => {
+    let existingUser;
+    try {
+        existingUser = await db.User.findById(req.params.uid);
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Retrieving existing user has failed, please try again later",
+            data: err
+        });
+    }
+
+    if (!existingUser) {
+        return res.status(404).json({
+            message: "Failed: User not found",
+            data: existingUser
+        });
+    }
+    
     let posts;
     try {
         posts = await db.Post.find({ author: req.params.uid });
