@@ -153,7 +153,7 @@ const updatePost = async (req, res) => {
         foundPost = await db.Post.findById(req.params.pid);
     } catch (err) {
         return res.status(500).json({
-            message: "Error: Finding poar for update has failed, please try again later",
+            message: "Error: Finding post for update has failed, please try again later",
             data: err
         });
     }
@@ -183,7 +183,7 @@ const updatePost = async (req, res) => {
 };
 
 
-// Destroy - DELETE - Remove an existing user
+// Destroy - DELETE - Remove an existing post
 const destroyPost = async (req, res) => {    
     let foundPost;
     try {

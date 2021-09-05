@@ -162,4 +162,82 @@ const createComment = async (req, res) => {
     }
 };
 
-module.exports = { index, getOneComment, getAllUserComments, createComment };
+// Update Comment - PUT - Update an existing comment (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
+const updateComment = async (req, res) => {
+    const { body } = req.body;
+    
+    let foundComment;
+    try {
+        foundComment = await db.Comment.findById(req.params.cid);
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Finding comment for update has failed, please try again later",
+            data: err
+        });
+    }
+
+    if (!foundComment) {
+        return res.status(404).json({
+            message: "Error: Comment could not be found",
+            data: foundComment
+        });
+    }
+
+    foundComment.body = body;
+
+    try {
+        await foundComment.save();
+        return res.json({
+            message: "Success: Updated Comment",
+            data: foundComment
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Update comment has failed, please try again later",
+            data: err
+        });
+    }
+};
+
+// Destroy - DELETE - Remove an existing comment
+const destroyComment = async (req, res) => {    
+    let foundComment;
+    try {
+        foundComment = await db.Comment.findById(req.params.cid).populate('author').populate('post');
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Finding comment has failed, please try again later",
+            data: err
+        });
+    }
+
+    if (!foundComment) {
+        return res.status(404).json({
+            message: "Error: Could not find comment",
+            data: foundComment
+        });
+    }
+
+    try {
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        await foundComment.remove({ session: session });
+        foundComment.author.comments.pull(foundComment);
+        await foundComment.author.save({ session: session });
+        foundComment.post.comments.pull(foundComment);
+        await foundComment.post.save({ session: session });
+        await session.commitTransaction();
+        return res.json({
+            message: "Success: Destroyed Comment",
+            data: foundComment
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Destroying comment has failed, please try again later",
+            data: err
+        });
+    }
+    
+};
+
+module.exports = { index, getOneComment, getAllUserComments, createComment, updateComment, destroyComment };
