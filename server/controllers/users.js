@@ -5,7 +5,7 @@ const db = require("../models");
 const index = async (req, res) => {
     let users;
     try {
-        users = await db.User.find({}).populate('posts').populate('comments');
+        users = await db.User.find({}, '-password').populate('posts').populate('comments');
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving users has failed, please try again later",
@@ -95,6 +95,33 @@ const signup = async (req, res) => {
     }
 };
 
+// Login - POST - Login user
+const login = async (req, res) => {
+    const { email, password } = req.body;
+
+    let existingUser 
+    try {
+       existingUser = await db.User.findOne({ email: email })
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Logging in failed, please try again later",
+            data: err
+        });
+    }
+
+    if (!existingUser || existingUser.password !== password) {
+        return res.status(401).json({
+            message: "Error: Invalid credentials, could not log you in",
+            data: null
+        });
+    } else {
+        return res.json({
+            message: "Success: Logged in",
+            data: existingUser
+        });
+    }
+};
+
 // Update - PUT - Update an existing user (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
 const update = async (req, res) => {
     let foundUser;
@@ -166,4 +193,4 @@ const destroy = async (req, res) => {
     
 };
 
-module.exports = { index, oneUser, signup, update, destroy };
+module.exports = { index, oneUser, signup, login, update, destroy };
