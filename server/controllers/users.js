@@ -5,7 +5,7 @@ const db = require("../models");
 const index = async (req, res) => {
     let users;
     try {
-        users = await db.User.find({});
+        users = await db.User.find({}).populate('posts').populate('comments');
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving users has failed, please try again later",
@@ -21,7 +21,7 @@ const index = async (req, res) => {
     } else {
         return res.status(404).json({
             message: "Failed: No users in database yet",
-            data: user
+            data: users
         });
     }
 
