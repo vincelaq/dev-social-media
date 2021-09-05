@@ -1,4 +1,5 @@
 # Dev Social Media App (working title)
+#Authors: James Bell,
 
 ## Introduction: 
 A paragraph used to introduce interested parties to the project and needs to include one or more screenshots.
