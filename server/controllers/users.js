@@ -27,12 +27,43 @@ const index = async (req, res) => {
 
 };
 
+// Profile - GET - Retrieved data of current user
+const getMyProfile = async (req, res) => {
+    let profile;
+    try {
+        profile = await db.User.findOne({ id: req.user.id });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Retrieving current user has failed, please try again later",
+            data: err
+        })
+    }
+
+    if (!profile) {
+        return res.status(404).json({
+            message: "Failed: User not found",
+            data: user
+        });
+    } else {
+        return res.json({
+            message: "Success: User found",
+            data: profile
+        });
+    }
+};
+
 // User - GET - Retrieve data of one user
-const oneUser = async (req, res) => {
+const getUserProfile = async (req, res) => {
     let user;
     try {
         user = await db.User.findOne({ _id: req.params.uid });
     } catch (err) {
+        if (err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "Failed: User not found",
+                data: user
+            });
+        }
         return res.status(500).json({
             message: "Error: Retrieving user has failed, please try again later",
             data: err
@@ -53,10 +84,12 @@ const oneUser = async (req, res) => {
 };
 
 // Update - PUT - Update an existing user (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
-const update = async (req, res) => {
+const updateMyProfile = async (req, res) => {
+    const { firstName, lastName, password, skills, bio } = req.body;
+    
     let foundUser;
     try {
-        foundUser = await db.User.findById(req.params.uid);
+        foundUser = await db.User.findById(req.user.id);
     } catch (err) {
         return res.status(500).json({
             message: "Error: Finding user for update has failed, please try again later",
@@ -71,9 +104,11 @@ const update = async (req, res) => {
         });
     }
 
-    foundUser.firstName = req.body.firstName;
-    foundUser.lastName = req.body.lastName;
-    foundUser.password = req.body.password;
+    foundUser.firstName = firstName;
+    foundUser.lastName = lastName;
+    foundUser.password = password;
+    foundUser.skills = skills;
+    foundUser.bio = bio;
 
     try {
         await foundUser.save();
@@ -94,7 +129,7 @@ const update = async (req, res) => {
 const destroy = async (req, res) => {    
     let foundUser;
     try {
-        foundUser = await db.User.findById(req.params.uid)
+        foundUser = await db.User.findById(req.user.id)
     } catch (err) {
         return res.status(500).json({
             message: "Error: Finding user has failed, please try again later",
@@ -111,6 +146,7 @@ const destroy = async (req, res) => {
 
     try {
         await foundUser.remove();
+        // ADD remove post and comments here as well later
         return res.json({
             message: "Success: Destroyed User",
             data: foundUser});
@@ -123,4 +159,4 @@ const destroy = async (req, res) => {
     
 };
 
-module.exports = { index, oneUser, update, destroy };
+module.exports = { index, getMyProfile, getUserProfile, updateMyProfile, destroy };
