@@ -7,8 +7,9 @@ const jwt = require("jsonwebtoken");
 
 // Index - GET - Retrieve data of authorized user
 const index = async (req, res) => {
+    let user;
     try {
-        const user = await db.User.findById(req.user.id).select('-password');
+        user = await db.User.findById(req.user.id).select('-password');
         res.json(user);
     } catch (err) {
         res.status(500).json({
@@ -16,6 +17,19 @@ const index = async (req, res) => {
             data: err
         })
     }
+
+    if (!user) {
+        return res.status(404).json({
+            message: "Failed: User not found",
+            data: user
+        });
+    } else {
+        return res.json({
+            message: "Success: User found",
+            data: user
+        });
+    }
+
 };
 
 // Signup - POST - Creation of new user
