@@ -65,8 +65,12 @@ const signup = async (req, res) => {
         email,
         password,
         image,
+        bio: "",
+        skills: "",
         posts: [],
         comments: [],
+        followers: [],
+        following: []
     });
 
     const salt = await bcrypt.genSalt(6);
