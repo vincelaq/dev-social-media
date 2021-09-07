@@ -16,13 +16,13 @@ module.exports = function (req, res, next) {
     // Verify token
     try {
         const decoded = jwt.verify(token, process.env.SECRET);
-
         req.user = decoded.user;
+        console.log(decoded);
         next();
     } catch (err) {
         res.status(401).json({
             message: "Error: Token is not valid",
             data: err
         })
-    }
-}
+    };
+};
