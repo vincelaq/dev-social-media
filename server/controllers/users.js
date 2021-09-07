@@ -52,76 +52,6 @@ const oneUser = async (req, res) => {
     }
 };
 
-
-// Signup - POST - Creation of new user
-const signup = async (req, res) => {
-    const  { firstName, lastName, email, password } = req.body;
-    
-    let existingUser 
-    try {
-       existingUser = await db.User.findOne({ email: req.body.email })
-    } catch (err) {
-        return res.status(500).json({
-            message: "Error: Signing up failed, please try again later",
-            data: err
-        });
-    }
-
-    if (existingUser) {
-        return res.status(422).json({
-            message: "User exists already, please login instead",
-            data: existingUser
-        })
-    }
-
-    const newUser = new db.User ({
-        firstName,
-        lastName,
-        email,
-        password,
-        posts: [],
-    });
-    try {
-        await newUser.save();
-        return res.json({
-            message: "Success: Added New User",
-            data: newUser
-        });
-    } catch (err) {
-        return res.status(500).json({
-            message: "Error: Signing up failed, please try again later",
-            data: err
-        });
-    }
-};
-
-// Login - POST - Login user
-const login = async (req, res) => {
-    const { email, password } = req.body;
-
-    let existingUser 
-    try {
-       existingUser = await db.User.findOne({ email: email })
-    } catch (err) {
-        return res.status(500).json({
-            message: "Error: Logging in failed, please try again later",
-            data: err
-        });
-    }
-
-    if (!existingUser || existingUser.password !== password) {
-        return res.status(401).json({
-            message: "Error: Invalid credentials, could not log you in",
-            data: null
-        });
-    } else {
-        return res.json({
-            message: "Success: Logged in",
-            data: existingUser
-        });
-    }
-};
-
 // Update - PUT - Update an existing user (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
 const update = async (req, res) => {
     let foundUser;
@@ -193,4 +123,4 @@ const destroy = async (req, res) => {
     
 };
 
-module.exports = { index, oneUser, signup, login, update, destroy };
+module.exports = { index, oneUser, update, destroy };
