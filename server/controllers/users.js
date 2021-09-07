@@ -1,6 +1,8 @@
 /* ==== Users Controller ==== */
 const db = require("../models");
 const gravatar = require("gravatar");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // Index - GET - Retrieve data of all users
 const index = async (req, res) => {
@@ -57,6 +59,7 @@ const oneUser = async (req, res) => {
 // Signup - POST - Creation of new user
 const signup = async (req, res) => {
     const  { firstName, lastName, email, password } = req.body;
+    
     const image = gravatar.url(email, {
         s: '200',
         r: 'pg',
@@ -65,7 +68,7 @@ const signup = async (req, res) => {
 
     let existingUser 
     try {
-       existingUser = await db.User.findOne({ email: req.body.email })
+       existingUser = await db.User.findOne({ email: req.body.email }, '-password')
     } catch (err) {
         return res.status(500).json({
             message: "Error: Signing up failed, please try again later",
@@ -90,13 +93,22 @@ const signup = async (req, res) => {
         comments: [],
     });
 
+    const salt = await bcrypt.genSalt(6);
+    newUser.password = await bcrypt.hash(password, salt);
 
 
     try {
         await newUser.save();
+        
+        const token = jwt.sign(
+            { newUser },
+            process.env.SECRET,
+            { expiresIn: "24h" }
+        );
+
         return res.json({
-            message: "Success: Added New User",
-            data: newUser
+            message: "Success: User registered",
+            data: token
         });
     } catch (err) {
         return res.status(500).json({
