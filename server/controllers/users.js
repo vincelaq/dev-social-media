@@ -1,5 +1,6 @@
 /* ==== Users Controller ==== */
 const db = require("../models");
+const gravatar = require("gravatar");
 
 // Index - GET - Retrieve data of all users
 const index = async (req, res) => {
@@ -56,7 +57,12 @@ const oneUser = async (req, res) => {
 // Signup - POST - Creation of new user
 const signup = async (req, res) => {
     const  { firstName, lastName, email, password } = req.body;
-    
+    const image = gravatar.url(email, {
+        s: '200',
+        r: 'pg',
+        d: 'mm'
+    })
+
     let existingUser 
     try {
        existingUser = await db.User.findOne({ email: req.body.email })
@@ -79,8 +85,13 @@ const signup = async (req, res) => {
         lastName,
         email,
         password,
+        image,
         posts: [],
+        comments: [],
     });
+
+
+
     try {
         await newUser.save();
         return res.json({
