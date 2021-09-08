@@ -99,17 +99,11 @@ const getAllUserComments = async (req, res) => {
 
 // Create Comment - POST - Creation of new comment
 const createComment = async (req, res) => {
-    const { author, post, body } = req.body;
-
-    const newComment = new db.Comment({
-        author,
-        post,
-        body,
-    });
+    const { body } = req.body;
 
     let user;
     try {
-        user = await db.User.findById(author);
+        user = await db.User.findById(req.user.id).select('-password');
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving user for comment creation has failed, please try again later",
@@ -126,7 +120,7 @@ const createComment = async (req, res) => {
 
     let originalPost;
     try {
-        originalPost = await db.Post.findById(post);
+        originalPost = await db.Post.findById(req.params.pid);
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving post for comment creation has failed, please try again later",
@@ -137,9 +131,18 @@ const createComment = async (req, res) => {
     if (!originalPost) {
         return res.status(404).json({
             message: "Error: Could not find original post for provided id",
-            data: user
+            data: originalPost
         });
     }
+
+    const newComment = new db.Comment({
+        author: req.user.id,
+        username: user.username,
+        post: req.params.pid,
+        image: user.image,
+        body,
+        likes: [],
+    });
 
     try {
         const session = await mongoose.startSession();
@@ -216,6 +219,13 @@ const destroyComment = async (req, res) => {
             message: "Error: Could not find comment",
             data: foundComment
         });
+    }
+
+    if (foundComment.author.id.toString() !== req.user.id) {
+        return res.status(401).json({
+            message: "Error: User not authorized",
+            data: foundComment
+        })
     }
 
     try {

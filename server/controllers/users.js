@@ -1,4 +1,5 @@
 /* ==== Users Controller ==== */
+const mongoose = require("mongoose");
 const db = require("../models");
 
 // Index - GET - Retrieve data of all users
@@ -126,7 +127,7 @@ const updateMyProfile = async (req, res) => {
 
 
 // Destroy - DELETE - Remove an existing user (Not recommended)
-const destroy = async (req, res) => {    
+const destroyUser = async (req, res) => {    
     let foundUser;
     try {
         foundUser = await db.User.findById(req.user.id)
@@ -159,4 +160,4 @@ const destroy = async (req, res) => {
     
 };
 
-module.exports = { index, getMyProfile, getUserProfile, updateMyProfile, destroy };
+module.exports = { index, getMyProfile, getUserProfile, updateMyProfile, destroyUser };

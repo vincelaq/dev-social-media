@@ -1,12 +1,15 @@
 /* ==== Post Routes ==== */
 const router = require("express").Router();
 const { posts } = require("../controllers");
+const auth = require("../middleware/auth");
 
 router.get("/", posts.index);
 router.get("/:pid", posts.getOnePost);
 router.get("/user/:uid", posts.getAllUserPosts);
-router.post("/", posts.createPost);
+router.post("/", auth, posts.createPost);
 router.put("/:pid", posts.updatePost);
-router.delete("/:pid", posts.destroyPost);
+router.put("/like/:pid", auth, posts.updatePostLike);
+router.put("/unlike/:pid", auth, posts.updatePostUnlike);
+router.delete("/:pid", auth, posts.destroyPost);
 
 module.exports = router;

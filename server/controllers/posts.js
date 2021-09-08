@@ -3,11 +3,12 @@ const mongoose = require('mongoose');
 const db = require("../models");
 
 
+
 // Index - GET - Retrieve data of all posts (no specific criteria)
 const index = async (req, res) => {
     let posts;
     try {
-        posts = await db.Post.find({});
+        posts = await db.Post.find({}).sort({ createdAt: -1 });
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving posts has failed, please try again later",
@@ -35,6 +36,12 @@ const getOnePost = async (req, res) => {
     try {
         post = await db.Post.findOne({ _id: req.params.pid });
     } catch (err) {
+        if (err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "Failed: Post not found",
+                data: post
+            });
+        }
         return res.status(500).json({
             message: "Error: Retrieving post has failed, please try again later",
             data: err
@@ -99,18 +106,11 @@ const getAllUserPosts = async (req, res) => {
 
 // Create Post - POST - Creation of new post
 const createPost = async (req, res) => {
-    const { title, author, body } = req.body;
-
-    const newPost = new db.Post({
-        title,
-        author,
-        body,
-        comments: []
-    });
+    const { title, body } = req.body;
 
     let user;
     try {
-        user = await db.User.findById(author);
+        user = await db.User.findById(req.user.id).select('-password');
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving user for post creation has failed, please try again later",
@@ -124,6 +124,16 @@ const createPost = async (req, res) => {
             data: user
         });
     }
+
+    const newPost = new db.Post({
+        title,
+        author: user.id,
+        username: user.username,
+        body,
+        image: user.image,
+        comments: [],
+        likes: [],
+    });
 
     try {
         const session = await mongoose.startSession();
@@ -182,6 +192,91 @@ const updatePost = async (req, res) => {
     }
 };
 
+// Likes - PUT - Update likes from current user
+const updatePostLike = async (req, res) => {
+    let foundPost;
+    try {
+        foundPost = await db.Post.findById(req.params.pid)
+    } catch (err) {
+        if (err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "Failed: Post not found",
+                data: foundPost
+            });
+        }
+        return res.status(500).json({
+            message: "Error: Finding post has failed, please try again later",
+            data: err
+        });
+    }
+
+    if (foundPost.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
+        return res.status(400).json({
+            message: "Error: Post already liked by user"
+        })
+    }
+
+    try {
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        foundPost.likes.unshift({ user: req.user.id })
+        await foundPost.save({ session: session });
+        await session.commitTransaction();
+        return res.json({
+            message: "Success: Update post like",
+            data: foundPost.likes
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Updating post has failed, please try again later",
+            data: err
+        });
+    }
+}
+
+// Unlike - PUT - Update likes from current user
+const updatePostUnlike = async (req, res) => {
+    let foundPost;
+    try {
+        foundPost = await db.Post.findById(req.params.pid)
+    } catch (err) {
+        if (err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "Failed: Post not found",
+                data: foundPost
+            });
+        }
+        return res.status(500).json({
+            message: "Error: Finding post has failed, please try again later",
+            data: err
+        });
+    }
+
+    if (foundPost.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
+        return res.status(400).json({
+            message: "Error: Post not liked by user yet"
+        })
+    }
+
+    const removeIndex = foundPost.likes.map(like => like.user.toString()).indexOf(req.user.id);
+
+    try {
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        foundPost.likes.splice(removeIndex, 1);
+        await foundPost.save({ session: session });
+        await session.commitTransaction();
+        return res.json({
+            message: "Success: Update post like",
+            data: foundPost.likes
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Updating post has failed, please try again later",
+            data: err
+        });
+    }
+}
 
 // Destroy - DELETE - Remove an existing post
 const destroyPost = async (req, res) => {    
@@ -189,8 +284,14 @@ const destroyPost = async (req, res) => {
     try {
         foundPost = await db.Post.findById(req.params.pid).populate('author')
     } catch (err) {
+        if (err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "Failed: Post not found",
+                data: foundPost
+            });
+        }
         return res.status(500).json({
-            message: "Error: Finding user has failed, please try again later",
+            message: "Error: Finding post has failed, please try again later",
             data: err
         });
     }
@@ -200,6 +301,12 @@ const destroyPost = async (req, res) => {
             message: "Error: Could not find post",
             data: foundPost
         });
+    }
+
+    if (foundPost.author.id !== req.user.id) {
+        return res.status(401).json({
+            message: "Error: User not authorized",
+        })
     }
 
     try {
@@ -222,4 +329,4 @@ const destroyPost = async (req, res) => {
     
 };
 
-module.exports = { index, getOnePost, getAllUserPosts, createPost, updatePost, destroyPost };
+module.exports = { index, getOnePost, getAllUserPosts, createPost, updatePost, updatePostLike, updatePostUnlike, destroyPost };

@@ -7,6 +7,6 @@ router.get("/", users.index);
 router.get("/profile", auth, users.getMyProfile);
 router.get("/profile/:uid", users.getUserProfile);
 router.put("/profile", auth, users.updateMyProfile);
-router.delete("/", auth, users.destroy);
+router.delete("/", auth, users.destroyUser);
 
 module.exports = router;
