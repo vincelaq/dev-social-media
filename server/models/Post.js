@@ -8,8 +8,14 @@ const postSchema = new Schema(
         author: { type: Schema.Types.ObjectId, required:true, ref: "User" },
         body: { type: String, required: true },
         comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
-
+        voteCount: {
+            type: Number
+        },
+        votes: [{
+            user: { type: Schema.Types.ObjectId }
+        }],
     },
+     
     {
         timestamps: true,
     }
