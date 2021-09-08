@@ -8,7 +8,7 @@ const db = require("../models");
 const index = async (req, res) => {
     let posts;
     try {
-        posts = await db.Post.find({}).sort({ createdAt: -1 }).populate('comments');
+        posts = await db.Post.find({}).sort({ createdAt: -1 }).populate({path: 'comments', populate: {path: 'comments'}})
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving posts has failed, please try again later",

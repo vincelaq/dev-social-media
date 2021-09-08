@@ -142,6 +142,7 @@ const createComment = async (req, res) => {
         image: user.image,
         body,
         likes: [],
+        comments: []
     });
 
     try {
@@ -197,6 +198,75 @@ const updateComment = async (req, res) => {
     } catch (err) {
         return res.status(500).json({
             message: "Error: Update comment has failed, please try again later",
+            data: err
+        });
+    }
+};
+
+// Create Nested Comment - POST - Creation of new comment replying another comment
+const createNestComment = async (req, res) => {
+    const { body } = req.body;
+
+    let user;
+    try {
+        user = await db.User.findById(req.user.id).select('-password');
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Retrieving user for comment creation has failed, please try again later",
+            data: err
+        });
+    }
+
+    if (!user) {
+        return res.status(404).json({
+            message: "Error: Could not find user for provided id",
+            data: user
+        });
+    }
+
+    let originalComment;
+    try {
+        originalComment = await db.Comment.findById(req.params.cid);
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Retrieving comment for comment creation has failed, please try again later",
+            data: err
+        });
+    }
+
+    if (!originalComment) {
+        return res.status(404).json({
+            message: "Error: Could not find original comment for provided id",
+            data: originalPost
+        });
+    }
+
+    const newComment = new db.Comment({
+        author: req.user.id,
+        username: user.username,
+        origComment: req.params.cid,
+        image: user.image,
+        body,
+        likes: [],
+        comments: []
+    });
+
+    try {
+        const session = await mongoose.startSession();
+        session.startTransaction(); 
+        await newComment.save({ session: session });
+        originalComment.comments.push(newComment);
+        await originalComment.save({ session: session });
+        user.comments.push(newComment);
+        await user.save({ session: session });
+        await session.commitTransaction();
+        return res.json({
+            message: "Success: Added New Comment",
+            data: newComment
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Commenting failed, please try again later",
             data: err
         });
     }
@@ -370,4 +440,4 @@ const destroyComment = async (req, res) => {
     
 };
 
-module.exports = { index, getOneComment, getAllUserComments, createComment, updateComment, updateCommentLike, updateCommentDislike, destroyComment };
+module.exports = { index, getOneComment, getAllUserComments, createComment, createNestComment, updateComment, updateCommentLike, updateCommentDislike, destroyComment };

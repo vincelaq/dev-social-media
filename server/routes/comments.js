@@ -7,6 +7,7 @@ router.get("/", comments.index);
 router.get("/:cid", comments.getOneComment);
 router.get("/user/:uid", comments.getAllUserComments);
 router.post("/:pid", auth, comments.createComment);
+router.post("/orig/:cid", auth, comments.createNestComment);
 router.put("/:cid", comments.updateComment);
 router.put("/like/:cid", auth, comments.updateCommentLike);
 router.put("/dislike/:cid", auth, comments.updateCommentDislike);
