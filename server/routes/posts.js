@@ -9,7 +9,7 @@ router.get("/user/:uid", posts.getAllUserPosts);
 router.post("/", auth, posts.createPost);
 router.put("/:pid", posts.updatePost);
 router.put("/like/:pid", auth, posts.updatePostLike);
-router.put("/unlike/:pid", auth, posts.updatePostUnlike);
+router.put("/dislike/:pid", auth, posts.updatePostDislike);
 router.delete("/:pid", auth, posts.destroyPost);
 
 module.exports = router;

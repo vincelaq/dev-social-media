@@ -202,6 +202,126 @@ const updateComment = async (req, res) => {
     }
 };
 
+// Likes - PUT - Update likes from current user
+const updateCommentLike = async (req, res) => {
+    let foundComment;
+    try {
+        foundComment = await db.Comment.findById(req.params.cid)
+    } catch (err) {
+        if (err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "Failed: Comment not found",
+                data: foundComment
+            });
+        }
+        return res.status(500).json({
+            message: "Error: Finding comment has failed, please try again later",
+            data: err
+        });
+    }
+
+    if (foundComment.likes.filter(like => like.toString() === req.user.id).length > 0) {
+        const removeIndex = foundComment.likes.map(like => like.toString()).indexOf(req.user.id);
+        
+        try {
+            const session = await mongoose.startSession();
+            session.startTransaction();
+            foundComment.likes.splice(removeIndex, 1);
+            foundComment.voteTotal = foundComment.voteTotal-1;
+            await foundComment.save({ session: session });
+            await session.commitTransaction();
+            return res.json({
+                message: "Success: Update comment, removed like",
+                data: foundComment.likes
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: "Error: Updating comment has failed, please try again later",
+                data: err
+            });
+        }
+    }
+
+    try {
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        foundComment.likes.unshift(req.user.id)
+        foundComment.voteTotal = foundComment.voteTotal+1;
+        await foundComment.save({ session: session });
+        await session.commitTransaction();
+        return res.json({
+            message: "Success: Update comment like",
+            data: foundComment.likes
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Updating comment has failed, please try again later",
+            data: err
+        });
+    }
+}
+
+// Dislike - PUT - Update dislikes from current user
+const updateCommentDislike = async (req, res) => {
+    let foundComment;
+    try {
+        foundComment = await db.Comment.findById(req.params.cid)
+    } catch (err) {
+        if (err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "Failed: Comment not found",
+                data: foundComment
+            });
+        }
+        return res.status(500).json({
+            message: "Error: Finding comment has failed, please try again later",
+            data: err
+        });
+    }
+    console.log(foundComment)
+
+    if (foundComment.dislikes.filter(dislike => dislike.toString() === req.user.id).length > 0) {
+        const removeIndex = foundComment.dislikes.map(dislike => dislike.toString()).indexOf(req.user.id);
+
+        try {
+            const session = await mongoose.startSession();
+            session.startTransaction();
+            foundComment.dislikes.splice(removeIndex, 1);
+            foundComment.voteTotal = foundComment.voteTotal+1;
+            await foundComment.save({ session: session });
+            await session.commitTransaction();
+            return res.json({
+                message: "Success: Update commentt, removed dislike",
+                data: foundComment.dislikes
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: "Error: Updating comment has failed, please try again later",
+                data: err
+            });
+        }
+    }
+
+
+    try {
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        foundComment.dislikes.unshift(req.user.id)
+        foundComment.voteTotal = foundComment.voteTotal-1;
+        await foundComment.save({ session: session });
+        await session.commitTransaction();
+        return res.json({
+            message: "Success: Update comment dislike",
+            data: foundComment.dislikes
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Updating comment has failed, please try again later",
+            data: err
+        });
+    }
+}
+
 // Destroy - DELETE - Remove an existing comment
 const destroyComment = async (req, res) => {    
     let foundComment;
@@ -250,4 +370,4 @@ const destroyComment = async (req, res) => {
     
 };
 
-module.exports = { index, getOneComment, getAllUserComments, createComment, updateComment, destroyComment };
+module.exports = { index, getOneComment, getAllUserComments, createComment, updateComment, updateCommentLike, updateCommentDislike, destroyComment };

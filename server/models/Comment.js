@@ -9,7 +9,9 @@ const commentSchema = new Schema(
         image: String,
         post: { type: Schema.Types.ObjectId, required:true, ref: "Post" },
         body: { type: String, required: true },
-        likes: [{ user: { type: Schema.Types.ObjectId, ref: "User" }}],
+        likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+        dislikes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+        voteTotal: { type: Number, default: 0 },
     },
     {
         timestamps: true,

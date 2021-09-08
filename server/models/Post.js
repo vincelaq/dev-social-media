@@ -7,10 +7,14 @@ const postSchema = new Schema(
         title: { type: String, required: true },
         author: { type: Schema.Types.ObjectId, required:true, ref: "User" },
         username: String,
+        languages: [ String ],
         body: { type: String, required: true },
         comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
         image: String,
-        likes: [{ user: { type: Schema.Types.ObjectId, ref: "User" }}],
+        favLanguage: String,
+        likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+        dislikes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+        voteTotal: { type: Number, default: 0}
     },
     {
         timestamps: true,

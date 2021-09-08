@@ -34,7 +34,7 @@ const index = async (req, res) => {
 
 // Signup - POST - Creation of new user
 const signup = async (req, res) => {
-    const  { firstName, lastName, username, email, password } = req.body;
+    const  { fullName, username, email, password } = req.body;
     
     const image = gravatar.url(email, {
         s: '200',
@@ -60,14 +60,16 @@ const signup = async (req, res) => {
     }
 
     const newUser = new db.User ({
-        firstName,
-        lastName,
+        fullName,
         username,
         email,
         password,
         image,
+        banner: "",
         bio: "",
         skills: "",
+        languages: [],
+        favLanguage: "",
         posts: [],
         comments: [],
         followers: [],
