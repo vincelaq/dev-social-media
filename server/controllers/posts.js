@@ -1,7 +1,7 @@
 /* ==== Posts Controller ==== */
 const mongoose = require('mongoose');
 const db = require("../models");
-
+const { validationResult } = require('express-validator');
 
 
 // Index - GET - Retrieve data of all posts (no specific criteria)
@@ -108,6 +108,17 @@ const getAllUserPosts = async (req, res) => {
 
 // Create Post - POST - Creation of new post
 const createPost = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const extractedErrors = [];
+        errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
+        
+        return res.status(422).json({
+            message: "Error: Invalid inputs passed, please check your data",
+            data: extractedErrors
+        });
+    };
+    
     const { title, body } = req.body;
 
     let user;
@@ -160,6 +171,17 @@ const createPost = async (req, res) => {
 
 // Update Post - PUT - Update an existing post (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
 const updatePost = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const extractedErrors = [];
+        errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
+        
+        return res.status(422).json({
+            message: "Error: Invalid inputs passed, please check your data",
+            data: extractedErrors
+        });
+    };
+    
     const { title, body } = req.body;
     
     let foundPost;

@@ -1,7 +1,7 @@
 /* ==== Comments Controller ==== */
 const mongoose = require('mongoose');
 const db = require("../models");
-
+const { validationResult } = require('express-validator');
 
 // Index - GET - Retrieve data of all comments (no specific criteria)
 const index = async (req, res) => {
@@ -99,6 +99,17 @@ const getAllUserComments = async (req, res) => {
 
 // Create Comment - POST - Creation of new comment
 const createComment = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const extractedErrors = [];
+        errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
+        
+        return res.status(422).json({
+            message: "Error: Invalid inputs passed, please check your data",
+            data: extractedErrors
+        });
+    };
+    
     const { body } = req.body;
 
     let user;
@@ -166,8 +177,19 @@ const createComment = async (req, res) => {
     }
 };
 
-// Update Comment - PUT - Update an existing comment (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
+// Update Comment - PUT - Update an existing comment
 const updateComment = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const extractedErrors = [];
+        errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
+        
+        return res.status(422).json({
+            message: "Error: Invalid inputs passed, please check your data",
+            data: extractedErrors
+        });
+    };
+
     const { body } = req.body;
     
     let foundComment;
@@ -205,6 +227,17 @@ const updateComment = async (req, res) => {
 
 // Create Nested Comment - POST - Creation of new comment replying another comment
 const createNestComment = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const extractedErrors = [];
+        errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
+        
+        return res.status(422).json({
+            message: "Error: Invalid inputs passed, please check your data",
+            data: extractedErrors
+        });
+    };
+
     const { body } = req.body;
 
     let user;
