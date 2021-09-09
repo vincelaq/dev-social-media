@@ -1,6 +1,8 @@
 /* ==== Users Controller ==== */
 const mongoose = require("mongoose");
 const db = require("../models");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const fs = require("fs");
 
 // Index - GET - Retrieve data of all users
@@ -89,9 +91,6 @@ const getUserProfile = async (req, res) => {
 const updateMyProfile = async (req, res) => {
     const { fullName, password, skills, bio, languages, favLanguage } = req.body;
 
-    console.log(req.files['image'][0].path)
-
-
     let foundUser;
     try {
         foundUser = await db.User.findById(req.user.id);
@@ -109,21 +108,24 @@ const updateMyProfile = async (req, res) => {
         });
     }
 
+    const salt = await bcrypt.genSalt(6);
+    const newPassword = await bcrypt.hash(password, salt);
 
     if (fullName) foundUser.fullName = fullName;
-    if (password) foundUser.password = password;
+    if (password) foundUser.password = newPassword;
     if (skills) foundUser.skills = skills;
-    if (req.files['image'][0]) foundUser.image = req.files['image'][0].path;
-    if (req.files['banner'][0]) foundUser.banner = req.files['banner'][0].path;
+    if (req.files['image']) foundUser.image = req.files['image'][0].path;
+    if (req.files['banner']) foundUser.banner = req.files['banner'][0].path;
     if (bio) foundUser.bio = bio;
     if (languages) foundUser.languages = languages;
     if (favLanguage) foundUser.favLanguage = favLanguage;
 
     try {
         await foundUser.save();
+
         return res.json({
             message: "Success: Updated User",
-            data: foundUser
+            data: foundUser,
         });
     } catch (err) {
         return res.status(500).json({

@@ -96,20 +96,14 @@ const signup = async (req, res, next) => {
 
     try {
         await newUser.save();
-        
-        const payload = {
-            user: {
-                id: newUser.id
-            }
-        };
 
         const token = jwt.sign(
-            payload,
+            { user: { id: newUser.id }},
             process.env.SECRET,
-            { expiresIn: "24h" }
+            { expiresIn: "1h" }
         );
 
-        return res.json({
+        return res.status(201).json({
             message: "Success: User registered",
             token: token
         });
@@ -139,9 +133,16 @@ const login = async (req, res) => {
         return res.status(401).json({
             message: "Error: Invalid credentials, could not log you in",
         })
-    }
+    };
 
-    const isMatch = await bcrypt.compare(password, existingUser.password);
+    let isMatch = false;
+    try {
+        isMatch = await bcrypt.compare(password, existingUser.password);
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Could not log you in, please check credentials and try again"
+        })
+    };
 
     if (!isMatch) {
         return res.status(401).json({
@@ -149,16 +150,10 @@ const login = async (req, res) => {
         });
     };
 
-    const payload = {
-        user: {
-            id: existingUser.id
-        }
-    };
-
     const token = jwt.sign(
-        payload,
+        { user: { id: existingUser.id }},
         process.env.SECRET,
-        { expiresIn: "24h" }
+        { expiresIn: "1h" }
     );
 
     return res.json({
