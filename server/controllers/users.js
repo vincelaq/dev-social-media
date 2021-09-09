@@ -178,7 +178,7 @@ const destroyUser = async (req, res) => {
 module.exports = {
     index,
     getMyProfile,
-    uploading,
+    uploadImg,
     getUserProfile,
     updateMyProfile,
     destroyUser

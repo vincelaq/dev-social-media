@@ -3,6 +3,7 @@ const router = require("express").Router();
 const { posts } = require("../controllers");
 const auth = require("../middleware/auth");
 const { postRules } = require("../middleware/validator");
+const upload = require("../middleware/upload");
 
 router.get("/", posts.index);
 router.get("/:pid", posts.getOnePost);

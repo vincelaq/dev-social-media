@@ -144,6 +144,7 @@ const createPost = async (req, res) => {
         username: user.username,
         languages: [],
         body,
+        postImgs,
         image: user.image,
         favLanguage: user.favLanguage,
         comments: [],
