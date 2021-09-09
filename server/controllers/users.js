@@ -1,6 +1,18 @@
 /* ==== Users Controller ==== */
 const mongoose = require("mongoose");
 const db = require("../models");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const uploadImg = multer({ storage: storage }).single("image");
 
 // Index - GET - Retrieve data of all users
 const index = async (req, res) => {
@@ -108,9 +120,11 @@ const updateMyProfile = async (req, res) => {
     foundUser.fullName = fullName;
     foundUser.password = password;
     foundUser.skills = skills;
+    foundUser.image = req.file.path;
+    foundUser.banner = req.file.path;
     foundUser.bio = bio;
     foundUser.languages = languages;
-    foundUser.favLanguages = favLanguages;
+    foundUser.favLanguage = favLanguage;
 
     try {
         await foundUser.save();
@@ -161,4 +175,11 @@ const destroyUser = async (req, res) => {
     
 };
 
-module.exports = { index, getMyProfile, getUserProfile, updateMyProfile, destroyUser };
+module.exports = {
+    index,
+    getMyProfile,
+    uploading,
+    getUserProfile,
+    updateMyProfile,
+    destroyUser
+};
