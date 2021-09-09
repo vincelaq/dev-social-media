@@ -1,7 +1,8 @@
 /* ==== Posts Controller ==== */
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const db = require("../models");
-const { validationResult } = require('express-validator');
+const { validationResult } = require("express-validator");
+const fs = require("fs");
 
 
 // Index - GET - Retrieve data of all posts (no specific criteria)
@@ -370,6 +371,11 @@ const destroyPost = async (req, res) => {
         })
     }
 
+    let imagePaths;
+    if (foundPost.postImgs.length > 0) {
+        imagePaths = foundPost.postImgs;
+    }
+
     try {
         const session = await mongoose.startSession();
         session.startTransaction();
@@ -377,16 +383,23 @@ const destroyPost = async (req, res) => {
         foundPost.author.posts.pull(foundPost);
         await foundPost.author.save({ session: session });
         await session.commitTransaction();
-        return res.json({
-            message: "Success: Destroyed Post",
-            data: foundPost
-        });
     } catch (err) {
         return res.status(500).json({
             message: "Error: Destroying post has failed, please try again later",
             data: err
         });
     }
+
+    imagePaths.forEach(path => {
+        fs.unlink(path, err => {
+            console.log(err);
+        })
+    });
+
+    return res.json({
+        message: "Success: Destroyed Post",
+        data: foundPost
+    });
     
 };
 

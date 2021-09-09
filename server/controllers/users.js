@@ -1,6 +1,7 @@
 /* ==== Users Controller ==== */
 const mongoose = require("mongoose");
 const db = require("../models");
+const fs = require("fs");
 
 // Index - GET - Retrieve data of all users
 const index = async (req, res) => {
@@ -152,19 +153,36 @@ const destroyUser = async (req, res) => {
         });
     }
 
+    let imagePath;
+    let bannerPath;
+    if (foundUser.image) imagePath = foundUser.image;
+    if (foundUser.banner) bannerPath = foundUser.banner;
+
     try {
         await foundUser.remove();
         // ADD remove post and comments here as well later
-        return res.json({
-            message: "Success: Destroyed User",
-            data: foundUser});
+
     } catch (err) {
         return res.status(500).json({
             message: "Error: Destroying user has failed, please try again later",
             data: err
         });
     }
+
     
+    if (imagePath) {
+        fs.unlink(imagePath, err => {
+            if (err) console.log(err);
+    })}
+    if (bannerPath) {
+        fs.unlink(bannerPath, err => {
+            if (err) console.log(err);
+    })}
+    
+
+    return res.json({
+        message: "Success: Destroyed User",
+        data: foundUser});
 };
 
 module.exports = { index, getMyProfile, getUserProfile, updateMyProfile, destroyUser };
