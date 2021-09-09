@@ -1,14 +1,16 @@
 /* ==== Posts Controller ==== */
 const mongoose = require('mongoose');
 const db = require("../models");
-
+const { validationResult } = require('express-validator');
 
 
 // Index - GET - Retrieve data of all posts (no specific criteria)
 const index = async (req, res) => {
     let posts;
     try {
-        posts = await db.Post.find({}).sort({ createdAt: -1 });
+        posts = await db.Post.find({})
+            .sort({ createdAt: -1 })
+            .populate({path: 'comments', populate: {path: 'comments'}})
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving posts has failed, please try again later",
@@ -106,6 +108,17 @@ const getAllUserPosts = async (req, res) => {
 
 // Create Post - POST - Creation of new post
 const createPost = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const extractedErrors = [];
+        errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
+        
+        return res.status(422).json({
+            message: "Error: Invalid inputs passed, please check your data",
+            data: extractedErrors
+        });
+    };
+    
     const { title, body } = req.body;
 
     let user;
@@ -129,8 +142,10 @@ const createPost = async (req, res) => {
         title,
         author: user.id,
         username: user.username,
+        languages: [],
         body,
         image: user.image,
+        favLanguage: user.favLanguage,
         comments: [],
         likes: [],
     });
@@ -156,6 +171,17 @@ const createPost = async (req, res) => {
 
 // Update Post - PUT - Update an existing post (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
 const updatePost = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const extractedErrors = [];
+        errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
+        
+        return res.status(422).json({
+            message: "Error: Invalid inputs passed, please check your data",
+            data: extractedErrors
+        });
+    };
+    
     const { title, body } = req.body;
     
     let foundPost;
@@ -210,16 +236,33 @@ const updatePostLike = async (req, res) => {
         });
     }
 
-    if (foundPost.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
-        return res.status(400).json({
-            message: "Error: Post already liked by user"
-        })
+    if (foundPost.likes.filter(like => like.toString() === req.user.id).length > 0) {
+        const removeIndex = foundPost.likes.map(like => like.toString()).indexOf(req.user.id);
+        
+        try {
+            const session = await mongoose.startSession();
+            session.startTransaction();
+            foundPost.likes.splice(removeIndex, 1);
+            foundPost.voteTotal = foundPost.voteTotal-1;
+            await foundPost.save({ session: session });
+            await session.commitTransaction();
+            return res.json({
+                message: "Success: Update post, removed like",
+                data: foundPost.likes
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: "Error: Updating post has failed, please try again later",
+                data: err
+            });
+        }
     }
 
     try {
         const session = await mongoose.startSession();
         session.startTransaction();
-        foundPost.likes.unshift({ user: req.user.id })
+        foundPost.likes.unshift(req.user.id)
+        foundPost.voteTotal = foundPost.voteTotal+1;
         await foundPost.save({ session: session });
         await session.commitTransaction();
         return res.json({
@@ -234,8 +277,8 @@ const updatePostLike = async (req, res) => {
     }
 }
 
-// Unlike - PUT - Update likes from current user
-const updatePostUnlike = async (req, res) => {
+// Dislike - PUT - Update dislikes from current user
+const updatePostDislike = async (req, res) => {
     let foundPost;
     try {
         foundPost = await db.Post.findById(req.params.pid)
@@ -252,23 +295,39 @@ const updatePostUnlike = async (req, res) => {
         });
     }
 
-    if (foundPost.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
-        return res.status(400).json({
-            message: "Error: Post not liked by user yet"
-        })
+    if (foundPost.dislikes.filter(dislike => dislike.toString() === req.user.id).length > 0) {
+        const removeIndex = foundPost.dislikes.map(dislike => dislike.toString()).indexOf(req.user.id);
+
+        try {
+            const session = await mongoose.startSession();
+            session.startTransaction();
+            foundPost.dislikes.splice(removeIndex, 1);
+            foundPost.voteTotal = foundPost.voteTotal+1;
+            await foundPost.save({ session: session });
+            await session.commitTransaction();
+            return res.json({
+                message: "Success: Update post, removed dislike",
+                data: foundPost.dislikes
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: "Error: Updating post has failed, please try again later",
+                data: err
+            });
+        }
     }
 
-    const removeIndex = foundPost.likes.map(like => like.user.toString()).indexOf(req.user.id);
 
     try {
         const session = await mongoose.startSession();
         session.startTransaction();
-        foundPost.likes.splice(removeIndex, 1);
+        foundPost.dislikes.unshift(req.user.id)
+        foundPost.voteTotal = foundPost.voteTotal-1;
         await foundPost.save({ session: session });
         await session.commitTransaction();
         return res.json({
-            message: "Success: Update post like",
-            data: foundPost.likes
+            message: "Success: Update post dislike",
+            data: foundPost.dislikes
         });
     } catch (err) {
         return res.status(500).json({
@@ -329,4 +388,4 @@ const destroyPost = async (req, res) => {
     
 };
 
-module.exports = { index, getOnePost, getAllUserPosts, createPost, updatePost, updatePostLike, updatePostUnlike, destroyPost };
+module.exports = { index, getOnePost, getAllUserPosts, createPost, updatePost, updatePostLike, updatePostDislike, destroyPost };

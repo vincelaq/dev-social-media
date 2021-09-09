@@ -32,7 +32,7 @@ const index = async (req, res) => {
 const getMyProfile = async (req, res) => {
     let profile;
     try {
-        profile = await db.User.findOne({ id: req.user.id });
+        profile = await db.User.findOne({ id: req.user.id }).select('-password');
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving current user has failed, please try again later",
@@ -86,7 +86,7 @@ const getUserProfile = async (req, res) => {
 
 // Update - PUT - Update an existing user (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
 const updateMyProfile = async (req, res) => {
-    const { firstName, lastName, password, skills, bio } = req.body;
+    const { fullName, password, skills, bio, languages, favLanguages } = req.body;
     
     let foundUser;
     try {
@@ -105,11 +105,12 @@ const updateMyProfile = async (req, res) => {
         });
     }
 
-    foundUser.firstName = firstName;
-    foundUser.lastName = lastName;
+    foundUser.fullName = fullName;
     foundUser.password = password;
     foundUser.skills = skills;
     foundUser.bio = bio;
+    foundUser.languages = languages;
+    foundUser.favLanguages = favLanguages;
 
     try {
         await foundUser.save();

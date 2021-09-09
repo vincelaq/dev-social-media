@@ -4,6 +4,7 @@ const db = require("../models");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { validationResult } = require('express-validator');
 
 // Index - GET - Retrieve data of authorized user
 const index = async (req, res) => {
@@ -33,8 +34,21 @@ const index = async (req, res) => {
 };
 
 // Signup - POST - Creation of new user
-const signup = async (req, res) => {
-    const  { firstName, lastName, username, email, password } = req.body;
+const signup = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const extractedErrors = [];
+        errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
+        
+        return res.status(422).json({
+            message: "Error: Invalid inputs passed, please check your data",
+            data: extractedErrors
+        });
+    
+    
+    };
+    
+    const  { fullName, username, email, password } = req.body;
     
     const image = gravatar.url(email, {
         s: '200',
@@ -60,14 +74,16 @@ const signup = async (req, res) => {
     }
 
     const newUser = new db.User ({
-        firstName,
-        lastName,
+        fullName,
         username,
         email,
         password,
         image,
+        banner: "",
         bio: "",
         skills: "",
+        languages: [],
+        favLanguage: "",
         posts: [],
         comments: [],
         followers: [],

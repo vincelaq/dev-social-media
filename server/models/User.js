@@ -5,13 +5,15 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
     {
-        firstName: String,
-        lastName: String,
+        fullName: String,
         username: { type: String, required: true, unique: true },
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true, minlength: 6 },
         image: String,
+        banner: String,
         skills: String,
+        languages: [ String ],
+        favLanguage: String,
         bio: String,
         posts: [{ type: Schema.Types.ObjectId, required: true, ref: "Post" }],
         comments: [{ type: Schema.Types.ObjectId, required: true, ref: "Comment" }],
