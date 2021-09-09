@@ -23,6 +23,13 @@ const postRules = () => {
     ]
 };
 
+const updatePostRules = () => {
+    return [
+        body('body')
+            .isLength({ min: 5 })
+    ]
+};
+
 const commentRules = () => {
     return [
         body('body')
@@ -31,4 +38,4 @@ const commentRules = () => {
     ]
 }
 
-module.exports = { signupRules, postRules, commentRules }
+module.exports = { signupRules, postRules, updatePostRules, commentRules }
