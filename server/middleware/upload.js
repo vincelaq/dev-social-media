@@ -1,5 +1,5 @@
 const multer = require('multer');
-const uuid = require('uuid');
+const uuid = require('uuid').v4;
 
 const mime_type_map = {
     'image/png': 'png',
@@ -7,7 +7,7 @@ const mime_type_map = {
     'image/jpg': 'jpg',
 };
 
-const fileUpload = multer({
+const upload = multer({
     limit: 500000,
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
@@ -25,4 +25,4 @@ const fileUpload = multer({
     }
 });
 
-module.exports = fileUpload;
+module.exports = upload;

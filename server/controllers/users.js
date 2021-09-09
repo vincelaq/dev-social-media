@@ -86,8 +86,11 @@ const getUserProfile = async (req, res) => {
 
 // Update - PUT - Update an existing user (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
 const updateMyProfile = async (req, res) => {
-    const { fullName, password, skills, bio, languages, favLanguages } = req.body;
-    
+    const { fullName, password, skills, bio, languages, favLanguage } = req.body;
+
+    console.log(req.files['image'][0].path)
+
+
     let foundUser;
     try {
         foundUser = await db.User.findById(req.user.id);
@@ -105,12 +108,15 @@ const updateMyProfile = async (req, res) => {
         });
     }
 
-    foundUser.fullName = fullName;
-    foundUser.password = password;
-    foundUser.skills = skills;
-    foundUser.bio = bio;
-    foundUser.languages = languages;
-    foundUser.favLanguages = favLanguages;
+
+    if (fullName) foundUser.fullName = fullName;
+    if (password) foundUser.password = password;
+    if (skills) foundUser.skills = skills;
+    if (req.files['image'][0]) foundUser.image = req.files['image'][0].path;
+    if (req.files['banner'][0]) foundUser.banner = req.files['banner'][0].path;
+    if (bio) foundUser.bio = bio;
+    if (languages) foundUser.languages = languages;
+    if (favLanguage) foundUser.favLanguage = favLanguage;
 
     try {
         await foundUser.save();

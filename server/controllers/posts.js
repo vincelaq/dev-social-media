@@ -120,6 +120,7 @@ const createPost = async (req, res) => {
     };
     
     const { title, body } = req.body;
+    const paths = req.files.map(file => file.path);
 
     let user;
     try {
@@ -145,6 +146,7 @@ const createPost = async (req, res) => {
         languages: [],
         body,
         image: user.image,
+        postImgs: paths,
         favLanguage: user.favLanguage,
         comments: [],
         likes: [],
@@ -201,7 +203,7 @@ const updatePost = async (req, res) => {
         });
     }
 
-    foundPost.title = title;
+    if (title) foundPost.title = title;
     foundPost.body = body;
 
     try {
