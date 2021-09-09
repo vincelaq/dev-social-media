@@ -9,6 +9,7 @@ router.get("/", users.index);
 router.get("/profile", auth, users.getMyProfile);
 router.get("/profile/:uid", users.getUserProfile);
 router.put("/profile", auth, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'banner', maxCount: 1 }]), users.updateMyProfile);
+router.put("/follow/:uid", auth, users.updateFollow);
 router.delete("/", auth, users.destroyUser);
 
 module.exports = router;

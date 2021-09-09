@@ -2,7 +2,6 @@
 const mongoose = require("mongoose");
 const db = require("../models");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const fs = require("fs");
 
 // Index - GET - Retrieve data of all users
@@ -135,6 +134,91 @@ const updateMyProfile = async (req, res) => {
     }
 };
 
+// Update - PUT - Update user with follows
+const updateFollow = async (req, res) => {
+    let currentUser;
+    try {
+        currentUser = await db.User.findById(req.user.id);
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Finding your user for follow failed, please try again later",
+            data: err
+        });
+    }
+    if (!currentUser) {
+        return res.status(404).json({
+            message: "Error: Could not find your user",
+            data: currentUser
+        });
+    }
+
+    let followUser;
+    try {
+        followUser = await db.User.findById(req.params.uid);
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Finding user for follow failed, please try again later",
+            data: err
+        });
+    }
+    if (!followUser) {
+        return res.status(404).json({
+            message: "Error: Could not find user",
+            data: followUser
+        });
+    }
+
+    if (req.params.uid === req.user.id) {
+        return res.status(405).json({
+            message: "Error: User cannot follow themselves",
+        });
+    }    
+
+    if (currentUser.following.filter(user => user.toString() === req.params.uid).length > 0) {
+        const followingIndex = currentUser.following.map(user => user.toString()).indexOf(req.params.uid);
+        const followerIndex = followUser.followers.map(user => user.toString()).indexOf(req.user.id);
+        try {
+            const session = await mongoose.startSession();
+            session.startTransaction();
+            currentUser.following.splice(followingIndex, 1);
+            followUser.followers.splice(followerIndex, 1);
+            await currentUser.save({ session: session });
+            await followUser.save({ session: session });
+            await session.commitTransaction();
+            return res.json({
+                message: "Success: Updated user, removed follow",
+                curentUser: currentUser.following,
+                followUser: followUser.follower
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: "Error: Updating follow failed, please try again later",
+                data: err
+            });
+        }
+    } 
+
+    try {
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        currentUser.following.unshift(req.params.uid);
+        followUser.followers.unshift(req.user.id);
+        await currentUser.save({ session: session });
+        await followUser.save({ session: session });
+        await session.commitTransaction();
+        return res.json({
+            message: "Success: Updated user follow",
+            currentUser: currentUser.following,
+            followUser: followUser.followers
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Updating follow has failed, please try again later",
+            data: err
+        });
+    }
+};
+
 
 // Destroy - DELETE - Remove an existing user (Not recommended)
 const destroyUser = async (req, res) => {    
@@ -187,4 +271,4 @@ const destroyUser = async (req, res) => {
         data: foundUser});
 };
 
-module.exports = { index, getMyProfile, getUserProfile, updateMyProfile, destroyUser };
+module.exports = { index, getMyProfile, getUserProfile, updateMyProfile, updateFollow, destroyUser };
