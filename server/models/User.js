@@ -12,7 +12,7 @@ const userSchema = new Schema(
         image: String,
         banner: String,
         skills: String,
-        languages: [ String ],
+        languages: [ { type: String } ],
         favLanguage: String,
         bio: String,
         posts: [{ type: Schema.Types.ObjectId, required: true, ref: "Post" }],
