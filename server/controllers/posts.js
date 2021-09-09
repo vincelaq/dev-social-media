@@ -108,18 +108,19 @@ const getAllUserPosts = async (req, res) => {
 
 // Create Post - POST - Creation of new post
 const createPost = async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        const extractedErrors = [];
-        errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //     const extractedErrors = [];
+    //     errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
         
-        return res.status(422).json({
-            message: "Error: Invalid inputs passed, please check your data",
-            data: extractedErrors
-        });
-    };
+    //     return res.status(422).json({
+    //         message: "Error: Invalid inputs passed, please check your data",
+    //         data: extractedErrors
+    //     });
+    // };
     
     const { title, body } = req.body;
+    const paths = req.files.map(file => file.path);
 
     let user;
     try {
@@ -145,6 +146,7 @@ const createPost = async (req, res) => {
         languages: [],
         body,
         image: user.image,
+        postImgs: paths,
         favLanguage: user.favLanguage,
         comments: [],
         likes: [],
