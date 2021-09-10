@@ -15,6 +15,7 @@ const userSchema = new Schema(
         languages: [ { type: String } ],
         favLanguage: String,
         bio: String,
+        jobTitle: String,
         posts: [{ type: Schema.Types.ObjectId, required: true, ref: "Post" }],
         comments: [{ type: Schema.Types.ObjectId, required: true, ref: "Comment" }],
         followers: [{ type: Schema.Types.ObjectId, required: true, ref: "User" }],

@@ -88,7 +88,7 @@ const getUserProfile = async (req, res) => {
 
 // Update - PUT - Update an existing user (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
 const updateMyProfile = async (req, res) => {
-    const { fullName, password, skills, bio, languages, favLanguage } = req.body;
+    const { fullName, password, skills, bio, jobTitle, languages, favLanguage } = req.body;
 
     let foundUser;
     try {
@@ -107,17 +107,26 @@ const updateMyProfile = async (req, res) => {
         });
     }
 
-    const salt = await bcrypt.genSalt(6);
-    const newPassword = await bcrypt.hash(password, salt);
+    let newPassword;
+    if (password) {  
+        const salt = await bcrypt.genSalt(6);
+        newPassword = await bcrypt.hash(password, salt);
+    }
+
+    let newLanguages;
+    if (languages) {
+        newLanguages = languages.split(" ");
+    }
 
     if (fullName) foundUser.fullName = fullName;
-    if (password) foundUser.password = newPassword;
+    if (newPassword) foundUser.password = newPassword;
     if (skills) foundUser.skills = skills;
     if (req.files['image']) foundUser.image = req.files['image'][0].path;
     if (req.files['banner']) foundUser.banner = req.files['banner'][0].path;
     if (bio) foundUser.bio = bio;
-    if (languages) foundUser.languages = languages;
+    if (jobTitle) foundUser.jobTitle = jobTitle;
     if (favLanguage) foundUser.favLanguage = favLanguage;
+    if (languages) foundUser.languages = newLanguages;
 
     try {
         await foundUser.save();
