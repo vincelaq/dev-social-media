@@ -34,7 +34,7 @@ const index = async (req, res) => {
 const getMyProfile = async (req, res) => {
     let profile;
     try {
-        profile = await db.User.findOne({ id: req.user.id }).select('-password');
+        profile = await db.User.findById(req.user.id).select('-password');
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving current user has failed, please try again later",
