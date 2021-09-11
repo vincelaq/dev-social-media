@@ -1,33 +1,34 @@
 import React from "react";
-import { Route, Link, Switch } from "react-router-dom";
+import { Route, NavLink, Switch } from "react-router-dom";
 import HomePage from "../../pages/HomePage";
-import loginPage from "../../pages/LoginPage";
+import LoginPage from "../../pages/LoginPage";
 import RegisterPage from "../../pages/RegisterPage";
+import ProfilePage from "../../pages/ProfilePage";
 import "./styles.css";
 
 const Nav = () => {
     return (
         <div>
             <nav className="verti-nav">
-                <Link to="/" className="nav__logo">devBook</Link>
+                <NavLink to="/" className="nav__logo">devBook</NavLink>
                 <div className="nav__link-wrap">
-                    <Link to="/" className="nav__link">
-                        <img className="nav__link-icon" />
+                    <NavLink to="/" className="nav__link">
+                        <img href="#" className="nav__link-icon" />
                         <p>Home</p>
-                    </Link>
-                    <Link to="/" className="nav__link">
-                        <img className="nav__link-icon" />
+                    </NavLink>
+                    <NavLink to="/" className="nav__link">
+                        <img href="#" className="nav__link-icon" />
                         <p>Following</p>
-                    </Link>
-                    <Link to="/" className="nav__link">
-                        <img className="nav__link-icon" />
+                    </NavLink>
+                    <NavLink to="/profile" className="nav__link">
+                        <img href="#" className="nav__link-icon" />
                         <p>Profile</p>
-                    </Link>
+                    </NavLink>
                 </div>
-                <Link to="/" className="nav__link">
-                    <img className="nav__link-icon" />
+                <NavLink to="/" className="nav__link">
+                    <img href="#" className="nav__link-icon" />
                     <p>Log out</p>
-                </Link>
+                </NavLink>
             </nav>
             <Switch>
                 <Route
@@ -36,11 +37,11 @@ const Nav = () => {
                     render={(props) => <HomePage {...props} />}
                 />
                 <Route
-                    path="/me"
+                    path="/profile"
                     render={(props) => <ProfilePage {...props} />}
                 />
                 <Route
-                    path="/user/:id"
+                    path="/profile/:uid"
                     render={(props) => <ProfilePage {...props} />}
                 />
                 <Route
@@ -49,17 +50,17 @@ const Nav = () => {
                 />
                 <Route
                     path="/signup"
-                    render={(props) => <SignupPage {...props} />}
+                    render={(props) => <RegisterPage {...props} />}
                 />
             </Switch>
             <nav className="hori-nav">
                 <div className="nav__search-bar">
-                    <img className="search-icon" />
+                    <img href="#" className="search-icon" />
                     <input type="search" />
                 </div>
                 <div>
                     <button>Create a Post</button>
-                    <img className="nav__profile-img" />
+                    <img href="#" className="nav__profile-img" />
                 </div>
 
             </nav>
