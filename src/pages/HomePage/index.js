@@ -6,18 +6,18 @@ import Filters from "../../components/Filters"
 import "../../index.css"
 
 const HomePage = () => {
-    const[posts, setPosts] = useState([]);
+    // const[posts, setPosts] = useState([]);
 
-    async function fetchPosts() {
-        let res = await posts.getAllUserPosts();
-        if (res.status === 200) {
-            setPosts(res.data.data.reverse());
-        }
-    }
+    // async function fetchPosts() {
+    //     let res = await posts.getAllUserPosts();
+    //     if (res.status === 200) {
+    //         setPosts(res.data.data.reverse());
+    //     }
+    // }
 
-    useEffect(() => {
-        fetchPosts();
-    }, []);
+    // useEffect(() => {
+    //     fetchPosts();
+    // }, []);
 
     return (
         <div>
