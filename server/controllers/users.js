@@ -45,7 +45,7 @@ const getMyProfile = async (req, res) => {
     if (!profile) {
         return res.status(404).json({
             message: "Failed: User not found",
-            data: user
+            data: profile
         });
     } else {
         return res.json({
