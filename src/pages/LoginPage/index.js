@@ -35,8 +35,8 @@ const Login = () => {
             }
 
             setIsLoading(false);
-            console.log(res.data.userId, res.data.token);
-            auth.login(res.data.userId, res.data.token);
+            console.log(res.data.user, res.data.token);
+            auth.login(res.data.user, res.data.token);
         } catch (err) {
             setIsLoading(false);
             console.log(err);

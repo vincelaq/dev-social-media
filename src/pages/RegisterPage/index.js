@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Fragment, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import LoadingSpinner from '../../components/Elements/LoadingSpinner';
 import { AuthContext } from '../../context/auth-context';
 
@@ -8,6 +8,7 @@ import './style.css';
 
 
 const Register = () => {
+    const history = useHistory();
     const auth = useContext(AuthContext);
     const [formData, setFormData] = useState({
         fullName: '',
@@ -46,8 +47,9 @@ const Register = () => {
                     throw new Error(res.data.message)
                 }
                 setIsLoading(false);
-                console.log(res.data.userId, res.data.token);
-                auth.login(res.data.userId, res.data.token);
+                console.log(res.data.user, res.data.token);
+                auth.login(res.data.user, res.data.token);
+                history.push('/');
             } catch (err) {
                 setIsLoading(false);
                 alert(err.response.data.message);
