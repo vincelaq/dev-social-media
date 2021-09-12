@@ -73,6 +73,7 @@ const signup = async (req, res, next) => {
         })
     }
 
+    
     const newUser = new db.User ({
         fullName,
         username,
@@ -89,10 +90,9 @@ const signup = async (req, res, next) => {
         followers: [],
         following: []
     });
-
+    
     const salt = await bcrypt.genSalt(6);
     newUser.password = await bcrypt.hash(password, salt);
-
 
     try {
         await newUser.save();
@@ -103,7 +103,7 @@ const signup = async (req, res, next) => {
             { expiresIn: "1h" }
         );
 
-        return res.status(201).json({
+        return res.status(200).json({
             message: "Success: User registered",
             token: token
         });
@@ -131,7 +131,7 @@ const login = async (req, res) => {
 
     if (!existingUser) {
         return res.status(401).json({
-            message: "Error: Invalid credentials, could not log you in",
+            message: "Error: Could not log you in, please check credentials and try again",
         })
     };
 
@@ -146,7 +146,7 @@ const login = async (req, res) => {
 
     if (!isMatch) {
         return res.status(401).json({
-            message: "Error: Invalid credentials, could not log you in",
+            message: "Error: Could not log you in, please check credentials and try again",
         });
     };
 
