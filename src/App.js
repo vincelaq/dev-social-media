@@ -1,24 +1,13 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 import Nav from './components/Nav';
 import Landing from './components/Landing';
 import { AuthContext } from './context/auth-context';
+import { useAuth } from './hooks/auth-hook';
 
 const App = () => {
-  const [token, setToken] = useState(false);
-  const [user, setUser] = useState(false)
-  
-  const login = useCallback((user, token) => {
-    setToken(token);
-    setUser(user);
-  }, []);
+  const { token, login, logout, user } = useAuth();
 
-  const logout = useCallback(() => {
-    setToken(null);
-    setUser(null);
-  }, []);
-  
-  
   let routes;
 
   if (token) {
