@@ -5,20 +5,23 @@ import Landing from './components/Landing';
 import { AuthContext } from './context/auth-context';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [token, setToken] = useState(false);
+  const [userId, setUserId] = useState(false)
   
-  const login = useCallback(() => {
-    setIsLoggedIn(true);
+  const login = useCallback((user, token) => {
+    setToken(token);
+    setUserId(user);
   }, []);
 
   const logout = useCallback(() => {
-    setIsLoggedIn(false);
+    setToken(null);
+    setUserId(null);
   }, []);
   
   
   let routes;
 
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <Nav />
     );
@@ -29,7 +32,7 @@ const App = () => {
   }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}>
+    <AuthContext.Provider value={{ isLoggedIn: !!token, token: token, userId: userId, login: login, logout: logout }}>
       <Router>
         <main>
           {routes}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch, Link, Redirect } from "react-router-dom";
 import LoginPage from "../../pages/LoginPage";
 import RegisterPage from "../../pages/RegisterPage";
 
@@ -28,6 +28,7 @@ const Landing = () => {
                     path="/register"
                     render={(props) => <RegisterPage {...props} />}
                 />
+                <Redirect to="/" />
             </Switch>
         </div>
     )
