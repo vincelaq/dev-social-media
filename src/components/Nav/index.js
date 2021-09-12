@@ -3,7 +3,6 @@ import { Route, NavLink, Switch } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
 import HomePage from "../../pages/HomePage";
 import FollowingPage from "../../pages/FollowingPage";
-import RegisterPage from "../../pages/RegisterPage";
 import ProfilePage from "../../pages/ProfilePage";
 import "./styles.css";
 
