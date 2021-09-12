@@ -2,7 +2,7 @@ import React, { useContext, Fragment } from "react";
 import { Route, NavLink, Switch } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
 import HomePage from "../../pages/HomePage";
-import LoginPage from "../../pages/LoginPage";
+import FollowingPage from "../../pages/FollowingPage";
 import RegisterPage from "../../pages/RegisterPage";
 import ProfilePage from "../../pages/ProfilePage";
 import "./styles.css";
@@ -45,12 +45,8 @@ const Nav = () => {
                         render={(props) => <ProfilePage {...props} />}
                     />
                     <Route
-                        path="/login"
-                        render={(props) => <LoginPage {...props} />}
-                    />
-                    <Route
-                        path="/signup"
-                        render={(props) => <RegisterPage {...props} />}
+                        path="/following"
+                        render={(props) => <FollowingPage {...props} />}
                     />
                 </Switch>
                 <nav className="hori-nav">

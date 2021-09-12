@@ -1,8 +1,10 @@
 import React from "react";
 
+import './style.css';
+
 const ProfilePage = () => {
     return (
-        <p>oi</p>
+        <p>Profile Page</p>
     )
 }
 
