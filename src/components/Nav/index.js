@@ -29,7 +29,7 @@ const Nav = () => {
                             <p>Following</p>
                         </NavLink>
                     </div>
-                    <NavLink to="/logout" className="nav__link">
+                    <NavLink to="/" onClick={auth.logout} className="nav__link">
                         <img href="#" className="nav__link-icon" />
                         <p>Log out</p>
                     </NavLink>
