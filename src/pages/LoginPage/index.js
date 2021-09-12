@@ -1,19 +1,16 @@
-import React, { Fragment, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { Fragment, useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import LoadingSpinner from '../../components/Elements/LoadingSpinner';
+import { AuthContext } from '../../context/auth-context';
 
 import './style.css';
 
 
 const Login = () => {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-
-    });
+    const auth = useContext(AuthContext);
+    const [formData, setFormData] = useState({ email: '', password: '' });
     const [isLoading, setIsLoading] = useState(false);
-    const history = useHistory();
 
     const { email, password } = formData;
 
@@ -25,7 +22,7 @@ const Login = () => {
         e.preventDefault();
         try {
             setIsLoading(true);
-            const response = await axios({
+            const res = await axios({
                 method: 'post',
                 url: 'http://localhost:5000/api/auth/login',
                 data: {
@@ -33,13 +30,13 @@ const Login = () => {
                     password: password,
                 }
             });
-            if (response.statusText !== 'OK') {
-                throw new Error(response.data.message)
+            if (res.statusText !== 'OK') {
+                throw new Error(res.data.message)
             }
 
             setIsLoading(false);
-            console.log(response); 
-            history.push('/home')
+            console.log(res.data.userId, res.data.token);
+            auth.login(res.data.userId, res.data.token);
         } catch (err) {
             setIsLoading(false);
             console.log(err);

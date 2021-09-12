@@ -105,6 +105,7 @@ const signup = async (req, res, next) => {
 
         return res.status(200).json({
             message: "Success: User registered",
+            userId: newUser.id, 
             token: token
         });
     } catch (err) {
@@ -158,6 +159,7 @@ const login = async (req, res) => {
 
     return res.json({
         message: "Success: User logged in",
+        userId: existingUser.id, 
         token: token
     });
 
