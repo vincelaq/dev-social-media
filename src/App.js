@@ -6,16 +6,16 @@ import { AuthContext } from './context/auth-context';
 
 const App = () => {
   const [token, setToken] = useState(false);
-  const [userId, setUserId] = useState(false)
+  const [user, setUser] = useState(false)
   
   const login = useCallback((user, token) => {
     setToken(token);
-    setUserId(user);
+    setUser(user);
   }, []);
 
   const logout = useCallback(() => {
     setToken(null);
-    setUserId(null);
+    setUser(null);
   }, []);
   
   
@@ -32,7 +32,7 @@ const App = () => {
   }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn: !!token, token: token, userId: userId, login: login, logout: logout }}>
+    <AuthContext.Provider value={{ isLoggedIn: !!token, token: token, user: user, login: login, logout: logout }}>
       <Router>
         <main>
           {routes}
