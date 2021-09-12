@@ -5,9 +5,12 @@ import RegisterPage from "../../pages/RegisterPage";
 
 
 const Landing = () => {
+
+
     return (
         <div>
-            <div >
+            <div>
+                LOGO
                 <Link to="/">
                     Login
                 </Link>

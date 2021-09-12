@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import LoadingSpinner from '../../components/Elements/LoadingSpinner';
 
@@ -13,6 +13,7 @@ const Login = () => {
 
     });
     const [isLoading, setIsLoading] = useState(false);
+    const history = useHistory();
 
     const { email, password } = formData;
 
@@ -38,7 +39,7 @@ const Login = () => {
 
             setIsLoading(false);
             console.log(response); 
-        
+            history.push('/home')
         } catch (err) {
             setIsLoading(false);
             console.log(err);

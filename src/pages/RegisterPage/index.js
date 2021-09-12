@@ -25,7 +25,7 @@ const Register = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        if(password !== password2) {
+        if (password !== password2) {
             alert('Passwords do not match');
         } else {
             setIsLoading(true);

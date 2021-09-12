@@ -1,7 +1,9 @@
 import React from "react";
 
 const ProfilePage = () => {
-    <p>oi</p>
+    return (
+        <p>oi</p>
+    )
 }
 
 export default ProfilePage;

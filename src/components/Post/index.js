@@ -2,12 +2,12 @@ import React from "react";
 // import Likes from "../Likes";
 import "./styles.css";
 
-const Post = ({ id, title, author, body, comments, getPostsAgain  }) => {
+const Post = ({ id, title, user, body, comments, time, likes, getPostsAgain  }) => {
     
     return (
         <div>
             <div className="post__sidebar">
-                {/* <Likes/> */}
+                Likes: {likes}
             </div>
             <div className="post-content-wrap">
                 <div className="post__header">
@@ -16,12 +16,12 @@ const Post = ({ id, title, author, body, comments, getPostsAgain  }) => {
                         <img className="post__profile-fav-lang"/>
                     </div>
                     <div>
-                    <p className="post__username">{author}</p>
-                    <p className="post__time-posted">time-posted</p>
+                    <p className="post__username">Posted By: {user}</p>
+                    <p className="post__time-posted">Time Posted: {time}</p>
                     </div>
                 </div>
-                    <h2>{title}</h2>
-                    <p>{body}</p>
+                    <h2>Title: {title}</h2>
+                    <p>Body: {body}</p>
                     <button className="post__comment-btn">
                         <img/>
                         <span>{comments.length}</span>
