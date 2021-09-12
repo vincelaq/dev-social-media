@@ -51,7 +51,7 @@ const Nav = () => {
                 <nav className="hori-nav">
                     <div className="nav__search-bar">
                         <img href="#" className="search-icon" />
-                        <input type="search" />
+                        <input type="search" placeholder="Search" />
                     </div>
                     <div>
                         <button>Create a Post</button>
