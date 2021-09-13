@@ -37,7 +37,8 @@ const index = async (req, res) => {
 const getOnePost = async (req, res) => {
     let post;
     try {
-        post = await db.Post.findOne({ _id: req.params.pid });
+        post = await db.Post.findById(req.params.pid)
+            .populate({path: 'comments', populate: {path: 'comments'}})
     } catch (err) {
         if (err.kind === "ObjectId") {
             return res.status(404).json({
