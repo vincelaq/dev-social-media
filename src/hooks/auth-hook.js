@@ -23,9 +23,9 @@ export const useAuth = () => {
     }, []);
 
     const logout = useCallback(() => {
-        setToken(null);
-        setTokenExpirationDate(null)
-        setUser(null);
+        setToken(false);
+        setTokenExpirationDate(false)
+        setUser(false);
         localStorage.removeItem('userData');
     }, []);
     
