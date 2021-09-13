@@ -24,7 +24,7 @@ const Login = () => {
             console.log(err.request)
             alert(err.request.data)
         } else {
-            console.log("Error")
+            console.log("Error during login")
             console.log(err.message)
         }
     } 

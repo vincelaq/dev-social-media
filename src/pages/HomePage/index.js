@@ -16,7 +16,7 @@ const HomePage = () => {
             console.log(err.request)
             alert(err.request.data)
         } else {
-            console.log("Error")
+            console.log("Error during homepage render")
             console.log(err.message)
         }
     } 
@@ -33,12 +33,13 @@ const HomePage = () => {
         } catch (err) {
             handleErrors(err);
         }
-        
-    }
+
+    };
+
 
     useEffect(() => {
         fetchPosts();
-    },[setPosts]);
+    },[]);
 
 
     return (
