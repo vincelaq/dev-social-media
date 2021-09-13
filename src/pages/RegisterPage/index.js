@@ -66,19 +66,21 @@ const Register = () => {
 
 
     return (
-        <Fragment>
+        <div className="reg-container">
             {isLoading && <LoadingSpinner asOverlay />}
-            <h1>
+            <h1 className="reg-title">
                 Sign Up
             </h1>
-            <p>
+            <p className="reg-subtitle">
                 Register for an Account
             </p>
             <form onSubmit={e => onSubmit(e)}>
                 <div>
+                    <div className="reg-input-label">Full Name</div>
                     <input 
+                        className="reg-input-field"
                         type="text" 
-                        placeholder="Name" 
+                        placeholder="Enter your full name" 
                         name="fullName" 
                         value={fullName} 
                         onChange={e => onChange(e)}
@@ -86,9 +88,11 @@ const Register = () => {
                     />
                 </div>
                 <div>
+                    <div className="reg-input-label">Username</div>
                     <input 
+                        className="reg-input-field"
                         type="text" 
-                        placeholder="Username" 
+                        placeholder="Enter your username" 
                         name="username" 
                         value={username} 
                         onChange={e => onChange(e)}
@@ -96,18 +100,22 @@ const Register = () => {
                     />
                 </div>
                 <div>
+                    <div className="reg-input-label">Email</div>
                     <input 
+                        className="reg-input-field"
                         type="email" 
-                        placeholder="Email Address" 
+                        placeholder="Enter your email" 
                         name="email" 
                         value={email} 
                         onChange={e => onChange(e)}
                     />
                 </div>
                 <div>
+                    <div className="reg-input-label">Password</div>
                     <input
+                        className="reg-input-field"
                         type="password"
-                        placeholder="Password"
+                        placeholder="Enter your password"
                         name="password"
                         minLength={6}
                         value={password}
@@ -115,21 +123,23 @@ const Register = () => {
                     />
                 </div>
                 <div>
+                    <div className="reg-input-label">Confirm Password</div>
                     <input
+                        className="reg-input-field"
                         type="password"
-                        placeholder="Confirm Password"
+                        placeholder="Confirm your password"
                         name="password2"
                         minLength={6}
                         value={password2}
                         onChange={e => onChange(e)}
                     />
                 </div>
-                <input type="submit" value="Register" />
+                <input className="reg-button" type="submit" value="Create account" />
             </form>
-            <p>
-                Do you have an account? <Link to="/">Sign In</Link>
+            <p className="login-register">
+                Do you have an account? <Link className="login-register-link" to="/">Log In</Link>
             </p>
-        </Fragment>
+        </div>
     )
 };
 

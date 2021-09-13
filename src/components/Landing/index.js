@@ -3,20 +3,26 @@ import { Route, Switch, Link, Redirect } from "react-router-dom";
 import LoginPage from "../../pages/LoginPage";
 import RegisterPage from "../../pages/RegisterPage";
 
+import './style.css';
 
 const Landing = () => {
 
 
     return (
-        <div>
-            <div>
+        <div className="container">
+            <div className="horiz-nav">
+                <div className="nav__logo">
                 LOGO
-                <Link to="/">
-                    Login
-                </Link>
-                <Link to="/register">
-                    Signup
-                </Link>
+                </div>
+                <div className="nav__auth">
+                    <Link to="/">
+                        Login
+                    </Link>
+                    <Link to="/register">
+                        Signup
+                    </Link>
+                </div>
+                
             </div>
             <Switch>
                 <Route

@@ -1,0 +1,46 @@
+.login-container {
+    background-color: rgb(243, 243, 243);
+    width: 40vw;
+    height: 60vh;
+    margin-top: 120px;
+    padding: 82px;
+}
+.login-title {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+.login-subtitle {
+    margin-bottom: 36px;
+}
+.login-email {
+    margin-bottom: 4px;
+}
+.login-email-field {
+    height: 46px;
+    width: 100%;
+    padding-left: 12px;
+}
+.login-password {
+    margin-top: 24px;
+    margin-bottom: 4px;
+}
+.login-password-field {
+    height: 46px;
+    width: 100%;
+    padding-left: 12px;
+}
+.login-button {
+    background-color: rgb(145, 145, 145);
+    border: none;
+    margin-top: 24px;
+    height: 46px;
+    width: 100%
+}
+.login-register {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+}
+.login-register-link {
+    margin-left: 4px;
+}

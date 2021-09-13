@@ -56,40 +56,44 @@ const Login = () => {
 
 
     return (
-        <Fragment>
+        <div className="login-container">
             {isLoading && <LoadingSpinner asOverlay />}
-            <h1>
-                Log In
+            <h1 className="login-title">
+                Welcome back
             </h1>
-            <p>
-                Log into Your Account
+            <p className="login-subtitle">
+                Sign into your account below.
             </p>
             <form onSubmit={e => onSubmit(e)}>
                 <div>
+                    <div className="login-email">Email</div>
                     <input 
+                        className="login-email-field"
                         type="email" 
-                        placeholder="Email Address" 
+                        placeholder="enter your email" 
                         name="email" 
                         value={email} 
                         onChange={e => onChange(e)}
                     />
                 </div>
                 <div>
+                    <div className="login-password">Password</div>
                     <input
+                        className="login-password-field"
                         type="password"
-                        placeholder="Password"
+                        placeholder="enter your password"
                         name="password"
                         minLength={6}
                         value={password}
                         onChange={e => onChange(e)}
                     />
                 </div>
-                <input type="submit" value="Login" />
+                <input className="login-button" type="submit" value="Sign in" />
             </form>
-            <p>
-                Don't have an account? <Link to="/register">Register</Link>
+            <p className="login-register">
+                Don't have an account? <Link className="login-register-link" to="/register">Register</Link>
             </p>
-        </Fragment>
+        </div>
     )
 };
 
