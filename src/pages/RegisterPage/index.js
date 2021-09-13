@@ -47,7 +47,6 @@ const Register = () => {
                     throw new Error(res.data.message)
                 }
                 setIsLoading(false);
-                console.log(res.data.user, res.data.token);
                 auth.login(res.data.user, res.data.token);
                 history.push('/');
             } catch (err) {
