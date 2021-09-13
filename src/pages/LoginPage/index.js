@@ -14,6 +14,21 @@ const Login = () => {
 
     const { email, password } = formData;
 
+    const handleErrors = (err) => {
+        if (err.response) {
+            console.log("Problem with response")
+            console.log(err.response)
+            alert(err.response.data.message)
+        } else if (err.request) {
+            console.log("Problem with request")
+            console.log(err.request)
+            alert(err.request.data)
+        } else {
+            console.log("Error")
+            console.log(err.message)
+        }
+    } 
+
     const onChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
@@ -30,17 +45,12 @@ const Login = () => {
                     password: password,
                 }
             });
-            if (res.statusText !== 'OK') {
-                throw new Error(res.data.message)
-            }
-
+            console.log(res);
             setIsLoading(false);
-            console.log(res.data.user, res.data.token);
             auth.login(res.data.user, res.data.token);
         } catch (err) {
             setIsLoading(false);
-            console.log(err);
-            alert(err.response.data.message);
+            handleErrors(err);
         }
     }
 
