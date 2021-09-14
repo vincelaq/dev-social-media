@@ -29,11 +29,21 @@ const ProfilePage = () => {
             {posts.map((post) => {
                 return (
                     <Post
-                )
+                        user={post.username}
+                        author={post.author}
+                        body={post.body}
+                        title={post.title}
+                        comments={post.comments}
+                        time={post.createdAt}
+                        key={post._id}
+                        likes={post.voteTotal}
+                        id={post._id}
+                        getPostsAgain={ () => fetchPosts ()}
+                        />
+                    );
             })}
-        </div>
-       
-    )
+        </div>     
+    );
 }
 
 export default ProfilePage;
