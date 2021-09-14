@@ -1,21 +1,33 @@
-import React, { Fragment, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { Fragment, useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import LoadingSpinner from '../../components/Elements/LoadingSpinner';
+import { AuthContext } from '../../context/auth-context';
 
 import './style.css';
 
 
 const Login = () => {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-
-    });
+    const auth = useContext(AuthContext);
+    const [formData, setFormData] = useState({ email: '', password: '' });
     const [isLoading, setIsLoading] = useState(false);
-    const history = useHistory();
 
     const { email, password } = formData;
+
+    const handleErrors = (err) => {
+        if (err.response) {
+            console.log("Problem with response")
+            console.log(err.response)
+            alert(err.response.data.message)
+        } else if (err.request) {
+            console.log("Problem with request")
+            console.log(err.request)
+            alert(err.request.data)
+        } else {
+            console.log("Error during login")
+            console.log(err.message)
+        }
+    } 
 
     const onChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
@@ -25,7 +37,7 @@ const Login = () => {
         e.preventDefault();
         try {
             setIsLoading(true);
-            const response = await axios({
+            const res = await axios({
                 method: 'post',
                 url: 'http://localhost:5000/api/auth/login',
                 data: {
@@ -33,56 +45,55 @@ const Login = () => {
                     password: password,
                 }
             });
-            if (response.statusText !== 'OK') {
-                throw new Error(response.data.message)
-            }
-
+            console.log(res);
             setIsLoading(false);
-            console.log(response); 
-            history.push('/home')
+            auth.login(res.data.user, res.data.token);
         } catch (err) {
             setIsLoading(false);
-            console.log(err);
-            alert(err.response.data.message);
+            handleErrors(err);
         }
     }
 
 
     return (
-        <Fragment>
+        <div className="login-container">
             {isLoading && <LoadingSpinner asOverlay />}
-            <h1>
-                Log In
+            <h1 className="login-title">
+                Welcome back
             </h1>
-            <p>
-                Log into Your Account
+            <p className="login-subtitle">
+                Sign into your account below.
             </p>
             <form onSubmit={e => onSubmit(e)}>
                 <div>
+                    <div className="login-email">Email</div>
                     <input 
+                        className="login-email-field"
                         type="email" 
-                        placeholder="Email Address" 
+                        placeholder="enter your email" 
                         name="email" 
                         value={email} 
                         onChange={e => onChange(e)}
                     />
                 </div>
                 <div>
+                    <div className="login-password">Password</div>
                     <input
+                        className="login-password-field"
                         type="password"
-                        placeholder="Password"
+                        placeholder="enter your password"
                         name="password"
                         minLength={6}
                         value={password}
                         onChange={e => onChange(e)}
                     />
                 </div>
-                <input type="submit" value="Login" />
+                <input className="login-button" type="submit" value="Sign in" />
             </form>
-            <p>
-                Don't have an account? <Link to="/register">Register</Link>
+            <p className="login-register">
+                Don't have an account? <Link className="login-register-link" to="/register">Register</Link>
             </p>
-        </Fragment>
+        </div>
     )
 };
 

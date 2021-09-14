@@ -6,20 +6,40 @@ import "../../index.css"
 const HomePage = () => {
     const [posts, setPosts] = useState([]);
 
+    const handleErrors = (err) => {
+        if (err.response) {
+            console.log("Problem with response")
+            console.log(err.response)
+            alert(err.response.data.message)
+        } else if (err.request) {
+            console.log("Problem with request")
+            console.log(err.request)
+            alert(err.request.data)
+        } else {
+            console.log("Error during homepage render")
+            console.log(err.message)
+        }
+    } 
+
+
     const fetchPosts = async () => {
-        let res = await axios({
+        try {
+            let res = await axios({
             method: 'get',
             url: 'http://localhost:5000/api/posts',
-        })
-        if (res.status === 200) {
-            setPosts(res.data.data.reverse());
+            })
+            setPosts(res.data.data);
+            console.log("POST SERVICE RESPONSE: ", res);
+        } catch (err) {
+            handleErrors(err);
         }
-        console.log("POST SERVICE RESPONSE: ", res);
-    }
+
+    };
+
 
     useEffect(() => {
         fetchPosts();
-    }, []);
+    },[]);
 
 
     return (

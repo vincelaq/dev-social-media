@@ -1,24 +1,16 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 import Nav from './components/Nav';
 import Landing from './components/Landing';
 import { AuthContext } from './context/auth-context';
+import { useAuth } from './hooks/auth-hook';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  
-  const login = useCallback(() => {
-    setIsLoggedIn(true);
-  }, []);
+  const { token, login, logout, user } = useAuth();
 
-  const logout = useCallback(() => {
-    setIsLoggedIn(false);
-  }, []);
-  
-  
   let routes;
 
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <Nav />
     );
@@ -29,7 +21,7 @@ const App = () => {
   }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}>
+    <AuthContext.Provider value={{ isLoggedIn: !!token, token: token, user: user, login: login, logout: logout }}>
       <Router>
         <main>
           {routes}

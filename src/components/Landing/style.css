@@ -1,0 +1,22 @@
+.container {
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+.horiz-nav {
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    padding: 24px;
+}
+.nav__logo {
+    display: inline;    
+}
+.nav__auth {
+    display: flex;
+    justify-content: space-between;
+    width: 112px;
+    text-decoration: none;
+}

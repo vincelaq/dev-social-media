@@ -8,7 +8,8 @@ import "./styles.css";
 
 const Nav = () => {
     const auth = useContext(AuthContext);
-    
+    console.log(auth.user);
+    console.log(auth.token);
     return (
         <Fragment>
             
@@ -28,7 +29,7 @@ const Nav = () => {
                             <p>Following</p>
                         </NavLink>
                     </div>
-                    <NavLink to="/logout" className="nav__link">
+                    <NavLink to="/" onClick={auth.logout} className="nav__link">
                         <img href="#" className="nav__link-icon" />
                         <p>Log out</p>
                     </NavLink>
@@ -57,7 +58,7 @@ const Nav = () => {
                         <button>Create a Post</button>
                         <img href="#" className="nav__profile-img" />
                     </div>
-                    <div>Hello, Username AVATAR</div>
+                    <div>Hello, {auth.user.username} AVATAR</div>
                 </nav>
         </Fragment>
     )
