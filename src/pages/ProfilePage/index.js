@@ -1,15 +1,20 @@
-import React, {useState, useEffect } from "react";
+import React, {useState, useEffect, useContext } from "react";
 import axios from "axios";
+import NamePlate from "../../components/NamePlate";
 import Post from "../../components/Post";
+import { AuthContext } from '../../context/auth-context';
 import './style.css';
 
-const ProfilePage = () => {
-    const [posts, setPosts] = useState([]);
 
-    const fetchPosts = async () => {
+const ProfilePage = () => {
+    const auth = useContext(AuthContext);
+    const [posts, setPosts] = useState([]);
+    const user = auth.user;
+
+   const fetchPosts = async () => {
         let res = await axios ({
             method: "get",
-            url: "http://localhost:500-/api/posts/user/:uid",
+            url: `http://localhost:5000/api/posts/user/${user._id}`,
             // replace uid with a different parameter
         })
 
@@ -25,6 +30,14 @@ const ProfilePage = () => {
 
     return (
         <div>
+            <NamePlate
+                username={user.username}
+                jobTitle={user.jobTitle}
+                image={user.image}
+                bio={user.bio}
+                numberOfPosts={user.posts.length}
+                numberOfConnections={user.following.length}
+            />
             ProfilePage
             {posts.map((post) => {
                 return (
