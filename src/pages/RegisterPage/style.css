@@ -4,12 +4,13 @@
     min-height: 800px;
     width: 40vw;
     height: 78vh;
-    margin-top: 36px;
+    margin-top: 24px;
     padding: 64px 82px;
 }
 .reg__title {
     font-size: 3rem;
     margin-bottom: 16px;
+    margin-top: 4px;
 }
 .reg__subtitle {
     margin-bottom: 36px;
@@ -21,7 +22,7 @@
     height: 46px;
     width: 100%;
     padding-left: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
 }
 .reg__button {
     background-color: rgb(145, 145, 145);
@@ -37,4 +38,5 @@
 }
 .reg__login-link {
     margin-left: 4px;
+    color: #7EBFA0;
 }

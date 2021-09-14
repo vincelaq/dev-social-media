@@ -8,11 +8,12 @@
     padding: 82px;
 }
 .login__title {
+    margin-top: 18px;
     font-size: 3rem;
     margin-bottom: 16px;
 }
 .login__subtitle {
-    margin-bottom: 36px;
+    margin-bottom: 48px;
 }
 .login__email {
     margin-bottom: 4px;
@@ -40,4 +41,5 @@
 }
 .login__register-link {
     margin-left: 4px;
+    color: #7EBFA0;
 }

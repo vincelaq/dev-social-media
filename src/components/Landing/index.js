@@ -12,7 +12,7 @@ const Landing = () => {
         <div className="landing-container">
             <div className="nav-wrapper">
                 <div className="nav__logo">
-                LOGO
+                <span style={{color: '#7EBFA0'}} >dev</span><span style={{color: 'white'}}>book</span>
                 </div>
                 <div className="nav__auth-wrapper">
                     <Link className="nav__auth-link" to="/">
