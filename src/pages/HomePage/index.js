@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import Post from "../../components/Post";
 import "../../index.css"
@@ -47,18 +48,26 @@ const HomePage = () => {
             HomePage
             {posts.map((post) => {
                     return (
-                        <Post
-                            user={post.username}
-                            author={post.author}
-                            body={post.body}
-                            title={post.title}
-                            comments={post.comments}
-                            time={post.createdAt}
-                            key={post._id}
-                            likes={post.voteTotal}
-                            id={post._id}
-                            getPostsAgain={() => fetchPosts()}
-                        />
+                        <Link to={{
+                            pathname: '/post',
+                            state: post,
+                        }}>
+                            <Post
+                                user={post.username}
+                                author={post.author}
+                                body={post.body}
+                                image={post.image}
+                                favLanguage={post.favLanguage}
+                                title={post.title}
+                                comments={post.comments}
+                                time={post.createdAt}
+                                key={post._id}
+                                likes={post.voteTotal}
+                                id={post._id}
+                                getPostsAgain={() => fetchPosts()}
+                            />
+                        </Link>
+                    
                     );
                 })}
         </div>
