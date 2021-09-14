@@ -1,5 +1,7 @@
 .reg-container {
     background-color: rgb(243, 243, 243);
+    min-width: 600px;
+    min-height: 800px;
     width: 40vw;
     height: 78vh;
     margin-top: 36px;
