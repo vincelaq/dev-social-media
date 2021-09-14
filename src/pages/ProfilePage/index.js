@@ -3,6 +3,7 @@ import axios from "axios";
 import NamePlate from "../../components/NamePlate";
 import Post from "../../components/Post";
 import { AuthContext } from '../../context/auth-context';
+import FollowingPage from '../components/FollowingPage';
 import './style.css';
 
 
@@ -10,6 +11,14 @@ const ProfilePage = () => {
     const auth = useContext(AuthContext);
     const [posts, setPosts] = useState([]);
     const user = auth.user;
+
+    //Added 
+     const [values, setValues] = useState({
+       user: { following: [], followers: [] },
+       redirectToSignin: false,
+       following: false,
+     });
+//Added
 
    const fetchPosts = async () => {
         let res = await axios ({
@@ -23,7 +32,32 @@ const ProfilePage = () => {
         }
         console.log("Post Incoming", res);
     }
-
+//Added
+    const checkFollow = (user) => {
+      const match = user.followers.some((follower) => {
+        return follower._id == jwt.user._id;
+      });
+      return match;
+    };
+    const clickFollowButton = (callApi) => {
+      callApi(
+        {
+          userId: jwt.user._id,
+        },
+        {
+          t: jwt.token,
+        },
+        values.user._id
+      ).then((data) => {
+        if (data.error) {
+          setValues({ ...values, error: data.error });
+        } else {
+          setValues({ ...values, user: data, following: !values.following });
+        }
+      });
+    };
+//Added
+    
     useEffect(() => {
         fetchPosts();
     }, []);
