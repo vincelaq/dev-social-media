@@ -58,17 +58,17 @@ const Login = () => {
     return (
         <div className="login-container">
             {isLoading && <LoadingSpinner asOverlay />}
-            <h1 className="login-title">
+            <h1 className="login__title">
                 Welcome back
             </h1>
-            <p className="login-subtitle">
+            <p className="login__subtitle">
                 Sign into your account below.
             </p>
             <form onSubmit={e => onSubmit(e)}>
                 <div>
-                    <div className="login-email">Email</div>
+                    <div className="login__email">Email</div>
                     <input 
-                        className="login-email-field"
+                        className="login__input-field"
                         type="email" 
                         placeholder="enter your email" 
                         name="email" 
@@ -77,9 +77,9 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    <div className="login-password">Password</div>
+                    <div className="login__password">Password</div>
                     <input
-                        className="login-password-field"
+                        className="login__input-field"
                         type="password"
                         placeholder="enter your password"
                         name="password"
@@ -88,10 +88,10 @@ const Login = () => {
                         onChange={e => onChange(e)}
                     />
                 </div>
-                <input className="login-button" type="submit" value="Sign in" />
+                <input className="login__button" type="submit" value="Sign in" />
             </form>
-            <p className="login-register">
-                Don't have an account? <Link className="login-register-link" to="/register">Register</Link>
+            <p className="login__register-footer">
+                Don't have an account? <Link className="login__register-link" to="/register">Register</Link>
             </p>
         </div>
     )
