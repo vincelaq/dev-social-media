@@ -3,7 +3,8 @@ import axios from "axios";
 import NamePlate from "../../components/NamePlate";
 import Post from "../../components/Post";
 import { AuthContext } from '../../context/auth-context';
-import FollowingPage from '../components/FollowingPage';
+import FollowingPage from './pages/FollowingPage';
+import FollowGrid from './pages/FollowGrid';
 import './style.css';
 
 
@@ -72,6 +73,8 @@ const ProfilePage = () => {
                 numberOfPosts={user.posts.length}
                 numberOfConnections={user.following.length}
             />
+            <FollowGrid users={user.followers} />
+            <FollowingPage user={user.following} />
             ProfilePage
             {posts.map((post) => {
                 return (
