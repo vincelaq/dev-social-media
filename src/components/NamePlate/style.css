@@ -1,15 +1,24 @@
+.NamePlate-container {
+    background:linear-gradient(to bottom, #646464 0%, #646464 50%,#C7C6C6 50%, #C7C6C6 100%);
+    border-bottom: 3px solid black;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
 .username {
-    text-align: center;
-    
+    display: flex;
+    font-size: 30px;
 }
 
 .jobTitle {
     text-align: center;
+    font-size: 25px;
 }
 
 .image {
     display: flex;
     justify-content: start;
+    border-radius: 50%;
 }
 
 .bio {
@@ -20,9 +29,11 @@
 .numberOfPosts {
     display: flex;
     justify-content: end;
+    font-size: 25px;
 }
 
 .numberOfConnections {
     display: flex; 
     justify-content: end;
+    font-size: 25px;
 }
