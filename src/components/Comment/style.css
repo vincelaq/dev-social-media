@@ -1,3 +1,35 @@
+
+* {
+    box-sizing: border-box;
+}
 .main-comment {
-    border: 1px solid red;
+    background-color: grey;
+    text-align: justify;
+    border-radius: 10px;
+    border: 2px solid rgb(38, 38, 224);
+    width: 700px;
+    max-width: 100%;
+    margin: 0;
+    padding: 2px 8px;
+    background-color: grey;
+    
+}
+
+.button{
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    font-size: 14px;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.85);
+    background-color:#fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+}
+.button:hover,
+.button:focus,
+.button:active {
+    cursor: pointer;
+    background-color: #ecf0f1;
+    border-radius: 20px;
 }

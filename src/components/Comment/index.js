@@ -13,7 +13,7 @@ const Comment = ({username, createdAt, image, body, comments}) => {
                 <div> image {image} </div>
                 <div> body {body} </div>
             </div>
-            <div>
+            <div className="button">
                 <button>Reply</button>
                 <button>Edit</button>
             </div>
