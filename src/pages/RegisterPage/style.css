@@ -1,38 +1,43 @@
 .reg-container {
     background-color: rgb(243, 243, 243);
+    min-width: 600px;
+    max-width: 800px;
+    min-height: 800px;
     width: 40vw;
-    height: 78vh;
-    margin-top: 36px;
+    height: 800px;
     padding: 64px 82px;
+    margin-top: 24px;
 }
-.reg-title {
+.reg__title {
     font-size: 3rem;
     margin-bottom: 16px;
+    margin-top: 4px;
 }
-.reg-subtitle {
+.reg__subtitle {
     margin-bottom: 36px;
 }
-.reg-input-label {
+.reg__input-label {
     margin-bottom: 4px;
 }
-.reg-input-field {
+.reg__input-field {
     height: 46px;
     width: 100%;
     padding-left: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
 }
-.reg-button {
+.reg__button {
     background-color: rgb(145, 145, 145);
     border: none;
     margin: 12px 0 4px 0;
     height: 46px;
     width: 100%
 }
-.login-register {
+.reg__login-footer {
     margin-top: 12px;
     display: flex;
     justify-content: center;
 }
-.login-register-link {
+.reg__login-link {
     margin-left: 4px;
+    color: #7EBFA0;
 }

@@ -9,20 +9,19 @@ const Landing = () => {
 
 
     return (
-        <div className="container">
-            <div className="horiz-nav">
-                <div className="nav__logo">
-                LOGO
+        <div className="landing-container">
+            <div className="nav-wrapper">
+                <div className="nav__landing-logo">
+                <span style={{color: '#7EBFA0'}} >dev</span><span style={{color: 'white'}}>book</span>
                 </div>
-                <div className="nav__auth">
-                    <Link to="/">
+                <div className="nav__auth-wrapper">
+                    <Link className="nav__auth-link" to="/">
                         Login
                     </Link>
-                    <Link to="/register">
+                    <Link className="nav__auth-link" to="/register">
                         Signup
                     </Link>
                 </div>
-                
             </div>
             <Switch>
                 <Route

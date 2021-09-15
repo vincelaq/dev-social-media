@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/auth-context";
 import HomePage from "../../pages/HomePage";
 import FollowingPage from "../../pages/FollowingPage";
 import ProfilePage from "../../pages/ProfilePage";
+import PostPage from "../../pages/PostPage";
 import "./styles.css";
 
 const Nav = () => {
@@ -47,6 +48,10 @@ const Nav = () => {
                     <Route
                         path="/following"
                         render={(props) => <FollowingPage {...props} />}
+                    />
+                    <Route
+                        path="/post"
+                        render={(props) => <PostPage {...props} />}
                     />
                 </Switch>
                 <nav className="hori-nav">

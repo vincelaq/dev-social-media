@@ -68,17 +68,17 @@ const Register = () => {
     return (
         <div className="reg-container">
             {isLoading && <LoadingSpinner asOverlay />}
-            <h1 className="reg-title">
+            <h1 className="reg__title">
                 Sign Up
             </h1>
-            <p className="reg-subtitle">
+            <p className="reg__subtitle">
                 Register for an Account
             </p>
             <form onSubmit={e => onSubmit(e)}>
                 <div>
-                    <div className="reg-input-label">Full Name</div>
+                    <div className="reg__input-label">Full Name</div>
                     <input 
-                        className="reg-input-field"
+                        className="reg__input-field"
                         type="text" 
                         placeholder="Enter your full name" 
                         name="fullName" 
@@ -88,9 +88,9 @@ const Register = () => {
                     />
                 </div>
                 <div>
-                    <div className="reg-input-label">Username</div>
+                    <div className="reg__input-label">Username</div>
                     <input 
-                        className="reg-input-field"
+                        className="reg__input-field"
                         type="text" 
                         placeholder="Enter your username" 
                         name="username" 
@@ -100,9 +100,9 @@ const Register = () => {
                     />
                 </div>
                 <div>
-                    <div className="reg-input-label">Email</div>
+                    <div className="reg__input-label">Email</div>
                     <input 
-                        className="reg-input-field"
+                        className="reg__input-field"
                         type="email" 
                         placeholder="Enter your email" 
                         name="email" 
@@ -111,9 +111,9 @@ const Register = () => {
                     />
                 </div>
                 <div>
-                    <div className="reg-input-label">Password</div>
+                    <div className="reg__input-label">Password</div>
                     <input
-                        className="reg-input-field"
+                        className="reg__input-field"
                         type="password"
                         placeholder="Enter your password"
                         name="password"
@@ -123,9 +123,9 @@ const Register = () => {
                     />
                 </div>
                 <div>
-                    <div className="reg-input-label">Confirm Password</div>
+                    <div className="reg__input-label">Confirm Password</div>
                     <input
-                        className="reg-input-field"
+                        className="reg__input-field"
                         type="password"
                         placeholder="Confirm your password"
                         name="password2"
@@ -134,10 +134,10 @@ const Register = () => {
                         onChange={e => onChange(e)}
                     />
                 </div>
-                <input className="reg-button" type="submit" value="Create account" />
+                <input className="reg__button" type="submit" value="Create account" />
             </form>
-            <p className="login-register">
-                Do you have an account? <Link className="login-register-link" to="/">Log In</Link>
+            <p className="reg__login-footer">
+                Do you have an account? <Link className="reg__login-link" to="/">Log In</Link>
             </p>
         </div>
     )
