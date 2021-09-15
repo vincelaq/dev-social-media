@@ -7,26 +7,33 @@
     height: 100vh;
 }
 .nav-wrapper {
-    align-self:flex-start;
-    width: 100vw;
+    width: 90%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    padding: 24px;
+    align-content: flex-end;
+    padding: 24px 0px 0px 0px;
 }
 .nav__landing-logo {
     display: inline;
-    font-size: 1.5rem;
-    margin-left: 18px;    
+    font-size: 1.5rem;  
 }
-.nav__auth-wrapper {
-    display: flex;
-    justify-content: space-between;
-    width: 112px;
-    text-decoration: none;
-    margin-right: 24px;
-}
+
 .nav__auth-link {
     text-decoration: none;
     color: white;
-    font-size: 1rem;
+    font-size: .85rem;
+    font-family: nimbus-sans, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--softWhite);
+}
+
+.nav__auth-wrapper{
+    height: auto;
+    padding-top: 8px;
+}
+
+.nav__auth-wrapper a:nth-child(1){
+    margin-right: 8px;
 }

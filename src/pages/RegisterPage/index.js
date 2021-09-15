@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import LoadingSpinner from '../../components/Elements/LoadingSpinner';
 import { AuthContext } from '../../context/auth-context';
 
-import './style.css';
+import '../LoginPage/style.css';
 
 
 const Register = () => {
@@ -66,78 +66,80 @@ const Register = () => {
 
 
     return (
-        <div className="reg-container">
+        <div className="form__container">
             {isLoading && <LoadingSpinner asOverlay />}
-            <h1 className="reg__title">
+            <h1 className="form__title">
                 Sign Up
             </h1>
-            <p className="reg__subtitle">
+            <p className="form__subtitle">
                 Register for an Account
             </p>
             <form onSubmit={e => onSubmit(e)}>
-                <div>
-                    <div className="reg__input-label">Full Name</div>
-                    <input 
-                        className="reg__input-field"
-                        type="text" 
-                        placeholder="Enter your full name" 
-                        name="fullName" 
-                        value={fullName} 
-                        onChange={e => onChange(e)}
-                        required
-                    />
+                <div className="form__grid-2-col">
+                    <div>
+                        <p className="form__input-title">Full Name</p>
+                        <input 
+                            className="form__input-field"
+                            type="text" 
+                            placeholder="Enter your full name" 
+                            name="fullName" 
+                            value={fullName} 
+                            onChange={e => onChange(e)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <p className="form__input-title">Username</p>
+                        <input 
+                            className="form__input-field"
+                            type="text" 
+                            placeholder="Enter your username" 
+                            name="username" 
+                            value={username} 
+                            onChange={e => onChange(e)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <p className="form__input-title">Email</p>
+                        <input 
+                            className="form__input-field"
+                            type="email" 
+                            placeholder="Enter your email" 
+                            name="email" 
+                            value={email} 
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div>
+                        <p className="form__input-title">Password</p>
+                        <input
+                            className="form__input-field"
+                            type="password"
+                            placeholder="Enter your password"
+                            name="password"
+                            minLength={6}
+                            value={password}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div>
+                        <p className="form__input-title">Confirm Password</p>
+                        <input
+                            className="form__input-field"
+                            type="password"
+                            placeholder="Confirm your password"
+                            name="password2"
+                            minLength={6}
+                            value={password2}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <input className="form__btn" type="submit" value="Create account" />
                 </div>
-                <div>
-                    <div className="reg__input-label">Username</div>
-                    <input 
-                        className="reg__input-field"
-                        type="text" 
-                        placeholder="Enter your username" 
-                        name="username" 
-                        value={username} 
-                        onChange={e => onChange(e)}
-                        required
-                    />
-                </div>
-                <div>
-                    <div className="reg__input-label">Email</div>
-                    <input 
-                        className="reg__input-field"
-                        type="email" 
-                        placeholder="Enter your email" 
-                        name="email" 
-                        value={email} 
-                        onChange={e => onChange(e)}
-                    />
-                </div>
-                <div>
-                    <div className="reg__input-label">Password</div>
-                    <input
-                        className="reg__input-field"
-                        type="password"
-                        placeholder="Enter your password"
-                        name="password"
-                        minLength={6}
-                        value={password}
-                        onChange={e => onChange(e)}
-                    />
-                </div>
-                <div>
-                    <div className="reg__input-label">Confirm Password</div>
-                    <input
-                        className="reg__input-field"
-                        type="password"
-                        placeholder="Confirm your password"
-                        name="password2"
-                        minLength={6}
-                        value={password2}
-                        onChange={e => onChange(e)}
-                    />
-                </div>
-                <input className="reg__button" type="submit" value="Create account" />
             </form>
-            <p className="reg__login-footer">
-                Do you have an account? <Link className="reg__login-link" to="/">Log In</Link>
+            <p className="form__footer">
+                Do you have an account?&nbsp;<Link className="form__footer-link" to="/">Log In</Link>
             </p>
         </div>
     )

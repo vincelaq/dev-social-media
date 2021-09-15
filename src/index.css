@@ -6,6 +6,7 @@
   --softWhite: #E4E4E4;
   --darkGrey: #212325;
   --black: #141718;
+  --grey: #313131;
 }
 
 body {
@@ -17,6 +18,8 @@ body {
   font-style: normal;
   line-height: 1.45;
   font-size: 15px;
+  text-decoration: none;
+  color: var(--softWhite);
 
 }
 
@@ -35,6 +38,7 @@ h1 {
   font-style: normal;
   font-size: 32px;
   line-height: 1.1;
+  color: var(--white);
 }
 
 h2 {
@@ -50,4 +54,15 @@ h2 {
   font-weight: 400;
   font-style: normal;
   color: var(--softWhite);
+}
+
+input[type=submit]{
+  cursor: pointer;
+  font-family: poppins, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+a {
+  text-decoration: none;
 }
