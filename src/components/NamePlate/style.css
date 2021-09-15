@@ -1,0 +1,28 @@
+.username {
+    text-align: center;
+    
+}
+
+.jobTitle {
+    text-align: center;
+}
+
+.image {
+    display: flex;
+    justify-content: start;
+}
+
+.bio {
+    display: flex;
+    justify-content: start;
+}
+
+.numberOfPosts {
+    display: flex;
+    justify-content: end;
+}
+
+.numberOfConnections {
+    display: flex; 
+    justify-content: end;
+}
