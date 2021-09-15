@@ -1,11 +1,13 @@
 .landing-container {
     background-color: #141718;
     display: flex;
+    justify-content:flex-start;
     flex-direction: column;
     align-items: center;
     height: 100vh;
 }
 .nav-wrapper {
+    align-self:flex-start;
     width: 100vw;
     display: flex;
     justify-content: space-between;

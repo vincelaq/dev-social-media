@@ -1,11 +1,12 @@
 .reg-container {
     background-color: rgb(243, 243, 243);
     min-width: 600px;
+    max-width: 800px;
     min-height: 800px;
     width: 40vw;
-    height: 78vh;
-    margin-top: 24px;
+    height: 800px;
     padding: 64px 82px;
+    margin-top: 24px;
 }
 .reg__title {
     font-size: 3rem;
