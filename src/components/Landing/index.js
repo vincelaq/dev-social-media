@@ -11,7 +11,7 @@ const Landing = () => {
     return (
         <div className="landing-container">
             <div className="nav-wrapper">
-                <div className="nav__logo">
+                <div className="nav__landing-logo">
                 <span style={{color: '#7EBFA0'}} >dev</span><span style={{color: 'white'}}>book</span>
                 </div>
                 <div className="nav__auth-wrapper">
