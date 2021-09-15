@@ -5,12 +5,22 @@ import HomePage from "../../pages/HomePage";
 import FollowingPage from "../../pages/FollowingPage";
 import ProfilePage from "../../pages/ProfilePage";
 import PostPage from "../../pages/PostPage";
+import CreatePost from "../CreatePost";
 import "./styles.css";
 
 const Nav = () => {
     const auth = useContext(AuthContext);
-    console.log(auth.user);
-    console.log(auth.token);
+    
+    
+
+    let avatar;
+    if (auth.user.image && auth.user.image.includes('gravatar')) {
+        avatar = auth.user.image;
+    } else {
+        avatar = `http://localhost:5000/${auth.user.image}`;
+    }
+
+    
     return (
         <Fragment>
 
@@ -83,10 +93,13 @@ const Nav = () => {
                     <input type="search" placeholder="Search" />
                 </div>
                 <div>
-                    <button>Create a Post</button>
+                    <CreatePost />
                     <img href="#" className="nav__profile-img" />
                 </div>
-                <div>Hello, {auth.user.username} AVATAR</div>
+                <div>
+                    Hello, {auth.user.username} 
+                    <img className="nav__avatar" src={`${auth.user.image}`} />
+                </div>
             </nav>
         </Fragment>
     )
