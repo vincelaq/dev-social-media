@@ -125,8 +125,7 @@ const createPost = async (req, res) => {
         });
     };
     
-    const { title, body } = req.body;
-    const paths = req.files.map(file => file.path);
+    const { title, body, languages } = req.body;
 
     let user;
     try {
@@ -145,14 +144,18 @@ const createPost = async (req, res) => {
         });
     }
 
+    let postLang;
+    if (languages) {
+        postLang = languages.split(' ');
+    };
+
     const newPost = new db.Post({
         title,
         author: user.id,
         username: user.username,
-        languages: [],
+        languages: postLang,
         body,
         image: user.image,
-        postImgs: paths,
         favLanguage: user.favLanguage,
         comments: [],
         likes: [],
