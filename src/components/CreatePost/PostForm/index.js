@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import LoadingSpinner from '../../Elements/LoadingSpinner';
 import { AuthContext } from '../../../context/auth-context';
+import server from '../../../api';
 
 import './style.css';
 
@@ -36,19 +37,21 @@ const PostForm = ({ close }) => {
         e.preventDefault();
         try {
             setIsLoading(true);
+            
             const dataArray = new FormData();
             dataArray.append("title", title);
             dataArray.append("body", body);
             dataArray.append("languages", languages);
-            const res = await axios({
-                method: 'post',
-                url: 'http://localhost:5000/api/posts',
-                data: dataArray,
+            
+            const options = {
                 headers: {
                     'Authorization': 'Bearer '+auth.token,
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data; boundary=---DEVBOOK---'
                 }
-            });
+            };
+            
+            const res = await server.post('posts', dataArray, options);
+
             console.log(res);
             setIsLoading(false);
             close()

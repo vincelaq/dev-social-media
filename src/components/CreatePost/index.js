@@ -1,16 +1,11 @@
-import React, {useState, useContext} from 'react';
+import React from 'react';
 import Popup from 'reactjs-popup';
-import { AuthContext } from '../../context/auth-context';
-
-
-import './style.css';
 import PostForm from './PostForm';
 
+import './style.css';
+
+
 const CreatePost = () => {
-    const auth = useContext(AuthContext);
-  
-
-
     return (
         <Popup
             trigger={<button className="button"> + Create a Post </button>}

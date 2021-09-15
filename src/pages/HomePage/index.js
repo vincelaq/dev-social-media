@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Post from "../../components/Post";
-import "../../index.css"
+import server from "../../api";
 import { AuthContext } from '../../context/auth-context';
 
-
+import "../../index.css"
 
 const HomePage = () => {
     const auth = useContext(AuthContext);
@@ -30,17 +30,20 @@ const HomePage = () => {
 
     const fetchPosts = async () => {
         try {
-            let res = await axios({
-                method: 'get',
-                url: 'http://localhost:5000/api/posts',
-            })
+            const options = {
+                headers: {
+                    'Authorization': 'Bearer '+auth.token,
+                    'Content-Type': 'application/json'
+                }
+            }
+            let res = await server.get('posts', options);
             setPosts(res.data.data);
             console.log("POST SERVICE RESPONSE: ", res);
         } catch (err) {
             handleErrors(err);
         }
-
     };
+
 
 
     useEffect(() => {

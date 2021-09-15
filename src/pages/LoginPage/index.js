@@ -1,8 +1,9 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import LoadingSpinner from '../../components/Elements/LoadingSpinner';
 import { AuthContext } from '../../context/auth-context';
+import server from '../../api';
 
 import './style.css';
 
@@ -37,14 +38,18 @@ const Login = () => {
         e.preventDefault();
         try {
             setIsLoading(true);
-            const res = await axios({
-                method: 'post',
-                url: 'http://localhost:5000/api/auth/login',
-                data: {
-                    email: email,
-                    password: password,
+            
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-            });
+            }
+            const data = {
+                email: email,
+                password: password
+            }
+            const res = await server.post('auth/login', data, options);
+
             console.log(res);
             setIsLoading(false);
             auth.login(res.data.user, res.data.token);

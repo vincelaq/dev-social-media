@@ -4,6 +4,8 @@ import "./styles.css";
 
 const Post = ({ id, title, user, body, comments, time, likes, getPostsAgain  }) => {
     
+    
+
     return (
         <div>
             <div className="post__sidebar">
@@ -36,8 +38,8 @@ const Post = ({ id, title, user, body, comments, time, likes, getPostsAgain  }) 
                     <figure></figure>
                 </figure>
                 <div className="elipses__drop-down">
-                    <a href="#">Edit</a>
-                    <a href="#">Delete</a>
+                    <button>Edit</button>
+                    <button>Delete</button>
                 </div>
             </div>
 
