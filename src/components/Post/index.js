@@ -2,7 +2,7 @@ import React from "react";
 // import Likes from "../Likes";
 import "./styles.css";
 
-const Post = ({ id, title, user, body, comments, time, likes, getPostsAgain  }) => {
+const Post = ({ id, title, user, body, comments, time, likes, fetchPosts  }) => {
     
     
 

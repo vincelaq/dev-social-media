@@ -5,7 +5,7 @@ import PostForm from './PostForm';
 import './style.css';
 
 
-const CreatePost = () => {
+const CreatePost = ({ fetchPosts }) => {
     return (
         <Popup
             trigger={<button className="button"> + Create a Post </button>}
@@ -20,7 +20,7 @@ const CreatePost = () => {
                 <div className="header"> Create a Post </div>
                 <div className="content">
                 {' '}
-                    <PostForm close={close} />
+                    <PostForm close={close} fetchPosts={() => fetchPosts()} />
                 </div>
             </div>
             )}

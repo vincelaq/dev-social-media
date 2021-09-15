@@ -6,7 +6,7 @@ import server from '../../../api';
 
 import './style.css';
 
-const PostForm = ({ close }) => {
+const PostForm = ({ close, fetchPosts }) => {
     const auth = useContext(AuthContext);
     const [formData, setFormData] = useState({ title: '', body: '', languages: '' });
     const [isLoading, setIsLoading] = useState(false);
@@ -53,6 +53,7 @@ const PostForm = ({ close }) => {
             const res = await server.post('posts', dataArray, options);
 
             console.log(res);
+            fetchPosts();
             setIsLoading(false);
             close()
         } catch (err) {
