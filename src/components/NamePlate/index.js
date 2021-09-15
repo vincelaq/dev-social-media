@@ -9,6 +9,7 @@ const NamePlate = ({
   numberOfPosts,
   numberOfConnections,
 }) => {
+    
   return (
     <div className="NamePlate-container">
       <button class="follow-button">Follow</button>
