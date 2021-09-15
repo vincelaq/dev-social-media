@@ -30,6 +30,7 @@ app.use((req, res, next) => {
 });
 
 /* ====  Routes & Controllers  ==== */
+app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 app.use("/api", routes);
 app.all("/api/*", function (req, res, next) {
     res.send("Where you going? This is not route.");
