@@ -4,15 +4,10 @@
     padding-top: 25px;
     padding-bottom: 25px;
 }
-
-.username {
-    display: inline-block;
-    font-size: 30px;
-}
-
-.jobTitle {
-    text-align: center;
-    font-size: 25px;
+.follow-button {
+    display: flex;
+    margin-bottom: 20px;
+    float: right;
 }
 
 .image {
@@ -21,19 +16,33 @@
     z-index: 1;
 }
 
+.username {
+    display: inline-block;
+    font-size: 30px;
+    padding-left: 10px;
+}
+
+.jobTitle {
+    text-align: center;
+    font-size: 25px;
+}
+
 .bio {
     display: flex;
     justify-content: start;
 }
 
-.numberOfPosts {
+.postAndConnections-container {
     display: flex;
+    flex-direction: row;
     justify-content: flex-end;
+}
+
+.numberOfPosts {
     font-size: 25px;
 }
 
 .numberOfConnections {
-    display: flex;
-    justify-content: flex-end;
     font-size: 25px;
+    padding-left: 20px;
 }
