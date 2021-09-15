@@ -20,6 +20,7 @@ body {
   font-size: 15px;
   text-decoration: none;
   color: var(--softWhite);
+  background-color: var(--black);
 
 }
 
@@ -65,4 +66,24 @@ input[type=submit]{
 
 a {
   text-decoration: none;
+  color: var(--softWhite);
+}
+
+
+/* SECTIONS */
+
+section {
+  padding: 160px 0px; 
+}
+
+/* CONTAINERS */
+
+.container {
+ padding: 0px 40px 0px 284px;
+}
+
+/* Global Combo Classes */
+
+.--text-green {
+  color: var(--green);
 }

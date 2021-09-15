@@ -1,5 +1,4 @@
 .landing-container {
-    background-color: #141718;
     display: flex;
     justify-content:flex-start;
     flex-direction: column;
@@ -14,10 +13,13 @@
     align-content: flex-end;
     padding: 24px 0px 0px 0px;
 }
-.nav__landing-logo {
+
+.nav__logo {
     display: inline;
-    font-size: 1.5rem;  
-}
+    font-size: 1.5rem; 
+    text-decoration: none;
+    color: var(--white); 
+  }
 
 .nav__auth-link {
     text-decoration: none;
@@ -37,3 +39,5 @@
 .nav__auth-wrapper a:nth-child(1){
     margin-right: 8px;
 }
+
+

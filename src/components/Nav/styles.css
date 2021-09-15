@@ -1,0 +1,46 @@
+.verti-nav {
+    padding: 24px 40px 101px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: auto;
+    height: 100vw;
+    width: 244px;
+    border-right: 1px solid var(--darkGrey);
+    
+}
+
+.nav__logo {
+    display: inline;
+    font-size: 1.5rem; 
+    text-decoration: none;
+    color: var(--white);
+  }
+
+.nav__link-wrap {
+    margin-top: 112px;
+}
+
+.nav__link {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background-color: transparent;
+    color: var(--softWhite);
+    margin-bottom: 16px;
+    border-radius: 8px;
+    transition: background-color ease-out 200ms;
+
+}
+
+.nav__link:hover {
+    background-color: var(--darkGrey);
+    transition: background-color ease-out 200ms;
+}
+
+.nav__link.active {
+    background-color: var(--darkGrey);
+}
