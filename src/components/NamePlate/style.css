@@ -1,12 +1,12 @@
 .NamePlate-container {
-    background:linear-gradient(to bottom, #646464 0%, #646464 50%,#C7C6C6 50%, #C7C6C6 100%);
+    background:linear-gradient(to bottom, #646464 0%, #646464 40%,#C7C6C6 40%, #C7C6C6 100%);
     border-bottom: 3px solid black;
     padding-top: 25px;
     padding-bottom: 25px;
 }
 
 .username {
-    display: flex;
+    display: inline-block;
     font-size: 30px;
 }
 
@@ -16,9 +16,9 @@
 }
 
 .image {
-    display: flex;
-    justify-content: start;
+    display: inline-block;
     border-radius: 50%;
+    z-index: 1;
 }
 
 .bio {
@@ -28,12 +28,12 @@
 
 .numberOfPosts {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     font-size: 25px;
 }
 
 .numberOfConnections {
-    display: flex; 
-    justify-content: end;
+    display: flex;
+    justify-content: flex-end;
     font-size: 25px;
 }
