@@ -4,12 +4,12 @@ import "./style.css";
 const NamePlate = ({username, jobTitle, image, bio, numberOfPosts, numberOfConnections}) => {
     return(
        <div>
-            <div> username {username} </div>
-            <div> jobTitle {jobTitle} </div>
-            <div> image {image} </div>
-            <div> bio {bio} </div>
-            <div> numberOfPosts {numberOfPosts} </div>
-            <div> numberOfConnections {numberOfConnections} </div>
+            <div className="username"> {username} </div>
+            <div className="jobTitle"> {jobTitle} </div>
+            <div className="image"> {image} </div>
+            <div className="bio"> {bio} </div>
+            <div className="numberOfPosts"> {numberOfPosts} </div>
+            <div className="numberOfConnections"> {numberOfConnections} </div>
        </div> 
     )
 };
