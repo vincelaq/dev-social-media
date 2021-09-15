@@ -56,19 +56,19 @@ const Login = () => {
 
 
     return (
-        <div className="login-container">
+        <div className="form__container">
             {isLoading && <LoadingSpinner asOverlay />}
-            <h1 className="login__title">
+            <h1 className="form__title">
                 Welcome back
             </h1>
-            <p className="login__subtitle">
+            <p className="form__subtitle">
                 Sign into your account below.
             </p>
             <form onSubmit={e => onSubmit(e)}>
                 <div>
-                    <div className="login__email">Email</div>
+                    <div className="form__input-title">Email</div>
                     <input 
-                        className="login__input-field"
+                        className="form__input-field"
                         type="email" 
                         placeholder="enter your email" 
                         name="email" 
@@ -77,9 +77,9 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    <div className="login__password">Password</div>
+                    <div className="form__input-title">Password</div>
                     <input
-                        className="login__input-field"
+                        className="form__input-field"
                         type="password"
                         placeholder="enter your password"
                         name="password"
@@ -88,10 +88,10 @@ const Login = () => {
                         onChange={e => onChange(e)}
                     />
                 </div>
-                <input className="login__button" type="submit" value="Sign in" />
+                <input className="form__btn" type="submit" value="Sign in" />
             </form>
-            <p className="login__register-footer">
-                Don't have an account? <Link className="login__register-link" to="/register">Register</Link>
+            <p className="form__footer">
+                Don't have an account?&nbsp;<Link className="form__footer-link" to="/register">Register</Link>
             </p>
         </div>
     )

@@ -1,46 +1,89 @@
-.login-container {
-    background-color: rgb(243, 243, 243);
+.form__container {
+    background-color: var(--darkGrey);
     min-width: 600px;
-    max-width: 800px;
-    min-height: 600px;
-    width: 40vw;
-    height: 600px;
-    margin-top: 120px;
-    padding: 82px;
+    width: 90vw;
+    max-width: 1100px;
+    height: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 8vw;
+    border-radius: 16px;
 }
-.login__title {
+.form__title {
     margin-top: 18px;
     font-size: 3rem;
     margin-bottom: 16px;
 }
-.login__subtitle {
+.form__subtitle {
     margin-bottom: 48px;
+    font-family: nimbus-sans, sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
-.login__email {
-    margin-bottom: 4px;
+.form__input-title {
+    margin-bottom: 8px;
+    margin-top: 24px;
+    color: var(--white);
 }
-.login__input-field {
-    height: 46px;
+.form__input-field {
+    height: 54px;
     width: 100%;
     padding-left: 12px;
-}
-.login__password {
-    margin-top: 24px;
-    margin-bottom: 4px;
-}
-.login__button {
-    background-color: rgb(145, 145, 145);
+    outline: none; 
+    border-radius: 8px;
+    background-color: var(--grey);
     border: none;
-    margin-top: 24px;
-    height: 46px;
-    width: 100%
+    color: var(--white);
 }
-.login__register-footer {
-    margin-top: 18px;
+.form__input-field:focus{
+    color: var(--green);
+}
+.form__btn {
+    background-color: var(--green);
+    border: none;
+    margin-top: 32px;
+    height: 54px;
+    width: 100%;
+    border-radius: 8px;
+    transition: ease 600ms;
+}
+.form__btn:hover {
+background-color: var(--white);
+}
+.form__footer {
+    margin-top: 24px;
     display: flex;
     justify-content: center;
+    font-family: nimbus-sans, sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
-.login__register-link {
-    margin-left: 4px;
+.form__footer-link {
+    font-family: poppins, sans-serif;
+    font-weight: 600;
+    font-style: normal;
     color: #7EBFA0;
+    transition: ease 600ms;
 }
+
+.form__footer-link:hover {
+    opacity: .75;
+}
+
+.form__grid-2-col {
+    display: grid;
+    grid-column: 2;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    column-gap: 24px;
+    
+}
+
+.form__grid-2-col div:nth-child(5), .form__grid-2-col .form__btn{
+    grid-column: 1 / span 2;
+
+}
+
+/* Add Media Query for max-wdth 720px */
