@@ -114,6 +114,99 @@ const getMyFollowing = async (req, res) => {
     }
 };
 
+// Image - POST - Post an image to AWS
+const postImage = async (req, res) => {
+    console.log(req.file.location);
+
+    if (req.file.location) {
+        let foundUser;
+        try {
+            foundUser = await db.User.findById(req.user.id);
+        } catch (err) {
+            return res.status(500).json({
+                message: "Error: Finding user for update has failed, please try again later",
+                data: err
+            });
+        }
+
+        if (!foundUser) {
+            return res.status(404).json({
+                message: "Error: Could not find user",
+                data: foundUser
+            });
+        }
+
+        foundUser.image = req.file.location;
+
+        try {
+            await foundUser.save();
+    
+            return res.json({
+                message: "Success: Updated User",
+                data: foundUser,
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: "Error: Update user has failed, please try again later",
+                data: err
+            });
+        }
+
+    } else {
+        return res.status(422).json({
+            message: "Error: Could not upload photo",
+            data: res
+        })
+    }
+
+}
+
+// Banner - POST - Post an banner to AWS
+const postBanner = async (req, res) => {
+    console.log(req.file.location);
+
+    if (req.file.location) {
+        let foundUser;
+        try {
+            foundUser = await db.User.findById(req.user.id);
+        } catch (err) {
+            return res.status(500).json({
+                message: "Error: Finding user for update has failed, please try again later",
+                data: err
+            });
+        }
+
+        if (!foundUser) {
+            return res.status(404).json({
+                message: "Error: Could not find user",
+                data: foundUser
+            });
+        }
+
+        foundUser.banner = req.file.location;
+
+        try {
+            await foundUser.save();
+    
+            return res.json({
+                message: "Success: Updated User",
+                data: foundUser,
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: "Error: Update user has failed, please try again later",
+                data: err
+            });
+        }
+
+    } else {
+        return res.status(422).json({
+            message: "Error: Could not upload photo",
+            data: res
+        })
+    }
+
+}
 
 // Update - PUT - Update an existing user (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
 const updateMyProfile = async (req, res) => {
@@ -309,4 +402,4 @@ const destroyUser = async (req, res) => {
         data: foundUser});
 };
 
-module.exports = { index, getMyProfile, getUserProfile, getMyFollowing, updateMyProfile, updateFollow, destroyUser };
+module.exports = { index, getMyProfile, getUserProfile, getMyFollowing, postImage, postBanner, updateMyProfile, updateFollow, destroyUser };
