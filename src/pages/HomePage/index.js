@@ -22,11 +22,8 @@ const HomePage = ({posts, fetchPosts}) => {
                     Welcome Back!</h1>
                     {posts.map((post) => {
                         return (
-                            <Link to={{
-                                pathname: '/post',
-                                state: post,
-                            }}>
                                 <Post
+                                    post={post}
                                     user={post.username}
                                     author={post.author}
                                     body={post.body}
@@ -40,8 +37,6 @@ const HomePage = ({posts, fetchPosts}) => {
                                     id={post._id}
                                     fetchPosts={() => fetchPosts()}
                                 />
-                            </Link>
-
                         );
                     })}
                 </div>

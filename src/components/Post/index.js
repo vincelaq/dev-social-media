@@ -1,10 +1,49 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import EditPost from "../EditPost";
+import { AuthContext } from "../../context/auth-context";
+import server from '../../api';
 // import Likes from "../Likes";
 import "./styles.css";
 
-const Post = ({ id, title, user, body, comments, time, likes, fetchPosts  }) => {
+const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts  }) => {
+    const auth = useContext(AuthContext);
     
-    
+    const handleErrors = (err) => {
+        if (err.response) {
+            console.log("Problem with response")
+            console.log(err.response)
+            alert(err.response.data.message)
+        } else if (err.request) {
+            console.log("Problem with request")
+            console.log(err.request)
+            alert(err.request.data)
+        } else {
+            console.log("Error during homepage render")
+            console.log(err.message)
+        }
+    };
+
+    const handleDelete = async() => {
+        if (auth.user._id === post.author) {
+            try {
+                const options = {
+                    headers: {
+                        'Authorization': 'Bearer '+auth.token,
+                        'Content-Type': 'application/json'
+                    }
+                }
+                let res = await server.delete(`posts/${id}`, options);
+                console.log("POST DELETE RESPONSE: ", res);
+                alert('Your post has been delete')
+                fetchPosts();
+            } catch (err) {
+                handleErrors(err);
+            }
+        } else {
+            alert('You are not authorized to delete this post!')
+        }
+    };
 
     return (
         <div>
@@ -22,7 +61,9 @@ const Post = ({ id, title, user, body, comments, time, likes, fetchPosts  }) => 
                     <p className="post__time-posted">Time Posted: {time}</p>
                     </div>
                 </div>
+                <Link to={{ pathname: '/post', state: post }}>
                     <h2>Title: {title}</h2>
+                </Link>
                     <p>Body: {body}</p>
                     <button className="post__comment-btn">
                         <img/>
@@ -38,8 +79,8 @@ const Post = ({ id, title, user, body, comments, time, likes, fetchPosts  }) => 
                     <figure></figure>
                 </figure>
                 <div className="elipses__drop-down">
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <EditPost id={id} fetchPosts={() => fetchPosts()} />
+                    <button onClick={() => handleDelete()}>Delete</button>
                 </div>
             </div>
 

@@ -193,7 +193,7 @@ const updatePost = async (req, res) => {
         });
     };
     
-    const { title, body } = req.body;
+    const { title, body, languages } = req.body;
     
     let foundPost;
     try {
@@ -214,6 +214,7 @@ const updatePost = async (req, res) => {
 
     if (title) foundPost.title = title;
     foundPost.body = body;
+    if (languages) foundPost.languages = languages;
 
     try {
         await foundPost.save();
@@ -379,10 +380,6 @@ const destroyPost = async (req, res) => {
         })
     }
 
-    let imagePaths;
-    if (foundPost.postImgs.length > 0) {
-        imagePaths = foundPost.postImgs;
-    }
 
     try {
         const session = await mongoose.startSession();
@@ -397,12 +394,6 @@ const destroyPost = async (req, res) => {
             data: err
         });
     }
-
-    imagePaths.forEach(path => {
-        fs.unlink(path, err => {
-            console.log(err);
-        })
-    });
 
     return res.json({
         message: "Success: Destroyed Post",

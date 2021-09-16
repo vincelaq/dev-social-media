@@ -53,14 +53,18 @@ const Nav = () => {
     }, []);
     
     
-    
-
+    let url;
     let avatar;
+    if (process.env.NODE_ENV === "development") {
+        url = "http://localhost:5000/api/";
+    } else {
+        url = "https://limitless-lowlands-64983.herokuapp.com/"
+    };
     if (auth.user.image && auth.user.image.includes('gravatar')) {
         avatar = auth.user.image;
     } else {
-        avatar = `http://localhost:5000/${auth.user.image}`;
-    }
+        avatar = `${url}${auth.user.image}`;
+    };
 
     
     return (
