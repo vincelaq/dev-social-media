@@ -1,5 +1,5 @@
-import React from "react";
-import FollowProfile from "./FollowProfile";
+import React, { Component } from "react";
+import FollowProfile from "../FollowProfile";
 import "./style.css";
 
 const NamePlate = ({

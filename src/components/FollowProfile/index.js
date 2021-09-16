@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from '../../context/auth-context';
+import server from '../../api';
 
 const FollowProfile = ( {id} ) => {
     const auth = useContext(AuthContext);
@@ -39,16 +40,17 @@ const changeFollowing = async (e) => {
             }
         };
         
-        const res = await server.put(`users/follow/${id}`, dataArray, options);
+       const res = await server.put(`users/follow/${id}`, options);
 
         console.log(res);
+
         setIsFollowing(false)
     } catch (err) {
         handleErrors(err);
     }
 }
 
-    console.log(FollowProfile, "follow button pressed");
+    //console.log(FollowProfile, "follow button pressed");
 
     useEffect(() => {
         determineFollowing()
