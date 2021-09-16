@@ -1,5 +1,5 @@
 import React from "react";
-import "./FollowProfile";
+import FollowProfile from "./FollowProfile";
 import "./style.css";
 
 const NamePlate = ({
@@ -9,11 +9,13 @@ const NamePlate = ({
   bio,
   numberOfPosts,
   numberOfConnections,
+  following,
+  id,
 }) => {
     
   return (
     <div className="NamePlate-container">
-      <button class="follow-button">Follow</button>
+      <FollowProfile id={id}/>
       <div className="image"> {image} </div>
       <div className="username"> {username} </div>
       <div className="jobTitle"> {jobTitle} </div>

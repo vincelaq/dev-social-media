@@ -38,6 +38,8 @@ const ProfilePage = () => {
                 bio={user.bio}
                 numberOfPosts={user.posts.length}
                 numberOfConnections={user.following.length}
+                following={user.following}
+                id={user._id}
             />
             ProfilePage
             {posts.map((post) => {
