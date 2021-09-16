@@ -1,17 +1,21 @@
 import React, {useState, useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import NamePlate from "../../components/NamePlate";
 import Post from "../../components/Post";
 import { AuthContext } from '../../context/auth-context';
+
 import './style.css';
 
 
-const ProfilePage = () => {
-    const auth = useContext(AuthContext);
+const ProfilePage = (props) => {
+    const { user } = props.location;
     const [posts, setPosts] = useState([]);
-    const user = auth.user;
-    
-   const fetchPosts = async () => {
+
+    console.log(user)
+
+
+    const fetchPosts = async () => {
         let res = await axios ({
             method: "get",
             url: `http://localhost:5000/api/posts/user/${user._id}`,
@@ -29,34 +33,36 @@ const ProfilePage = () => {
     }, []);
 
     return (
-        <div>
-            <NamePlate
-                username={user.username}
-                jobTitle={user.jobTitle}
-                image={user.image}
-                bio={user.bio}
-                numberOfPosts={user.posts.length}
-                numberOfConnections={user.following.length}
-                following={user.following}
-                id={user._id}
-            />
-            ProfilePage
-            {posts.map((post) => {
-                return (
-                    <Post
-                        user={post.username}
-                        author={post.author}
-                        body={post.body}
-                        title={post.title}
-                        comments={post.comments}
-                        time={post.createdAt}
-                        key={post._id}
-                        likes={post.voteTotal}
-                        id={post._id}
-                        getPostsAgain={ () => fetchPosts ()}
-                        />
-                    );
-            })}
+        <div className="container">
+            <section>
+                <NamePlate
+                    username={user.username}
+                    jobTitle={user.jobTitle}
+                    image={user.image}
+                    bio={user.bio}
+                    numberOfPosts={user.posts.length}
+                    numberOfConnections={user.following.length}
+                    following={user.following}
+                    id={user._id}
+                />
+                ProfilePage
+                {posts.map((post) => {
+                    return (
+                        <Post
+                            user={post.username}
+                            author={post.author}
+                            body={post.body}
+                            title={post.title}
+                            comments={post.comments}
+                            time={post.createdAt}
+                            key={post._id}
+                            likes={post.voteTotal}
+                            id={post._id}
+                            getPostsAgain={ () => fetchPosts ()}
+                            />
+                        );
+                })}
+            </section>
         </div>     
     );
 }

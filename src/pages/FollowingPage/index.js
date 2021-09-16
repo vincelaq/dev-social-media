@@ -6,22 +6,9 @@ import './style.css';
 
 const FollowingPage = () => {
     const auth = useContext(AuthContext);
-    const user = auth.user;
 
     const [following, setFollowing] = useState([]);
 
-    let url;
-    let avatar;
-    if (process.env.NODE_ENV === "development") {
-        url = "http://localhost:5000/api/";
-    } else {
-        url = "https://limitless-lowlands-64983.herokuapp.com/"
-    };
-    if (auth.user.image && auth.user.image.includes('gravatar')) {
-        avatar = auth.user.image;
-    } else {
-        avatar = `${url}${auth.user.image}`;
-    };
 
     const handleErrors = (err) => {
       if (err.response) {
@@ -61,15 +48,16 @@ const FollowingPage = () => {
 
     return (
       <div>
-        <h1>Following</h1>
         <section>
           <div className="container">
-            {following.map((user) => {
-                return (
-                    <FollowingItem user={user} auth={auth}
-                  fetchFollowing={() => fetchFollowing()}  />
-              );
-            })}
+            <h1>Following</h1>
+            {!following && <h3>You are not following anyone yet</h3>}
+              {following.map((user) => {
+                  return (
+                      <FollowingItem user={user} auth={auth}
+                    fetchFollowing={() => fetchFollowing()}  />
+                );
+              })}
           </div>
         </section>
       </div>
