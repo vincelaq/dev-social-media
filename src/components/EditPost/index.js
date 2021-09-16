@@ -1,14 +1,14 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
-import PostForm from './PostForm';
+import EditForm from './EditForm';
 
 import './style.css';
 
 
-const CreatePost = ({ fetchPosts }) => {
+const EditPost = ({ id, fetchPosts }) => {
     return (
         <Popup
-            trigger={<button className="button"> + Create a Post </button>}
+            trigger={<button className="button"> Edit </button>}
             modal
             nested
         >
@@ -17,10 +17,10 @@ const CreatePost = ({ fetchPosts }) => {
                 <button className="close" onClick={close}>
                 &times;
                 </button>
-                <div className="header"> Create a Post </div>
+                <div className="header"> Edit a Post </div>
                 <div className="content">
                 {' '}
-                    <PostForm close={close} fetchPosts={() => fetchPosts()} />
+                    <EditForm close={close} id={id} fetchPosts={() => fetchPosts()} />
                 </div>
             </div>
             )}
@@ -28,4 +28,4 @@ const CreatePost = ({ fetchPosts }) => {
     )
 };
 
-export default CreatePost;
+export default EditPost;

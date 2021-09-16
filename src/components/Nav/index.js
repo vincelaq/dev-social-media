@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from "react";
+import React, { useState, useContext, useEffect, Fragment } from "react";
 import { Route, NavLink, Switch, Link } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
 import HomePage from "../../pages/HomePage";
@@ -6,19 +6,65 @@ import FollowingPage from "../../pages/FollowingPage";
 import ProfilePage from "../../pages/ProfilePage";
 import PostPage from "../../pages/PostPage";
 import CreatePost from "../CreatePost";
+import server from "../../api";
 import "./styles.css";
 
 const Nav = () => {
     const auth = useContext(AuthContext);
-    
-    
+    const [posts, setPosts] = useState([]);
+    const user = auth.user;
 
+    const handleErrors = (err) => {
+        if (err.response) {
+            console.log("Problem with response")
+            console.log(err.response)
+            alert(err.response.data.message)
+        } else if (err.request) {
+            console.log("Problem with request")
+            console.log(err.request)
+            alert(err.request.data)
+        } else {
+            console.log("Error during homepage render")
+            console.log(err.message)
+        }
+    }
+
+
+    const fetchPosts = async () => {
+        try {
+            const options = {
+                headers: {
+                    'Authorization': 'Bearer '+auth.token,
+                    'Content-Type': 'application/json'
+                }
+            }
+            let res = await server.get('posts', options);
+            setPosts(res.data.data);
+            console.log("POST SERVICE RESPONSE: ", res);
+        } catch (err) {
+            handleErrors(err);
+        }
+    };
+
+
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+    
+    
+    let url;
     let avatar;
+    if (process.env.NODE_ENV === "development") {
+        url = "http://localhost:5000/api/";
+    } else {
+        url = "https://limitless-lowlands-64983.herokuapp.com/"
+    };
     if (auth.user.image && auth.user.image.includes('gravatar')) {
         avatar = auth.user.image;
     } else {
-        avatar = `http://localhost:5000/${auth.user.image}`;
-    }
+        avatar = `${url}${auth.user.image}`;
+    };
 
     
     return (
@@ -69,7 +115,7 @@ const Nav = () => {
                 <Route
                     exact
                     path="/"
-                    render={(props) => <HomePage {...props} />}
+                    render={(props) => <HomePage {...props} posts={posts} fetchPosts={() => fetchPosts()} />}
                 />
                 <Route
                     exact
@@ -93,7 +139,7 @@ const Nav = () => {
                     <input type="search" placeholder="Search" />
                 </div>
                 <div>
-                    <CreatePost />
+                    <CreatePost fetchPosts={() => fetchPosts()} />
                     <img href="#" className="nav__profile-img" />
                 </div>
                 <div>

@@ -1,14 +1,13 @@
 import React, { useContext, useState } from 'react';
-import axios from 'axios';
 import LoadingSpinner from '../../Elements/LoadingSpinner';
 import { AuthContext } from '../../../context/auth-context';
 import server from '../../../api';
 
 import './style.css';
 
-const PostForm = ({ close, fetchPosts }) => {
+const EditForm = ({ id, close, fetchPosts }) => {
     const auth = useContext(AuthContext);
-    const [formData, setFormData] = useState({ title: '', body: '', languages: '' });
+    const [formData, setFormData] = useState({ title: "", body: "", languages: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const { title, body, languages } = formData;
@@ -50,7 +49,7 @@ const PostForm = ({ close, fetchPosts }) => {
                 }
             };
             
-            const res = await server.post('posts', dataArray, options);
+            const res = await server.put(`posts/${id}`, dataArray, options);
 
             console.log(res);
             fetchPosts();
@@ -101,4 +100,4 @@ const PostForm = ({ close, fetchPosts }) => {
     )
 }
 
-export default PostForm;
+export default EditForm;

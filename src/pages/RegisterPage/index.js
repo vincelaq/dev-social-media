@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { Fragment, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import LoadingSpinner from '../../components/Elements/LoadingSpinner';
 import { AuthContext } from '../../context/auth-context';
+import server from '../../api';
 
 import '../LoginPage/style.css';
 
@@ -33,16 +34,20 @@ const Register = () => {
         } else {
             setIsLoading(true);
             try {
-                const res = await axios({
-                    method: 'post',
-                    url: 'http://localhost:5000/api/auth/signup',
-                    data: {
-                        fullName: formData.fullName,
-                        username: username,
-                        email: email,
-                        password: password,
+
+                const options = {
+                    headers: {
+                        'Content-Type': 'application/json'
                     }
-                })
+                }
+                const data = {
+                    fullName: fullName,
+                    username: username,
+                    email: email,
+                    password: password,
+                }
+                
+                const res = await server.post('auth/signup', data, options);
                 if (res.statusText !== 'OK') {
                     throw new Error(res.data.message)
                 }
