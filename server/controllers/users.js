@@ -86,6 +86,35 @@ const getUserProfile = async (req, res) => {
     }
 };
 
+
+// Following - GET - Retrieved data of current user following
+const getMyFollowing = async (req, res) => {
+    let following;
+    try {
+        following = await db.User.findById(req.user.id)
+            .select('following')
+            .populate('following');
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Retrieving current user has failed, please try again later",
+            data: err
+        })
+    }
+
+    if (!following) {
+        return res.status(404).json({
+            message: "Failed: Following not found",
+            data: following
+        });
+    } else {
+        return res.json({
+            message: "Success: Following found",
+            data: following
+        });
+    }
+};
+
+
 // Update - PUT - Update an existing user (WARNING: NEED FRONT END REQUIREMENTS FOR ALL FIELDS)
 const updateMyProfile = async (req, res) => {
     const { fullName, password, skills, bio, jobTitle, languages, favLanguage } = req.body;
@@ -280,4 +309,4 @@ const destroyUser = async (req, res) => {
         data: foundUser});
 };
 
-module.exports = { index, getMyProfile, getUserProfile, updateMyProfile, updateFollow, destroyUser };
+module.exports = { index, getMyProfile, getUserProfile, getMyFollowing, updateMyProfile, updateFollow, destroyUser };
