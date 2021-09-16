@@ -11,10 +11,10 @@ const CommentItems = ({ comment }) => {
     return(
        <div>
             <div className="comment">
-                <div> username {comment.username} </div>
-                <div> createdAt {comment.createdAt} </div>
-                <div> image {comment.image} </div>
-                <div> body {comment.body} </div>
+                <div className="comment--user"> username {comment.username} </div>
+                <div className="comment--create"> createdAt {comment.createdAt} </div>
+                <div className="comment--image"> image {comment.image} </div>
+                <div className="comment--body"> body {comment.body} </div>
             </div>
             <button>Reply</button>
             <button>Edit</button>
