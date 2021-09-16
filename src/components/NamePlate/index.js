@@ -1,4 +1,5 @@
 import React from "react";
+import "./FollowProfile";
 import "./style.css";
 
 const NamePlate = ({
