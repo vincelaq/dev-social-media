@@ -11,7 +11,7 @@ const ProfilePage = () => {
     const auth = useContext(AuthContext);
     const [posts, setPosts] = useState([]);
     const user = auth.user;
-
+    
    const fetchPosts = async () => {
         let res = await axios ({
             method: "get",
