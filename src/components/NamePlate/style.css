@@ -1,0 +1,49 @@
+.NamePlate-container {
+    background:linear-gradient(to bottom, #646464 0%, #646464 35%,#C7C6C6 34%, #C7C6C6 100%);
+    border-bottom: 3px solid black;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+.follow-button {
+    display: flex;
+    margin-bottom: 20px;
+    float: right;
+    margin-right: 40px;
+}
+
+.image {
+    display: inline-block;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.username {
+    display: inline-block;
+    font-size: 30px;
+    padding-left: 10px;
+}
+
+.jobTitle {
+    text-align: center;
+    font-size: 25px;
+}
+
+.bio {
+    display: flex;
+    justify-content: start;
+}
+
+.postAndConnections-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.numberOfPosts {
+    font-size: 25px;
+}
+
+.numberOfConnections {
+    font-size: 25px;
+    padding-left: 20px;
+}

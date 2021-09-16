@@ -10,7 +10,7 @@ const ProfilePage = () => {
     const auth = useContext(AuthContext);
     const [posts, setPosts] = useState([]);
     const user = auth.user;
-
+    
    const fetchPosts = async () => {
         let res = await axios ({
             method: "get",
@@ -37,6 +37,8 @@ const ProfilePage = () => {
                 bio={user.bio}
                 numberOfPosts={user.posts.length}
                 numberOfConnections={user.following.length}
+                following={user.following}
+                id={user._id}
             />
             ProfilePage
             {posts.map((post) => {
