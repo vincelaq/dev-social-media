@@ -64,7 +64,7 @@ const EditForm = ({ id, close, fetchPosts }) => {
     return (
         <div className="create-post__wrapper">
             {isLoading && <LoadingSpinner asOverlay />}
-            <form className="create-post__form" enctype="multipart/form-data" onSubmit={e => onSubmit(e)}>
+            <form className="create-post__form" onSubmit={e => onSubmit(e)}>
                 <div className="create-post__input-wrapper">
                     <input
                         className="create-post__input" 

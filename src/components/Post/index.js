@@ -70,7 +70,7 @@ const Post = ({ post, allPosts, id, author, title, user, body, comments, time, l
                     <p className="post__time-posted">Time Posted: {time}</p>
                     </div>
                 </div>
-                <Link to={{ pathname: '/post', state: post }}>
+                <Link to={{ pathname: `/post/${id}`, post, comments }}>
                     <h2>Title: {title}</h2>
                 </Link>
                     <p>Body: {body}</p>

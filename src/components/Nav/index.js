@@ -115,8 +115,8 @@ const Nav = () => {
                     render={(props) => <FollowingPage {...props} />}
                 />
                 <Route
-                    exact
-                    path="/post"
+                    
+                    path="/post/:pid"
                     render={(props) => <PostPage {...props} />}
                 />
             </Switch>
