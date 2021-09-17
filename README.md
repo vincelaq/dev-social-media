@@ -44,7 +44,7 @@ Below the "Sign in" button is the "Register" button or in the top right hand cor
 
 
 ## Getting Started: 
-Heroku: https://limitless-lowlands-64983.herokuapp.com/  <br>
+Heroku: https://devbook-flex525.herokuapp.com/  <br>
 Trello Board : https://trello.com/b/wagAN1Fm/dev-social-media
 
 
