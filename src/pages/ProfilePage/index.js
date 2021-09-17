@@ -44,6 +44,7 @@ const ProfilePage = (props) => {
                     numberOfConnections={user.following.length}
                     following={user.following}
                     id={user._id}
+                    fetchPosts={() => fetchPosts()}
                 />
                 ProfilePage
                 {posts.map((post) => {

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import FollowProfile from "../FollowProfile";
 import "./style.css";
 
@@ -11,12 +11,13 @@ const NamePlate = ({
   numberOfConnections,
   following,
   id,
+  fetchPosts
 }) => {
     
   return (
     <div className="NamePlate-container">
-      <FollowProfile id={id}/>
-      <div className="image"> {image} </div>
+      <FollowProfile id={id} fetchPosts={() => fetchPosts()} />
+      <div className="image"> <img src={image} /> </div>
       <div className="username"> {username} </div>
       <div className="jobTitle"> {jobTitle} </div>
       <div className="postAndConnections-container">
