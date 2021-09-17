@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import FollowProfile from "../FollowProfile";
+import EditImage from "../EditImage";
 import "./style.css";
 
 const NamePlate = ({
@@ -11,12 +12,13 @@ const NamePlate = ({
   numberOfConnections,
   following,
   id,
+  fetchPosts
 }) => {
     
   return (
     <div className="NamePlate-container">
-      <FollowProfile id={id}/>
-      <div className="image"> {image} </div>
+      <FollowProfile id={id} fetchPosts={() => fetchPosts()} />
+      <div className="image"> <EditImage id={id} image={image} fetchPosts={() => fetchPosts()} /> </div>
       <div className="username"> {username} </div>
       <div className="jobTitle"> {jobTitle} </div>
       <div className="postAndConnections-container">

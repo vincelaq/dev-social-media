@@ -1,11 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from '../../context/auth-context';
 import server from '../../api';
+import EditProfile from "../EditProfile";
 
-const FollowProfile = ( {id} ) => {
+const FollowProfile = ( {id, fetchPosts } ) => {
     const auth = useContext(AuthContext);
     const user = auth.user;
-    const [isFollowing, setIsFollowing] = useState(false)
+    const [isFollowing, setIsFollowing] = useState(false);
+    const [isUser, setIsUser] = useState(false);
 
 const determineFollowing = () => {
     if (user.following.includes(id)) {
@@ -13,7 +15,16 @@ const determineFollowing = () => {
     } else {
         setIsFollowing(false)
     }
-}
+};
+
+const determineIfUser = () => {
+    if (user._id === id) {
+        setIsUser(true)
+    } else {
+        setIsUser(false)
+    }
+};
+
 const handleErrors = (err) => {
     if (err.response) {
         console.log("Problem with response")
@@ -40,7 +51,9 @@ const changeFollowing = async (e) => {
             }
         };
         
-       const res = await server.put(`users/follow/${id}`, options);
+        const data = {}
+        
+        const res = await server.put(`users/follow/${id}`, data, options);
 
         console.log(res);
 
@@ -50,19 +63,21 @@ const changeFollowing = async (e) => {
     }
 }
 
-    //console.log(FollowProfile, "follow button pressed");
-
     useEffect(() => {
-        determineFollowing()
+       determineFollowing();
+       determineIfUser();
     },[])
 
     return (
         <div>
-            { isFollowing
-            ? (<button variant="contained" color="secondary" 
-                onClick={changeFollowing}>unFollow</button>)
-            : (<button variant="contained" color="primary"
-                onClick={changeFollowing}>Follow</button>)
+            { isUser ?
+                <EditProfile user={user} fetchPosts={() => fetchPosts()} />
+                    : isFollowing ?
+                    <button variant="contained" color="secondary" 
+                onClick={changeFollowing}>unFollow</button>
+                    : <button variant="contained" color="primary"
+                    onClick={changeFollowing}>Follow</button>
+
             }
         </div>
     )

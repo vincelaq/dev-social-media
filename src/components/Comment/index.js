@@ -18,7 +18,7 @@ const Comment = ({username, createdAt, image, body, comments}) => {
           <img src="avatar/path" alt="User avatar" />
           <span> username {username} </span>
         </div>
-        <div classNmae="comment"> bady { body }</div>
+        <div className="comment"> bady { body }</div>
         <textarea
           className="comment-field"
           placeholder="What are your thoughts?"
