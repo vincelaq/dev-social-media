@@ -20,6 +20,10 @@ To make us different, we first looked at our competitors. Most used out of date 
 To further our study we asked Software Developers and Student Software Developers a number of questions. Some of the most important questions were, "Do you find the answer you were looking for on the first try? Do you trust those answers? Are they up to date with industry standards? Do you use multiple sources to locate you answers? If you can find multiple answers to a single question and be assured it up to industry standards, would you look for a different source?" A high percentage of responses stated that if a website was able to provide an industry standard answer consistently, that was current, they would use that resource before any others. 
 It is with this research we came up with a simple yet effective Social Media Platform to be that one website that all Developers are looking for. Lets show you around...
 
+## Getting Started: 
+Heroku: https://limitless-lowlands-64983.herokuapp.com/  <br>
+Trello Board : https://trello.com/b/wagAN1Fm/dev-social-media
+
 ## A Guided Walk-through of DevBook
 <h4>Login Page</h4>
 We start here on the Login Page. At DevBook you would create a profile where you would be able to post content, share images, follow your favorite developers and comment on the post of you fellow Developers. But we first need to create a profile.
@@ -32,6 +36,18 @@ Below the "Sign in" button is the "Register" button or in the top right hand cor
 (image of sign up page)
 
 <h4>Home Page</h4>
+The Home Page is your main page. On your homepage you have your navigation bar. The navigation bar, located on the left hand side of the screen, has the following features. You have the ability to see the developers you are following. You have a profile feature, which takes you to your profile. At the bottom of you navigation bar is the Logout feature. Displayed next to the navigation is the post from other users. Now if you wish to create your own post, you can navigate to the upper right hand corner of the screen and press the "Create a Post" button.
+
+(image of home page)
+
+<h4>Post Page </h4>
+
+<h4>User Profile</h4>
+
+<h4>Comment on Post</h4>
+
+<h4>Following Page</h4>
+
 
 
 
@@ -59,4 +75,6 @@ Trello Board : https://trello.com/b/wagAN1Fm/dev-social-media
 List any unsolved issues.
 
 ## Future Enhancements: 
-Identify future features and enhancements planned for the project.
+- The ability to send private messages to other developers.
+- Add a Messages button to the Navigation Bar.
+- 
