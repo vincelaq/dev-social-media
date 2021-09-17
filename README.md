@@ -1,6 +1,6 @@
 # Dev Social Media App (working title)
 #Authors: Vincent Laquindanum, Buhari Maiwada, Makai Harris & James Bell
-\
+
 ## Introduction: 
 Connection. As developers, connection is the most important aspect of our careers. It is with connection that we have accomplished many great things and shaped the entire world. And if you don't believe it, all you have to do is look at what has been accomplished since the first higher-level programming language, Fortran, founded in 1957.
 
@@ -21,11 +21,18 @@ To further our study we asked Software Developers and Student Software Developer
 It is with this research we came up with a simple yet effective Social Media Platform to be that one website that all Developers are looking for. Lets show you around...
 
 ## A Guided Walk-through of DevBook
+<h4>Login Page</h4>
 We start here on the Login Page. At DevBook you would create a profile where you would be able to post content, share images, follow your favorite developers and comment on the post of you fellow Developers. But we first need to create a profile.
 
 (image of login Page goes here)
 
-Below the "Sign in" button is the "Register" button or in the top right hand corner of the website is a "Signup" button. Click on either to be re-directed to the Sign up Page. Once on the Sign up Page enter your name, create a username, enter your email and create a password. After filling out the information 
+<h4>SignUp Page</h4>
+Below the "Sign in" button is the "Register" button or in the top right hand corner of the website is a "Signup" button. Click on either to be re-directed to the Sign up Page. Once on the Sign up Page enter your name, create a username, enter your email and create a password. After filling out the information, click the "Create account" button and you will be redirected to your Home Page.
+
+(image of sign up page)
+
+<h4>Home Page</h4>
+
 
 
 ## Technologies Used: 
