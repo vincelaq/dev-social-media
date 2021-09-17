@@ -37,19 +37,19 @@ const EditForm = ({ id, close, fetchPosts }) => {
         try {
             setIsLoading(true);
             
-            const dataArray = new FormData();
-            dataArray.append("title", title);
-            dataArray.append("body", body);
-            dataArray.append("languages", languages);
+            const data = {
+                "title": title,
+                "body": body,
+                "languages": languages
+            }
             
             const options = {
                 headers: {
                     'Authorization': 'Bearer '+auth.token,
-                    'Content-Type': 'multipart/form-data; boundary=---DEVBOOK---'
                 }
             };
             
-            const res = await server.put(`posts/${id}`, dataArray, options);
+            const res = await server.put(`posts/${id}`, data, options);
 
             console.log(res);
             fetchPosts();
@@ -73,7 +73,7 @@ const EditForm = ({ id, close, fetchPosts }) => {
                         name="title" 
                         value={title} 
                         onChange={e => onChange(e)}
-                        required
+                
                     />
                     <input
                         className="create-post__input"
@@ -89,7 +89,7 @@ const EditForm = ({ id, close, fetchPosts }) => {
                         type="text"
                         placeholder="Language Tags (space in between, no commas)"
                         name="languages"
-                        required
+
                         value={languages}
                         onChange={e => onChange(e)}
                     />

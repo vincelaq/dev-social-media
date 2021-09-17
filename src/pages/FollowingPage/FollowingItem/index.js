@@ -53,7 +53,7 @@ const FollowingItem = ({user, fetchFollowing}) => {
     return (
        
             <div className="following-item__wrapper">
-                <Link to={{pathname: '/profile', user}}>
+                <Link to={{pathname: `/profile/${user._id}`, user}}>
                   <img className="nav__avatar" src={user.image} />
                 </Link>
                 <div className="following-item__content following-item__username">{user.username} </div>

@@ -6,9 +6,9 @@ import server from '../../api';
 // import Likes from "../Likes";
 import "./styles.css";
 
-const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts  }) => {
+const Post = ({ post, id, author, title, user, body, comments, time, likes, fetchPosts  }) => {
     const auth = useContext(AuthContext);
-    
+    console.log("comments", comments);
     const handleErrors = (err) => {
         if (err.response) {
             console.log("Problem with response")
@@ -25,7 +25,7 @@ const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts  
     };
 
     const handleDelete = async() => {
-        if (auth.user._id === post.author) {
+        if (auth.user._id === author) {
             try {
                 const options = {
                     headers: {
@@ -34,7 +34,7 @@ const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts  
                     }
                 }
                 let res = await server.delete(`posts/${id}`, options);
-                console.log("POST DELETE RESPONSE: ", res);
+                console.log("Post Component Delete Response: ", res);
                 alert('Your post has been delete')
                 fetchPosts();
             } catch (err) {
@@ -44,6 +44,13 @@ const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts  
             alert('You are not authorized to delete this post!')
         }
     };
+
+    let numberOfComments;
+    if(comments && Object.keys(comments).length > 0 ) {
+        numberOfComments = Object.keys(comments).length
+    } else {
+        numberOfComments = 0;
+    }
 
     return (
         <div>
@@ -67,7 +74,7 @@ const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts  
                     <p>Body: {body}</p>
                     <button className="post__comment-btn">
                         <img/>
-                        <span>{comments.length}</span>
+                        <span>{numberOfComments}</span>
                     </button>
             </div>
 
@@ -79,7 +86,9 @@ const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts  
                     <figure></figure>
                 </figure>
                 <div className="elipses__drop-down">
-                    <EditPost id={id} fetchPosts={() => fetchPosts()} />
+                    {auth.user._id === author ? 
+                        <EditPost id={id} fetchPosts={() => fetchPosts()} />
+                        : <button onClick={()=>alert('You are not authorized to edit this post!')}>Edit</button>}
                     <button onClick={() => handleDelete()}>Delete</button>
                 </div>
             </div>

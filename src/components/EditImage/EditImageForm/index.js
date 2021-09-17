@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { useForm } from 'react-hook-form'
+import { useHistory } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
 import server from '../../../api';
 
 import './style.css';
 
-const EditImageForm = ({ id, close, fetchPosts }) => {
+const EditImageForm = ({ id, close, fetchUser }) => {
+    const history = useHistory();
     const auth = useContext(AuthContext);
     const [image, setImage] = useState({ preview: "", raw: "" });
 
@@ -47,9 +48,8 @@ const EditImageForm = ({ id, close, fetchPosts }) => {
             const res= await server.post("users/image", formData, options);
             
             console.log(res);
-                fetchPosts();
-        
-                close()
+                fetchUser();
+                history.push({pathname: `/profile/${auth.user._id}`, state: auth.user })
         } catch (err) {
 
                 handleErrors(err);

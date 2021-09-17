@@ -12,13 +12,14 @@ const NamePlate = ({
   numberOfConnections,
   following,
   id,
-  fetchPosts
+  fetchPosts,
+  fetchUser
 }) => {
     
   return (
     <div className="NamePlate-container">
       <FollowProfile id={id} fetchPosts={() => fetchPosts()} />
-      <div className="image"> <EditImage id={id} image={image} fetchPosts={() => fetchPosts()} /> </div>
+      <div className="image"> <EditImage id={id} image={image} fetchUser={() => fetchUser()} /> </div>
       <div className="username"> {username} </div>
       <div className="jobTitle"> {jobTitle} </div>
       <div className="postAndConnections-container">

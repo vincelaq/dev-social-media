@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import axios from 'axios';
 import LoadingSpinner from '../../Elements/LoadingSpinner';
 import { AuthContext } from '../../../context/auth-context';
 import server from '../../../api';

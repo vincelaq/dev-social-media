@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import LoadingSpinner from '../../components/Elements/LoadingSpinner';
