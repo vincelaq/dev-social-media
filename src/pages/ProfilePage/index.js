@@ -9,7 +9,7 @@ import './style.css';
 
 const ProfilePage = (props) => {
     
-    const [posts, setPosts] = useState(props.location.user.posts);
+    const [posts, setPosts] = useState(props.location.posts);
     const [user, setUser] = useState(props.location.user);
     const { uid } = useParams();
 
