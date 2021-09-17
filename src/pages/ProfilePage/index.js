@@ -3,12 +3,13 @@ import { useParams } from "react-router-dom";
 import NamePlate from "../../components/NamePlate";
 import Post from "../../components/Post";
 import server from "../../api";
+import LoadingSpinner from '../../components/Elements/LoadingSpinner';
 
 import './style.css';
 
 
 const ProfilePage = (props) => {
-    
+    const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState(props.location.posts);
     const [user, setUser] = useState(props.location.user);
     const { uid } = useParams();
@@ -22,6 +23,7 @@ const ProfilePage = (props) => {
                 setUser(res.data.data);
             }
             console.log("Post Incoming", res);
+            
         } catch (err) {
             alert(err)
         }
@@ -36,7 +38,7 @@ const ProfilePage = (props) => {
                 setPosts(res.data.data);
             }
             console.log("Post Incoming", res);
-            
+    
         } catch (err) {
             alert(err)
         }
@@ -46,6 +48,7 @@ const ProfilePage = (props) => {
     useEffect(() => {
         fetchUser();
         fetchPosts();
+        setIsLoading(false);
     }, []);
 
     let numberOfPosts;
@@ -64,6 +67,7 @@ const ProfilePage = (props) => {
 
     return (
         <div className="container">
+            {isLoading && <LoadingSpinner asOverlay />}
             <section>
                 <NamePlate
                     username={user.username}
@@ -73,7 +77,7 @@ const ProfilePage = (props) => {
                     numberOfPosts={numberOfPosts}
                     numberOfConnections={numberOfFollowing}
                     following={user.following}
-                    id={user._id}
+                    id={uid}
                     fetchPosts={() => fetchPosts()}
                     fetchUser={() => fetchUser()}
                 />

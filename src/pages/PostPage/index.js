@@ -17,7 +17,8 @@ const PostPage = () => {
     }
 
     return (
-        <div>
+        <div className="container">
+            <section>
             <Post 
                 user={post.username}
                 author={post.author}
@@ -55,6 +56,7 @@ const PostPage = () => {
                     />
                 );
             })}
+            </section>
         </div>
     )
 }

@@ -6,7 +6,7 @@ import server from '../../api';
 // import Likes from "../Likes";
 import "./styles.css";
 
-const Post = ({ post, id, author, title, user, body, comments, time, likes, fetchPosts  }) => {
+const Post = ({ post, allPosts, id, author, title, user, body, comments, time, likes, fetchPosts  }) => {
     const auth = useContext(AuthContext);
     console.log("comments", comments);
     const handleErrors = (err) => {
@@ -64,7 +64,9 @@ const Post = ({ post, id, author, title, user, body, comments, time, likes, fetc
                         <img className="post__profile-fav-lang"/>
                     </div>
                     <div>
-                    <p className="post__username">Posted By: {user}</p>
+                    <Link to={{ pathname: `/profile/${author}`, user, posts: allPosts }}>
+                        <p className="post__username">Posted By: {user}</p>
+                    </Link>
                     <p className="post__time-posted">Time Posted: {time}</p>
                     </div>
                 </div>

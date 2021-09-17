@@ -3,14 +3,14 @@ import { AuthContext } from '../../context/auth-context';
 import server from '../../api';
 import EditProfile from "../EditProfile";
 
-const FollowProfile = ( {id, fetchPosts } ) => {
+const FollowProfile = ( {id, username, fetchPosts } ) => {
     const auth = useContext(AuthContext);
     const user = auth.user;
     const [isFollowing, setIsFollowing] = useState(false);
     const [isUser, setIsUser] = useState(false);
 
 const determineFollowing = () => {
-    if (user.following.includes(id)) {
+    if (auth.user.following.includes(id)) {
         setIsFollowing(true)
     } else {
         setIsFollowing(false)
@@ -18,7 +18,7 @@ const determineFollowing = () => {
 };
 
 const determineIfUser = () => {
-    if (user._id === id) {
+    if (auth.user._id === id ) {
         setIsUser(true)
     } else {
         setIsUser(false)
@@ -57,7 +57,12 @@ const changeFollowing = async (e) => {
 
         console.log(res);
 
-        setIsFollowing(false)
+        if(isFollowing) {
+            setIsFollowing(false);
+        } else {
+            setIsFollowing(true);
+        }
+        
     } catch (err) {
         handleErrors(err);
     }

@@ -20,6 +20,7 @@ const HomePage = ({posts, fetchPosts}) => {
                     {posts.map((post) => {
                         return (
                                 <Post
+                                    allPosts={posts}
                                     post={post}
                                     user={post.username}
                                     author={post.author}
