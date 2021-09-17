@@ -4,12 +4,6 @@
     padding-top: 25px;
     padding-bottom: 25px;
 }
-.follow-button {
-    display: flex;
-    margin-bottom: 20px;
-    float: right;
-    margin-right: 40px;
-}
 
 .image {
     display: inline-block;
