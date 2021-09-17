@@ -1,5 +1,5 @@
 # Dev Social Media App (working title)
-#Authors: James Bell,
+#Authors: James Bell, Buhari Maiwada
 
 ## Introduction: 
 A paragraph used to introduce interested parties to the project and needs to include one or more screenshots.
@@ -29,3 +29,5 @@ List any unsolved issues.
 
 ## Future Enhancements: 
 Identify future features and enhancements planned for the project.
+
+## Routes
