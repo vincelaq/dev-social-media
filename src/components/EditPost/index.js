@@ -14,14 +14,18 @@ const EditPost = ({ id, fetchPosts }) => {
         >
             {close => (
             <div className="modal">
-                <a className="close" onClick={close}>
-                &times;
-                </a>
-                <div className="header"> Edit a Post </div>
-                <div className="content">
-                {' '}
-                    <EditForm close={close} id={id} fetchPosts={() => fetchPosts()} />
+                <div className="header-wrap">
+                    <div></div>
+                    <h2 className="header"> Edit a Post </h2>
+                    <button className="close" onClick={close}>
+                    &times;
+                    </button>
                 </div>
+                    <div className="content">
+                    {' '}
+                        <EditForm close={close} id={id} fetchPosts={() => fetchPosts()} />
+                    </div>
+                
             </div>
             )}
         </Popup>
