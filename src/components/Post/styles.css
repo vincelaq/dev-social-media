@@ -9,6 +9,15 @@
 .post__sidebar {
     background-color: var(--grey);
     width: 40px;
+    padding: 24px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.post__sidebar p{
+    margin: 16px 0px;
 }
 
 .post__content-wrap {
