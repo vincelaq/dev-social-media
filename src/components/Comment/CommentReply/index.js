@@ -1,13 +1,15 @@
-import React, {useState, useContext} from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
 import server from '../../../api';
 
-const CommentForm = ({fetchOnePost}) => {
+
+const CommentReply = ({ originCommentId, fetchOnePost, originAuthor }) => {
     const history = useHistory();
     const { pid } = useParams();
     const auth = useContext(AuthContext);
     const [formData, setFormData] = useState({ comment: '' });
+    const [isReplying, setIsReplying] = useState(false);
 
     const { comment } = formData;
 
@@ -30,6 +32,10 @@ const CommentForm = ({fetchOnePost}) => {
         }
     } 
 
+    const handleReply = () => {
+        setIsReplying(true);
+    };
+
     const onSubmit = async () => {
         try {
             const data = {
@@ -40,7 +46,7 @@ const CommentForm = ({fetchOnePost}) => {
                     'Authorization': 'Bearer '+auth.token,
                 }
             };
-            const res = await server.post(`comments/${pid}`, data, options);
+            const res = await server.post(`comments/orig/${originCommentId}`, data, options);
             fetchOnePost();
             setFormData({ comment: ''});
             history.push(`/post/${pid}`);
@@ -51,24 +57,31 @@ const CommentForm = ({fetchOnePost}) => {
 
     const onKeyPress = (e) => {
         if(e.which === 13) {
-          onSubmit();
+            onSubmit();
+            setIsReplying(false);
+        } else if(e.which === 27) {
+            setIsReplying(false);
         }
     }
-    
+
+
     return (
         <div>
+            {!isReplying && <button onClick={handleReply}>Reply</button>}
             
-            <input
-                type="textarea"
-                placeholder="Add comment"
-                name="comment"
-                minLength={6}
-                value={comment}
-                onChange={e => onChange(e)}
-                onKeyPress={onKeyPress}
-            />
+            {isReplying &&
+                <input
+                    type="text"
+                    placeholder="Add comment"
+                    name="comment"
+                    minLength={6}
+                    value={comment}
+                    onChange={e => onChange(e)}
+                    onKeyPress={onKeyPress}
+                />
+            }
         </div>
     )
 }
 
-export default CommentForm;
+export default CommentReply;

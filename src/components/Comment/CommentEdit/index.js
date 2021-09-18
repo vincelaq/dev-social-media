@@ -1,15 +1,18 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
 import server from '../../../api';
 
-const CommentForm = ({fetchOnePost}) => {
+const CommentEdit = ( {originCommentId, fetchOnePost, originAuthor} ) => {
     const history = useHistory();
     const { pid } = useParams();
     const auth = useContext(AuthContext);
     const [formData, setFormData] = useState({ comment: '' });
-
+    const [isEditing, setIsEditing] = useState(false);
+    
     const { comment } = formData;
+
+    console.log(auth.user._id, originAuthor);
 
     const onChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
@@ -40,7 +43,7 @@ const CommentForm = ({fetchOnePost}) => {
                     'Authorization': 'Bearer '+auth.token,
                 }
             };
-            const res = await server.post(`comments/${pid}`, data, options);
+            const res = await server.put(`comments/${originCommentId}`, data, options);
             fetchOnePost();
             setFormData({ comment: ''});
             history.push(`/post/${pid}`);
@@ -49,26 +52,38 @@ const CommentForm = ({fetchOnePost}) => {
         }
     }
 
+    const handleEdit = () => {
+        if(auth.user._id !== originAuthor) {
+            return alert("You are not authorized to edit this comment")
+        }
+        setIsEditing(true);
+    };
+
     const onKeyPress = (e) => {
         if(e.which === 13) {
           onSubmit();
+          setIsEditing(false);
+        } else if(e.which === 27) {
+            setIsEditing(false);
         }
     }
-    
     return (
         <div>
+            {!isEditing && <button onClick={handleEdit}>Edit</button>}
             
-            <input
-                type="textarea"
-                placeholder="Add comment"
-                name="comment"
-                minLength={6}
-                value={comment}
-                onChange={e => onChange(e)}
-                onKeyPress={onKeyPress}
-            />
+            {isEditing &&
+                <input
+                    type="text"
+                    placeholder="Edit comment"
+                    name="comment"
+                    minLength={6}
+                    value={comment}
+                    onChange={e => onChange(e)}
+                    onKeyPress={onKeyPress}
+                />
+            }
         </div>
     )
 }
 
-export default CommentForm;
+export default CommentEdit;

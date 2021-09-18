@@ -1,38 +1,37 @@
 import React from "react";
 import CommentItems from "./CommentItems/CommentItems";
+import CommentReply from "./CommentReply";
+import CommentEdit from "./CommentEdit";
 
 
 import "./style.css";
 
-const Comment = ({username, createdAt, image, body, comments}) => {
+const Comment = ({id, author, username, createdAt, image, body, comments, originPostId, fetchOnePost}) => {
+    console.log("author from Comment: ", author); 
     return (
       <div className="comment-thread">
         <div >
           <div classNmae="user"> username {username} </div>
           <div className="create"> createdAt {createdAt} </div>
-          <div className="user_img"> image {image} </div>
+          <div className="user_img"> 
+            <img className="nav__avatar" src={image} /> 
+          </div>
           <div className="body"> body {body} </div>
     </div>
 
-        {/* <div className="user">
-          <img src="avatar/path" alt="User avatar" />
-          <span> username {username} </span>
-        </div>
-        <div className="comment"> bady { body }</div>
-        <textarea
-          className="comment-field"
-          placeholder="What are your thoughts?"
-          name="comment"
-          id="comment"
-        /> */}
-
         <div className="comment-button">
-          <button type="button">Reply</button>
-          <button type="button">Edit</button>
+          <CommentReply originAuthor={author} originCommentId={id} fetchOnePost={() => fetchOnePost()}/>
+          <CommentEdit originAuthor={author} originCommentId={id} fetchOnePost={() => fetchOnePost()}/>
         </div>
         <div>
           {comments.map((comment) => (
-            <CommentItems comment={comment} key={comment._id} />
+            <CommentItems 
+              originAuthor={author}
+              comment={comment} 
+              key={comment._id} 
+              originCommentId={id} 
+              fetchOnePost={() => fetchOnePost()}
+            />
           ))}
         </div>
       </div>
