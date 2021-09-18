@@ -1,8 +1,10 @@
 .NamePlate-container {
-    background:linear-gradient(to bottom, #646464 0%, #646464 35%,#C7C6C6 34%, #C7C6C6 100%);
+    background:linear-gradient(to bottom, #141718 0%, #141718 35%,#313131 35%, #313131 100%);
     border-bottom: 3px solid black;
     padding-top: 25px;
     padding-bottom: 25px;
+    border-radius: 25px;
+    margin-bottom: 20px;
 }
 .NamePlate__avatar {
     width: 120px;

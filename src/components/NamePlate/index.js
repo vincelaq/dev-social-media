@@ -23,10 +23,10 @@ const NamePlate = ({
       <div className="username"> {username} </div>
       <div className="jobTitle"> {jobTitle} </div>
       <div className="postAndConnections-container">
-        <div className="numberOfPosts"> {numberOfPosts} Posts: </div>
+        <div className="numberOfPosts"> {numberOfPosts}  Posts </div>
         <div className="numberOfConnections">
           {" "}
-          {numberOfConnections} Connections:{" "}
+          {numberOfConnections}  Connections{" "}
         </div>
       </div>
       <div className="bio"> {bio} </div>

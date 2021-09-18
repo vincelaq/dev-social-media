@@ -25,33 +25,53 @@ Heroku: https://limitless-lowlands-64983.herokuapp.com/  <br>
 Trello Board : https://trello.com/b/wagAN1Fm/dev-social-media
 
 ## A Guided Walk-through of DevBook
-## <h4>Login Page</h4>
+#### Login Page
 We start here on the Login Page. At DevBook you would create a profile where you would be able to post content, share images, follow your favorite developers and comment on the post of you fellow Developers. But we first need to create a profile.
 
-(image of login Page goes here)
+![Image of Login Page]
+(https://github.com/vincelaq/dev-social-media/blob/james-bell/Screen%20Shot%202021-09-17%20at%2010.14.12%20PM.png)
 
-## <h4>SignUp Page</h4>
-Below the "Sign in" button is the "Register" button or in the top right hand corner of the website is a "Signup" button. Click on either to be re-directed to the Sign up Page. Once on the Sign up Page enter your name, create a username, enter your email and create a password. After filling out the information, click the "Create account" button and you will be redirected to your Home Page.
+#### Sign Up Page
+Below the "Sign in" button is the "Register" button or in the top right hand corner of the website is a "Sign Up" button. Click on either to be re-directed to the Sign up Page. Once on the Sign up Page enter your name, create a username, enter your email and create a password. After filling out the information, click the "Create account" button and you will be redirected to your Home Page.
 
-(image of sign up page)
+![Image of Sign Up Page]
+(https://github.com/vincelaq/dev-social-media/blob/james-bell/Screen%20Shot%202021-09-17%20at%2010.14.36%20PM.png)
 
-## <h4>Home Page</h4>
+#### Home Page
 The Home Page is your main page. On your homepage you have your navigation bar. The navigation bar, located on the left hand side of the screen, has the following features. You have the ability to see the developers you are following. You have a profile feature, which takes you to your profile. At the bottom of you navigation bar is the Logout feature. At the top is the search bar which you can use to find other developers. Displayed next to the navigation is the post from other users. You have access to all post on your homepage. Now if you wish to create your own post, you can navigate to the upper right hand corner of the screen and press the "+Create a Post" button. Lets create our first post.
 
-## <h4>Create a Post Popup</h4>
+![Image of the Home Page]
+(https://github.com/vincelaq/dev-social-media/blob/james-bell/Screen%20Shot%202021-09-18%20at%208.39.12%20AM.png)
+
+#### Create a Post Popup
 After pressing the "+Create a Post" button, a popup will appear on the "Home Page" and you can enter the following information: Title, Description and enter your Language Tags you are using. Now Post don't have to be all about code. You can make any kind of post. Maybe you want to get to know your fellow developers. Its up to you. Now after you create that post, the pop window will disappear and you post will now be at the top of you post section in you homepage.
 
-## <h4>Edit Post Popup</h4>
+![Image of Create a Post Popup]
+(https://github.com/vincelaq/dev-social-media/blob/james-bell/Screen%20Shot%202021-09-17%20at%2010.18.29%20PM.png)
+
+#### Edit Post Popup
 Need to change your post? You have that ability. Right on your homepage underneath your post is the ability to edit your post. Press that button and it will take you to a similar popup window as the "+Create a Post".
 
-<h4>Delete Post
+![Image of Update a Post Popup]
+(https://github.com/vincelaq/dev-social-media/blob/james-bell/Screen%20Shot%202021-09-17%20at%2010.18.49%20PM.png)
 
-<h4>User Profile</h4>
-In the Navigation Bar, there is a "Profile button". Pressing this button will take you to your profile. This is what other users would see when selecting your profile. You can see all the post you have created.
+#### Delete Post
+Users will also have the ability to delete their post from their profile page or home page. Located next to the Edit Post Button.
 
-<h4>Comment on Post</h4>
+![Image of a post with the delete and edit button]
+(https://github.com/vincelaq/dev-social-media/blob/james-bell/Screen%20Shot%202021-09-18%20at%209.03.08%20AM.png)
 
-<h4>Following Page</h4>
+#### User Profile
+In the Navigation Bar, there is a "Profile button". Pressing this button will take you to your profile. This is what other users would see when selecting your profile. You can see all the post you have created. You can read the comments of those posts. Upload a personal photo or avitar for you profile picture.
+
+![Image of User Profile]
+(https://github.com/vincelaq/dev-social-media/blob/james-bell/Screen%20Shot%202021-09-18%20at%209.03.36%20AM.png)
+
+#### Comment on Post
+Users are able to comment on others post. And like other users post.
+
+#### Following Page
+The Following Page is used to see all the other developers you follow. 
 
 ## Technologies Used: 
 - JavaScript ES6
@@ -67,26 +87,9 @@ In the Navigation Bar, there is a "Profile button". Pressing this button will ta
 - GitHub
 - Insomnia
 
-<<<<<<< HEAD
-=======
-
 ## Getting Started: 
 Heroku: https://devbook-flex525.herokuapp.com/  <br>
 Trello Board : https://trello.com/b/wagAN1Fm/dev-social-media
-
-
->>>>>>> master
-## Unsolved Problems: 
-List any unsolved issues.
-
-## Future Enhancements: 
-<<<<<<< HEAD
-- The ability to send private messages to other developers.
-- Add a Messages button to the Navigation Bar.
-- Have all Post in a library and be able to search for any post in that library.
-- 
-=======
-Identify future features and enhancements planned for the project.
 
 ## Routes
 
@@ -121,4 +124,24 @@ Identify future features and enhancements planned for the project.
 | PUT    	| /api/comments/like/:cid        	| Private  	| Update comment likes                           	|
 | PUT    	| /api/comments/dislike/:cid     	| Private  	| Update comment dislikes                        	|
 | DELETE 	| /api/comments/:cid             	| Private  	| Delets comments                                	|
->>>>>>> master
+
+## Unsolved Problems: 
+List any unsolved issues.
+
+## Future Enhancements: 
+#### Phase One:
+- The ability to search for other users by Name, Username, or Email.
+- The ability to add images into post and/or comments.
+- Update README after completion of Phase One.
+
+#### Phase Two:
+- The ability to send private messages to other developers.
+- Add a "Messages" link to take you to your personal mailbox.
+- Tag users in post that may interest and/or help those users.
+- Update README after completion of Phase Two.
+
+#### Phase Three:
+- To be able to find posts related to my search query.
+- To be able to search for posts that contain certain text or keywords.
+- Create a library of all Post and liked post.
+- Update README after completion of Phase Three.
