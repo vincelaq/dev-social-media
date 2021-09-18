@@ -38,12 +38,8 @@ Below the "Sign in" button is the "Register" button or in the top right hand cor
 ## <h4>Home Page</h4>
 The Home Page is your main page. On your homepage you have your navigation bar. The navigation bar, located on the left hand side of the screen, has the following features. You have the ability to see the developers you are following. You have a profile feature, which takes you to your profile. At the bottom of you navigation bar is the Logout feature. At the top is the search bar which you can use to find other developers. Displayed next to the navigation is the post from other users. You have access to all post on your homepage. Now if you wish to create your own post, you can navigate to the upper right hand corner of the screen and press the "+Create a Post" button. Lets create our first post.
 
-(image of home page)
-
 ## <h4>Create a Post Popup</h4>
 After pressing the "+Create a Post" button, a popup will appear on the "Home Page" and you can enter the following information: Title, Description and enter your Language Tags you are using. Now Post don't have to be all about code. You can make any kind of post. Maybe you want to get to know your fellow developers. Its up to you. Now after you create that post, the pop window will disappear and you post will now be at the top of you post section in you homepage.
-
-(image of create a post)
 
 ## <h4>Edit Post Popup</h4>
 Need to change your post? You have that ability. Right on your homepage underneath your post is the ability to edit your post. Press that button and it will take you to a similar popup window as the "+Create a Post".
@@ -56,9 +52,6 @@ In the Navigation Bar, there is a "Profile button". Pressing this button will ta
 <h4>Comment on Post</h4>
 
 <h4>Following Page</h4>
-
-
-
 
 ## Technologies Used: 
 - JavaScript ES6
@@ -74,12 +67,6 @@ In the Navigation Bar, there is a "Profile button". Pressing this button will ta
 - GitHub
 - Insomnia
 
-
-## Getting Started: 
-Heroku: https://limitless-lowlands-64983.herokuapp.com/  <br>
-Trello Board : https://trello.com/b/wagAN1Fm/dev-social-media
-
-
 ## Unsolved Problems: 
 List any unsolved issues.
 
@@ -87,3 +74,4 @@ List any unsolved issues.
 - The ability to send private messages to other developers.
 - Add a Messages button to the Navigation Bar.
 - Have all Post in a library and be able to search for any post in that library.
+- 
