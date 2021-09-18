@@ -71,7 +71,7 @@ In the Navigation Bar, there is a "Profile button". Pressing this button will ta
 Users are able to comment on others post. And like other users post.
 
 #### Following Page
-The Following Page is used to see all the other developers you follow. 
+The Following Page is used to see all the other developers you follow.
 
 ## Technologies Used: 
 - JavaScript ES6
