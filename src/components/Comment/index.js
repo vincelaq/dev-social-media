@@ -1,11 +1,13 @@
 import React from "react";
 import CommentItems from "./CommentItems/CommentItems";
 import CommentReply from "./CommentReply";
+import CommentEdit from "./CommentEdit";
 
 
 import "./style.css";
 
-const Comment = ({id, username, createdAt, image, body, comments, originPostId, fetchOnePost}) => {
+const Comment = ({id, author, username, createdAt, image, body, comments, originPostId, fetchOnePost}) => {
+    console.log("author from Comment: ", author); 
     return (
       <div className="comment-thread">
         <div >
@@ -18,12 +20,13 @@ const Comment = ({id, username, createdAt, image, body, comments, originPostId, 
     </div>
 
         <div className="comment-button">
-          <CommentReply originCommentId={id} fetchOnePost={() => fetchOnePost()}/>
-          <button type="button">Edit</button>
+          <CommentReply originAuthor={author} originCommentId={id} fetchOnePost={() => fetchOnePost()}/>
+          <CommentEdit originAuthor={author} originCommentId={id} fetchOnePost={() => fetchOnePost()}/>
         </div>
         <div>
           {comments.map((comment) => (
             <CommentItems 
+              originAuthor={author}
               comment={comment} 
               key={comment._id} 
               originCommentId={id} 

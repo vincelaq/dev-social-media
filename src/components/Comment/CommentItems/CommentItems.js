@@ -1,10 +1,11 @@
 import React from "react";
 import CommentReply from "../CommentReply";
+import CommentEdit from "../CommentEdit";
 
 
 import "./style.css";
 
-const CommentItems = ({ comment, fetchOnePost }) => {
+const CommentItems = ({ comment, fetchOnePost, author }) => {
     const nestedComments = ( comment.comments || [] ).map(nestedComment => {
         return <CommentItems comment={nestedComment} key={nestedComment.id} />
     });
@@ -18,7 +19,7 @@ const CommentItems = ({ comment, fetchOnePost }) => {
                 <div className="comment--body"> body {comment.body} </div>
             </div>
             <CommentReply originCommentId={comment._id} fetchOnePost={() => fetchOnePost()} />
-            <button>Edit</button>
+            <CommentEdit originCommentId={comment._id} fetchOnePost={() => fetchOnePost()} />
             <div>
                 {nestedComments.length > 0 && <div>{nestedComments}</div>}
             </div>

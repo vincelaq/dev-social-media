@@ -1,17 +1,18 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
 import server from '../../../api';
 
-
-const CommentReply = ({ originCommentId, fetchOnePost, originAuthor }) => {
+const CommentEdit = ( {originCommentId, fetchOnePost, originAuthor} ) => {
     const history = useHistory();
     const { pid } = useParams();
     const auth = useContext(AuthContext);
     const [formData, setFormData] = useState({ comment: '' });
-    const [isReplying, setIsReplying] = useState(false);
-
+    const [isEditing, setIsEditing] = useState(false);
+    
     const { comment } = formData;
+
+    console.log(auth.user._id, originAuthor);
 
     const onChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
@@ -32,10 +33,6 @@ const CommentReply = ({ originCommentId, fetchOnePost, originAuthor }) => {
         }
     } 
 
-    const handleReply = () => {
-        setIsReplying(true);
-    };
-
     const onSubmit = async () => {
         try {
             const data = {
@@ -46,7 +43,7 @@ const CommentReply = ({ originCommentId, fetchOnePost, originAuthor }) => {
                     'Authorization': 'Bearer '+auth.token,
                 }
             };
-            const res = await server.post(`comments/orig/${originCommentId}`, data, options);
+            const res = await server.put(`comments/${originCommentId}`, data, options);
             fetchOnePost();
             setFormData({ comment: ''});
             history.push(`/post/${pid}`);
@@ -55,24 +52,29 @@ const CommentReply = ({ originCommentId, fetchOnePost, originAuthor }) => {
         }
     }
 
+    const handleEdit = () => {
+        if(auth.user._id !== originAuthor) {
+            return alert("You are not authorized to edit this comment")
+        }
+        setIsEditing(true);
+    };
+
     const onKeyPress = (e) => {
         if(e.which === 13) {
-            onSubmit();
-            setIsReplying(false);
+          onSubmit();
+          setIsEditing(false);
         } else if(e.which === 27) {
-            setIsReplying(false);
+            setIsEditing(false);
         }
     }
-
-
     return (
         <div>
-            {!isReplying && <button onClick={handleReply}>Reply</button>}
+            {!isEditing && <button onClick={handleEdit}>Edit</button>}
             
-            {isReplying &&
+            {isEditing &&
                 <input
                     type="text"
-                    placeholder="Add comment"
+                    placeholder="Edit comment"
                     name="comment"
                     minLength={6}
                     value={comment}
@@ -84,4 +86,4 @@ const CommentReply = ({ originCommentId, fetchOnePost, originAuthor }) => {
     )
 }
 
-export default CommentReply;
+export default CommentEdit;

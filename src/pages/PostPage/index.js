@@ -24,7 +24,7 @@ const PostPage = (props) => {
             console.log(err.message)
         }
     }
-
+    
     const fetchOnePost = async () => {
         try {
             const res = await server.get(`posts/${pid}`);
@@ -64,6 +64,7 @@ const PostPage = (props) => {
             {comments.map((comment) => {
                 return (
                     <Comment
+                        author={comment.author}
                         username={comment.username}
                         body={comment.body}
                         image={comment.image}
