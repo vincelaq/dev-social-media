@@ -11,12 +11,13 @@ const Comment = ({id, author, username, createdAt, image, body, comments, origin
     return (
       <div className="comment-thread">
         <div >
-          <div classNmae="user"> username {username} </div>
-          <div className="create"> createdAt {createdAt} </div>
           <div className="user_img"> 
             <img className="nav__avatar" src={image} /> 
           </div>
-          <div className="body"> body {body} </div>
+          <div classNmae="user"> {username} </div>
+          <div className="create"> {createdAt} </div>
+          
+          <div className="comment__body"> {body} </div>
     </div>
 
         <div className="comment-button">

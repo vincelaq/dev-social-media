@@ -73,16 +73,27 @@ textarea::placeholder {
 *{
     box-sizing: border-box;
 }
+
+/* body{
+  
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.4;
+    color: rgba(0, 0, 0, 0.85);
+   
+
+} */
 button {
+    display: inline;
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
     font-size: 14px;
-    padding: 4px 8px;
+    padding: 4px 16px;
     color: rgba(0, 0, 0, 0.85);
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 4px;
+    margin-left: 5px;
 }
 button:hover,
 button:focus,
@@ -92,11 +103,36 @@ button:active {
 }
 
 .comment-thread {
-    width: 700px;
-    max-width: 100%;
-    margin: auto;
-    padding: 0 30px;
+    display: flex;
+    overflow: hidden;
+    border-radius: 24px;
+    margin-bottom: 24px;
+    position: relative;
+    width: 900px;
+    max-width: auto;
+    padding:4px 30px;
     background-color: rgb(105, 101, 101);
     border: 1px solid transparent;
     border-radius: 2px solid transparent;
+}
+.create{
+  margin: 0;
+}
+
+.user, .user-img, .nav__avatar {
+  display: flex;
+  position: relative;
+  grid-template-columns: 30% 1fr 100px;
+}
+
+.comment__body {
+    overflow: hidden;
+    background: #212325;
+    color: #434343;
+    padding: 1rem;
+    border-radius: 8px;
+    z-index: 1;
+    position: relative;
+    width: 700px;
+    height: 200px;
 }
