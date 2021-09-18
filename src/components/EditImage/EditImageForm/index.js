@@ -50,6 +50,7 @@ const EditImageForm = ({ id, close, fetchUser }) => {
             console.log(res);
                 fetchUser();
                 history.push({pathname: `/profile/${auth.user._id}`, state: auth.user })
+                close();
         } catch (err) {
 
                 handleErrors(err);

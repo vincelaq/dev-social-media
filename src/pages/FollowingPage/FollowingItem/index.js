@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import server from '../../../api';
 import { AuthContext } from "../../../context/auth-context";
@@ -7,6 +7,7 @@ import './style.css';
 
 const FollowingItem = ({user, fetchFollowing}) => {
     const auth = useContext(AuthContext);
+    const [posts, setPosts] = useState([]);
 
     const handleErrors = (err) => {
       if (err.response) {
@@ -46,14 +47,29 @@ const FollowingItem = ({user, fetchFollowing}) => {
           handleErrors(err);
       }
     }
+    
+    const fetchPosts = async () => {
+      try {
+          let res = await server.get(`posts/user/${user._id}`);
+          console.log("fetchpost", res.data)
+          if (res.status === 200) {
+              setPosts(res.data.data);
+          }
+          console.log("Post Incoming", res);
+  
+      } catch (err) {
+          alert(err)
+      }
+    }    
 
-        
-
+    useEffect(() => {
+      fetchPosts();
+  }, []);
     
     return (
        
             <div className="following-item__wrapper">
-                <Link to={{pathname: `/profile/${user._id}`, user}}>
+                <Link to={{pathname: `/profile/${user._id}`, user, posts}}>
                   <img className="nav__avatar" src={user.image} />
                 </Link>
                 <div className="following-item__content following-item__username">{user.username} </div>

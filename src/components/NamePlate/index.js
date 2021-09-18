@@ -18,7 +18,7 @@ const NamePlate = ({
     
   return (
     <div className="NamePlate-container">
-      <FollowProfile id={id} username={username} fetchPosts={() => fetchPosts()} />
+      <FollowProfile id={id} username={username} fetchUser={()=>fetchUser()} fetchPosts={() => fetchPosts()} />
       <div className="image"> <EditImage id={id} image={image} fetchUser={() => fetchUser()} /> </div>
       <div className="username"> {username} </div>
       <div className="jobTitle"> {jobTitle} </div>
