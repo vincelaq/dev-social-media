@@ -2,7 +2,7 @@
 #Authors: Vincent Laquindanum, Buhari Maiwada, Makai Harris & James Bell
 
 ## Introduction: 
-Connection. As developers, connection is the most important aspect of our careers. It is with connection that we have accomplished many great things and shaped the entire world. And if you don't believe it, all you have to do is look at what has been accomplished since the first higher-level programming language, Fortran, founded in 1957.
+Connection. As developers, connection is the most important aspect of our careers. It is with connection that we have accomplished many great things and even shaped the entire world. And if you don't believe it, all you have to do is look at what has been accomplished since the first higher-level programming language, Fortran, founded in 1957.
 
 In a short time, we as developers have made such incredible strides. And the credit of those achievements are due to connection, to communication with each other and to the sharing of ideas with each other.
 
