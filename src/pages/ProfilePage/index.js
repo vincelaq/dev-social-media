@@ -88,6 +88,7 @@ const ProfilePage = (props) => {
                             user={post.username}
                             author={post.author}
                             body={post.body}
+                            image={post.image}
                             title={post.title}
                             comments={post.comments}
                             time={post.createdAt}
