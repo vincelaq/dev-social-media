@@ -7,14 +7,35 @@
     margin: 5px 20px;
 }
 .create-post__input {
+    height: 54px;
     width: 100%;
-    height: 40px;
-    margin: 5px;
-    padding: 1px 10px;
+    padding: 12px;
+    outline: none; 
+    border-radius: 8px;
+    background-color: var(--grey);
+    border: none;
+    color: var(--white);
+    margin-bottom: 16px;;
 }
-.create-post__button {
-    width: 100%;
-    height: 40px;
-    margin: 5px;
+.create-post__input:focus {
+    color: var(--green);
+}
 
+.create-post__button {
+    background-color: var(--green);
+    border: none;
+    margin-top: 16px;
+    height: 54px;
+    width: 100%;
+    border-radius: 8px;
+    transition: ease 600ms;
+}
+
+.create-post__button:hover {
+background-color: var(--white);
+color: var(--green);
+}
+
+.create-post__input-wrapper > textarea {
+    height: 200px;
 }

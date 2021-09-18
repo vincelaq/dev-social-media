@@ -8,15 +8,15 @@ import './style.css';
 const EditPost = ({ id, fetchPosts }) => {
     return (
         <Popup
-            trigger={<button className="button"> Edit </button>}
+            trigger={<a className="button"> Edit </a>}
             modal
             nested
         >
             {close => (
             <div className="modal">
-                <button className="close" onClick={close}>
+                <a className="close" onClick={close}>
                 &times;
-                </button>
+                </a>
                 <div className="header"> Edit a Post </div>
                 <div className="content">
                 {' '}
