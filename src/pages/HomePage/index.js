@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from "react";
+import { useFieldArray } from "react-hook-form";
 import Post from "../../components/Post";
 import { AuthContext } from '../../context/auth-context';
 
@@ -7,9 +8,9 @@ import "../../index.css"
 const HomePage = ({posts, fetchPosts}) => {
     const auth = useContext(AuthContext);
     const user = auth.user;
-    useEffect(() => {
-    }, [posts]);
+    
 
+  
 
     return (
         <div>
@@ -19,22 +20,26 @@ const HomePage = ({posts, fetchPosts}) => {
                     Welcome Back!</h1>
                     {posts.map((post) => {
                         return (
-                                <Post
-                                    allPosts={posts}
-                                    post={post}
-                                    user={post.username}
-                                    author={post.author}
-                                    body={post.body}
-                                    image={post.image}
-                                    favLanguage={post.favLanguage}
-                                    title={post.title}
-                                    comments={post.comments}
-                                    time={post.createdAt}
-                                    key={post._id}
-                                    likes={post.voteTotal}
-                                    id={post._id}
-                                    fetchPosts={() => fetchPosts()}
-                                />
+                            <Post
+                                allPosts={posts}
+                                post={post}
+                                user={post.username}
+                                author={post.author}
+                                body={post.body}
+                                image={post.image}
+                                favLanguage={post.favLanguage}
+                                title={post.title}
+                                comments={post.comments}
+                                time={post.createdAt}
+                                key={post._id}
+                                likeArray={post.likes}
+                                dislikeArray={post.dislikes}
+                                likes={post.voteTotal}
+                                id={post._id}
+                                initialIsInLikes={post.likes.includes(auth.user._id)}
+                                initialIsInDislikes={post.dislikes.includes(auth.user._id)}
+                                fetchPosts={() => fetchPosts()}
+                            />
                         );
                     })}
                 </div>
