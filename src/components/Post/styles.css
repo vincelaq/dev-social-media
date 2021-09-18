@@ -17,7 +17,7 @@
 }
 
 .post__sidebar p{
-    margin: 16px 0px;
+    margin-top: 6px;
 }
 
 .post__content-wrap {
@@ -139,4 +139,23 @@
     font-family: nimbus-sans, sans-serif;
     font-weight: 400;
 
+}
+
+.like.active-svg {
+    fill: var(--green);
+}
+.dislike.active-svg {
+    fill: rgb(207, 121, 121);
+}
+
+path {
+    pointer-events: none;
+}
+
+#like svg {
+    pointer-events: none;
+}
+
+#dislike svg {
+    pointer-events: none;
 }

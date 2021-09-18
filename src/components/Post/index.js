@@ -9,6 +9,35 @@ import "./styles.css";
 const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts, image }) => {
     const auth = useContext(AuthContext);
 
+
+    // COLOR LIKE / DISLIKE BUTTON DEPENDING ON WHICH IS CLICKED
+    const likesDislikes = (e) => {
+  
+        e.preventDefault()
+
+        // ADD OR SUBTRACT LIKES
+        if (e.target.id == 'like'){
+            likes = likes++;
+
+        } else if (e.target.id == 'dislike'){
+            likes = likes--;
+        }
+
+        // COLOR LIKE / DISLIKE BUTTON DEPENDING ON WHICH IS CLICKED
+        let elements = document.getElementsByTagName('path');
+        for(let x=0; x<elements.length; x++){
+            if(elements[x].classList.contains('active-svg'))
+            elements[x].classList.remove('active-svg');
+        }
+        
+        let paths = e.target.getElementsByTagName('path');
+        
+        console.log(paths);
+        for(let i=0; i<paths.length; i++){
+             paths[i].classList.toggle('active-svg');
+        }
+    }
+    
     const handleErrors = (err) => {
         if (err.response) {
             console.log("Problem with response")
@@ -50,18 +79,18 @@ const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts, 
             <div className="post__sidebar">
 
             {/* ADD LIKE FUNCTIONALITY */}
-            <a onClick={ () => {likes = likes ++; console.log({likes})}} >
-                <svg  width="18" height="9" viewBox="0 0 18 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3.06498 0.834961V3.74496H0.22998V5.57496H3.06498V8.48496H5.04498V5.57496H7.87998V3.74496H5.04498V0.834961H3.06498Z" fill="#E4E4E4"/>
-                    <path d="M13.1724 0.834961V3.74496H10.3374V5.57496H13.1724V8.48496H15.1524V5.57496H17.9874V3.74496H15.1524V0.834961H13.1724Z" fill="#E4E4E4"/>
+            <a onClick={ (e) => likesDislikes(e)} id="like">
+                <svg width="18" height="9" viewBox="0 0 18 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.06498 0.834961V3.74496H0.22998V5.57496H3.06498V8.48496H5.04498V5.57496H7.87998V3.74496H5.04498V0.834961H3.06498Z" className="like" fill="#E4E4E4"/>
+                    <path d="M13.1724 0.834961V3.74496H10.3374V5.57496H13.1724V8.48496H15.1524V5.57496H17.9874V3.74496H15.1524V0.834961H13.1724Z" className="like" fill="#E4E4E4"/>
                 </svg>
             </a>
                 <p>{likes}</p>
             {/* ADD DISLIKE FUNCTIONALITY */}
-            <a onClick={ () => {likes = likes --; console.log({likes})}} >
+            <a onClick={ (e) => likesDislikes(e)} id="dislike">
                 <svg width="19" height="3" viewBox="0 0 19 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18.815 0.308613L10.655 0.308613L10.655 2.07861L18.815 2.07861L18.815 0.308613Z" fill="#E4E4E4"/>
-                    <path d="M8.28278 0.308612L0.122774 0.308612L0.122774 2.07861L8.28278 2.07861L8.28278 0.308612Z" fill="#E4E4E4"/>
+                    <path d="M18.815 0.308613L10.655 0.308613L10.655 2.07861L18.815 2.07861L18.815 0.308613Z" className="dislike" fill="#E4E4E4"/>
+                    <path d="M8.28278 0.308612L0.122774 0.308612L0.122774 2.07861L8.28278 2.07861L8.28278 0.308612Z" className="dislike" fill="#E4E4E4"/>
                 </svg>
             </a>
                 
