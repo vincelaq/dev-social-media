@@ -1,23 +1,52 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import Post from '../../components/Post';
 import Comment from '../../components/Comment';
+import CommentForm from '../../components/Comment/CommentForm';
+import server from '../../api';
 
-const PostPage = () => {
-    const location = useLocation();
-    const post = location.state;
-    const comments = post.comments;
+const PostPage = (props) => {
+    const { pid } = useParams();
+    const [post, setPost] = useState(props.location.post);
+    const [comments, setComments] = useState(props.location.comments)
 
-    const [formData, setFormData] = useState({ comment: '' });
+    const handleErrors = (err) => {
+        if (err.response) {
+            console.log("Problem with response")
+            console.log(err.response)
+            alert(err.response.data.message)
+        } else if (err.request) {
+            console.log("Problem with request")
+            console.log(err.request)
+            alert(err.request.data)
+        } else {
+            console.log("Error during homepage render")
+            console.log(err.message)
+        }
+    }
+    
+    const fetchOnePost = async () => {
+        try {
+            const res = await server.get(`posts/${pid}`);
 
-    const { comment } = formData;
-
-    const onChange = (e) => {
-        setFormData({...formData, [e.target.name]: e.target.value})
+            console.log("fetch one post: ", res.data.data);
+            setPost(res.data.data);
+            if (res.data.data.comments) {
+                setComments(res.data.data.comments)
+            }
+        } catch (err) {
+            handleErrors(err);
+        }
     }
 
+    useEffect(() => {
+        fetchOnePost();
+    }, []);
+
+
     return (
-        <div>
+        <div className="container">
+            <section>
             <Post 
                 user={post.username}
                 author={post.author}
@@ -29,21 +58,14 @@ const PostPage = () => {
                 time={post.createdAt}
                 likes={post.voteTotal}
                 id={post.id}
+            
             />
-            <form>
-            <input
-                type="textarea"
-                placeholder="Add comment"
-                name="comment"
-                minLength={6}
-                value={comment}
-                onChange={e => onChange(e)}
-            />
-            </form>
+           <CommentForm postId={post.id} fetchOnePost={()=>fetchOnePost()} />
             {comments.map((comment) => {
                 return (
                     <Comment
-                        user={comment.username}
+                        author={comment.author}
+                        username={comment.username}
                         body={comment.body}
                         image={comment.image}
                         comments={comment.comments}
@@ -51,10 +73,12 @@ const PostPage = () => {
                         key={comment._id}
                         likes={comment.voteTotal}
                         id={comment._id}
-                        // getPostsAgain={() => fetchPosts()}
+                        originPostId={post.id}
+                        fetchOnePost={() => fetchOnePost()}
                     />
                 );
             })}
+            </section>
         </div>
     )
 }

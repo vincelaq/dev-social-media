@@ -51,7 +51,7 @@ const FollowingPage = () => {
         <section>
           <div className="container">
             <h1>Following</h1>
-            {!following && <h3>You are not following anyone yet</h3>}
+            {following.length < 1 && <h3>You are not following anyone yet</h3>}
               {following.map((user) => {
                   return (
                       <FollowingItem user={user} auth={auth}
