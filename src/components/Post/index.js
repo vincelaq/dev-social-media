@@ -6,7 +6,8 @@ import server from '../../api';
 // import Likes from "../Likes";
 import "./styles.css";
 
-const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts, image }) => {
+
+const Post = ({ post, allPosts, id, author, title, user, body, comments, time, likes, fetchPosts  }) => {
     const auth = useContext(AuthContext);
 
 
@@ -53,8 +54,10 @@ const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts, 
         }
     };
 
+
     const handleDelete = async () => {
         if (auth.user._id === post.author) {
+
             try {
                 const options = {
                     headers: {
@@ -63,7 +66,7 @@ const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts, 
                     }
                 }
                 let res = await server.delete(`posts/${id}`, options);
-                console.log("POST DELETE RESPONSE: ", res);
+                console.log("Post Component Delete Response: ", res);
                 alert('Your post has been delete')
                 fetchPosts();
             } catch (err) {
@@ -73,6 +76,13 @@ const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts, 
             alert('You are not authorized to delete this post!')
         }
     };
+
+    let numberOfComments;
+    if(comments && Object.keys(comments).length > 0 ) {
+        numberOfComments = Object.keys(comments).length
+    } else {
+        numberOfComments = 0;
+    }
 
     return (
         <div className="post --flex-row">
@@ -102,11 +112,13 @@ const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts, 
                         <img className="post__profile-fav-lang" />
                     </div>
                     <div>
+                     <Link to={{ pathname: `/profile/${author}`, user, posts: allPosts }}> 
                         <p className="post__username">{user}</p>
+                     </Link>   
                         <p className="post__time-posted">Time Posted: {time}</p>
                     </div>
                 </div>
-                <Link to={{ pathname: '/post', state: post }}>
+               <Link to={{ pathname: `/post/${id}`, post, comments }}>
                     <h2>{title}</h2>
                 </Link>
                 <p className="post__body">Body: {body}</p>
@@ -134,6 +146,7 @@ const Post = ({ post, id, title, user, body, comments, time, likes, fetchPosts, 
                         <div><EditPost id={id} fetchPosts={() => fetchPosts()} /></div>
                         <div><a onClick={() => handleDelete()}>Delete</a></div>
                     </div>
+
                 </div>
             </div>
 

@@ -1,51 +1,89 @@
-import React, {useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import React, {useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import NamePlate from "../../components/NamePlate";
 import Post from "../../components/Post";
-import { AuthContext } from '../../context/auth-context';
+import server from "../../api";
+import LoadingSpinner from '../../components/Elements/LoadingSpinner';
+
 import './style.css';
 
 
-const ProfilePage = () => {
-    const auth = useContext(AuthContext);
-    const [posts, setPosts] = useState([]);
-    const user = auth.user;
+const ProfilePage = (props) => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [posts, setPosts] = useState(props.location.posts);
+    const [user, setUser] = useState(props.location.user);
+    const { uid } = useParams();
 
-   const fetchPosts = async () => {
-        let res = await axios ({
-            method: "get",
-            url: `http://localhost:5000/api/posts/user/${user._id}`,
-            // replace uid with a different parameter
-        })
-
-        if (res.status === 200) {
-            setPosts(res.data.data.reverse());
+    const fetchUser = async () => {
+        try {
+        
+            let res = await server.get(`users/profile/${uid}`);
+            console.log("fetchuser", res.data)
+            if (res.status === 200) {
+                setUser(res.data.data);
+            }
+            console.log("Post Incoming", res);
+            
+        } catch (err) {
+            alert(err)
         }
-        console.log("Post Incoming", res);
     }
 
+
+    const fetchPosts = async () => {
+        try {
+            let res = await server.get(`posts/user/${uid}`);
+            console.log("fetchpost", res.data)
+            if (res.status === 200) {
+                setPosts(res.data.data);
+            }
+            console.log("Post Incoming", res);
+    
+        } catch (err) {
+            alert(err)
+        }
+    }
+
+
     useEffect(() => {
+        fetchUser();
         fetchPosts();
+        setIsLoading(false);
     }, []);
 
+    let numberOfPosts;
+    if(user.posts && Object.keys(user.posts).length > 0 ) {
+        numberOfPosts = Object.keys(user.posts).length
+    } else {
+        numberOfPosts = 0;
+    }
+
+    let numberOfFollowing;
+    if(user.following && user.following.length > 0 ) {
+        numberOfFollowing = user.following.length
+    } else {
+        numberOfFollowing = 0;
+    }
+
     return (
-        <div>
-            <NamePlate
-                username={user.username}
-                jobTitle={user.jobTitle}
-                image={user.image}
-                bio={user.bio}
-                numberOfPosts={user.posts.length}
-                numberOfConnections={user.following.length}
-            />
-            ProfilePage
-            {posts.map((post) => {
-                return (
-                    <Link to={{
-                        pathname: '/post',
-                        state: post,
-                    }}>
+        <div className="container">
+            {isLoading && <LoadingSpinner asOverlay />}
+            <section>
+                <NamePlate
+                    username={user.username}
+                    jobTitle={user.jobTitle}
+                    image={user.image}
+                    bio={user.bio}
+                    numberOfPosts={numberOfPosts}
+                    numberOfConnections={numberOfFollowing}
+                    following={user.following}
+                    id={uid}
+                    fetchPosts={() => fetchPosts()}
+                    fetchUser={() => fetchUser()}
+                />
+    
+                {posts.map((post) => {
+                    return (
                         <Post
                             user={post.username}
                             author={post.author}
@@ -58,9 +96,9 @@ const ProfilePage = () => {
                             id={post._id}
                             getPostsAgain={ () => fetchPosts ()}
                             />
-                    </Link>
-                );
-            })}
+                        );
+                })}
+            </section>
         </div>     
     );
 }

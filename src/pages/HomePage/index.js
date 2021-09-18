@@ -1,8 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from 'react-router-dom';
-import axios from "axios";
+import React, { useEffect, useContext } from "react";
 import Post from "../../components/Post";
-import server from "../../api";
 import { AuthContext } from '../../context/auth-context';
 
 import "../../index.css"
@@ -23,6 +20,7 @@ const HomePage = ({posts, fetchPosts}) => {
                     {posts.map((post) => {
                         return (
                                 <Post
+                                    allPosts={posts}
                                     post={post}
                                     user={post.username}
                                     author={post.author}

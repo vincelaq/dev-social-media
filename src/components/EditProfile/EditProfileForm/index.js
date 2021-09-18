@@ -5,12 +5,19 @@ import server from '../../../api';
 
 import './style.css';
 
-const EditForm = ({ id, close, fetchPosts }) => {
+const EditProfileForm = ({ id, close, fetchPosts }) => {
     const auth = useContext(AuthContext);
-    const [formData, setFormData] = useState({ title: "", body: "", languages: "" });
+    const [formData, setFormData] = useState({ 
+        fullName: "", 
+        bio: "", 
+        skills: "", 
+        languages: "", 
+        favLanguage: "", 
+        password: "" 
+    });
     const [isLoading, setIsLoading] = useState(false);
 
-    const { title, body, languages } = formData;
+    const { fullName, bio, skills, languages, favLanguage, password } = formData;
 
     const handleErrors = (err) => {
         if (err.response) {
@@ -37,19 +44,22 @@ const EditForm = ({ id, close, fetchPosts }) => {
         try {
             setIsLoading(true);
             
-            const data = {
-                "title": title,
-                "body": body,
-                "languages": languages
-            }
+            const dataArray = new FormData();
+            dataArray.append("fullName", fullName);
+            dataArray.append("bio", bio);
+            dataArray.append("skills", skills);
+            dataArray.append("languages", languages);
+            dataArray.append("favLanguage", bio);
+            dataArray.append("password", password);
             
             const options = {
                 headers: {
                     'Authorization': 'Bearer '+auth.token,
+                    'Content-Type': 'multipart/form-data; boundary=---DEVBOOK---'
                 }
             };
             
-            const res = await server.put(`posts/${id}`, data, options);
+            const res = await server.put(`users/profile`, dataArray, options);
 
             console.log(res);
             fetchPosts();
@@ -64,24 +74,31 @@ const EditForm = ({ id, close, fetchPosts }) => {
     return (
         <div className="create-post__wrapper">
             {isLoading && <LoadingSpinner asOverlay />}
-            <form className="create-post__form" onSubmit={e => onSubmit(e)}>
+            <form className="create-post__form" enctype="multipart/form-data" onSubmit={e => onSubmit(e)}>
                 <div className="create-post__input-wrapper">
                     <input
                         className="create-post__input" 
                         type="text" 
-                        placeholder="Title" 
-                        name="title" 
-                        value={title} 
+                        placeholder="Full Name" 
+                        name="fullName" 
+                        value={fullName} 
                         onChange={e => onChange(e)}
-                
+                    
                     />
                     <input
                         className="create-post__input"
                         type="text"
-                        placeholder="Description"
-                        name="body"
-                        required
-                        value={body}
+                        placeholder="Bio"
+                        name="bio"
+                        value={bio}
+                        onChange={e => onChange(e)}
+                    />
+                    <input
+                        className="create-post__input"
+                        type="text"
+                        placeholder="Skills"
+                        name="skills"
+                        value={skills}
                         onChange={e => onChange(e)}
                     />
                     <input
@@ -89,15 +106,30 @@ const EditForm = ({ id, close, fetchPosts }) => {
                         type="text"
                         placeholder="Language Tags (space in between, no commas)"
                         name="languages"
-
                         value={languages}
                         onChange={e => onChange(e)}
                     />
-                    <input className="create-post__button" type="submit" value="Post" />
+                    <input
+                        className="create-post__input"
+                        type="text"
+                        placeholder="Favorite Language"
+                        name="favLanguage"
+                        value={favLanguage}
+                        onChange={e => onChange(e)}
+                    />
+                    <input
+                        className="create-post__input"
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        value={password}
+                        onChange={e => onChange(e)}
+                    />
+                    <input className="create-post__button" type="submit" value="Save" />
                 </div>
             </form>
         </div>
     )
 }
 
-export default EditForm;
+export default EditProfileForm;

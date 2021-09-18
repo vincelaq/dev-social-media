@@ -12,8 +12,8 @@ import "./styles.css";
 const Nav = () => {
     const auth = useContext(AuthContext);
     const [posts, setPosts] = useState([]);
-    const user = auth.user;
-
+    const [user, setUser] = useState(auth.user);
+    
     const handleErrors = (err) => {
         if (err.response) {
             console.log("Problem with response")
@@ -40,7 +40,7 @@ const Nav = () => {
             }
             let res = await server.get('posts', options);
             setPosts(res.data.data);
-            console.log("POST SERVICE RESPONSE: ", res);
+            console.log("Nav Fetch Post Response: ", res);
         } catch (err) {
             handleErrors(err);
         }
@@ -52,20 +52,7 @@ const Nav = () => {
         fetchPosts();
     }, []);
     
-    
-    let url;
-    let avatar;
-    if (process.env.NODE_ENV === "development") {
-        url = "http://localhost:5000/api/";
-    } else {
-        url = "https://limitless-lowlands-64983.herokuapp.com/"
-    };
-    if (auth.user.image && auth.user.image.includes('gravatar')) {
-        avatar = auth.user.image;
-    } else {
-        avatar = `${url}${auth.user.image}`;
-    };
-
+  
     
     return (
         <Fragment>
@@ -82,7 +69,7 @@ const Nav = () => {
                             <span>Home</span>
 
                         </NavLink>
-                        <NavLink exact to="/profile" className="nav__link">
+                        <NavLink exact to={{pathname: `/profile/${auth.user._id}`, user, posts}} className="nav__link">
 
                             <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10 16H3.33333C3.15652 16 2.98695 15.9298 2.86193 15.8047C2.7369 15.6797 2.66667 15.5101 2.66667 15.3333C2.66667 15.1565 2.7369 14.987 2.86193 14.8619C2.98695 14.7369 3.15652 14.6667 3.33333 14.6667H10C10.1768 14.6667 10.3464 14.5964 10.4714 14.4714C10.5964 14.3464 10.6667 14.1768 10.6667 14V11.2333C10.6502 11.0493 10.587 10.8726 10.4832 10.7198C10.3794 10.567 10.2383 10.4431 10.0733 10.36C7.46025 9.30497 4.53975 9.30497 1.92667 10.36C1.76169 10.4431 1.62062 10.567 1.5168 10.7198C1.41299 10.8726 1.34984 11.0493 1.33333 11.2333V15.3333C1.33333 15.5101 1.2631 15.6797 1.13807 15.8047C1.01305 15.9298 0.843478 16 0.666667 16C0.489856 16 0.320286 15.9298 0.195262 15.8047C0.0702379 15.6797 0 15.5101 0 15.3333V11.2333C0.0144461 10.7824 0.156045 10.3448 0.408467 9.97086C0.66089 9.59694 1.01386 9.30199 1.42667 9.12C4.36032 7.93454 7.63968 7.93454 10.5733 9.12C10.9861 9.30199 11.3391 9.59694 11.5915 9.97086C11.844 10.3448 11.9856 10.7824 12 11.2333V14C12 14.5304 11.7893 15.0391 11.4142 15.4142C11.0391 15.7893 10.5304 16 10 16ZM9.33333 3.33333C9.33333 2.67406 9.13784 2.0296 8.77157 1.48143C8.40529 0.93327 7.8847 0.506029 7.27561 0.253736C6.66652 0.00144428 5.9963 -0.0645668 5.3497 0.0640506C4.7031 0.192668 4.10915 0.510137 3.64298 0.976312C3.1768 1.44249 2.85933 2.03643 2.73072 2.68303C2.6021 3.32964 2.66811 3.99986 2.9204 4.60895C3.17269 5.21803 3.59994 5.73863 4.1481 6.1049C4.69626 6.47117 5.34073 6.66667 6 6.66667C6.43774 6.66667 6.87119 6.58045 7.27561 6.41293C7.68003 6.24542 8.04749 5.99989 8.35702 5.69036C8.66655 5.38083 8.91208 5.01337 9.0796 4.60895C9.24712 4.20453 9.33333 3.77107 9.33333 3.33333ZM8 3.33333C8 3.7289 7.8827 4.11558 7.66294 4.44448C7.44318 4.77337 7.13082 5.02972 6.76537 5.18109C6.39991 5.33247 5.99778 5.37208 5.60982 5.29491C5.22186 5.21774 4.86549 5.02725 4.58579 4.74755C4.30608 4.46784 4.1156 4.11148 4.03843 3.72352C3.96126 3.33555 4.00087 2.93342 4.15224 2.56797C4.30362 2.20252 4.55996 1.89016 4.88886 1.6704C5.21776 1.45063 5.60444 1.33333 6 1.33333C6.53043 1.33333 7.03914 1.54405 7.41421 1.91912C7.78929 2.29419 8 2.8029 8 3.33333Z" fill="white" />
@@ -119,7 +106,7 @@ const Nav = () => {
                 />
                 <Route
                     exact
-                    path="/profile"
+                    path="/profile/:uid"
                     render={(props) => <ProfilePage {...props} />}
                 />
                 <Route
@@ -128,8 +115,8 @@ const Nav = () => {
                     render={(props) => <FollowingPage {...props} />}
                 />
                 <Route
-                    exact
-                    path="/post"
+                    
+                    path="/post/:pid"
                     render={(props) => <PostPage {...props} />}
                 />
             </Switch>
@@ -142,7 +129,7 @@ const Nav = () => {
                 </div>
                 <div className="--flex-row">
                         <CreatePost fetchPosts={() => fetchPosts()} />
-                        <img className="nav__avatar" src={`${auth.user.image}`} />
+                        <img className="nav__avatar" src={auth.user.image} />
                 </div>
             </nav>
         </Fragment>

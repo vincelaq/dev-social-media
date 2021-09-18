@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const db = require("../models");
 const { validationResult } = require("express-validator");
-const fs = require("fs");
+
 
 
 // Index - GET - Retrieve data of all posts (no specific criteria)
@@ -42,7 +42,11 @@ const getOnePost = async (req, res) => {
     let post;
     try {
         post = await db.Post.findById(req.params.pid)
-            .populate({path: 'comments', populate: {path: 'comments'}})
+            .populate({path: 'comments', 
+                populate: {path: 'comments', 
+                    populate: {path: 'comments',
+                        populate: {path: 'comments'
+            }}}})
     } catch (err) {
         if (err.kind === "ObjectId") {
             return res.status(404).json({
@@ -74,7 +78,7 @@ const getOnePost = async (req, res) => {
 const getAllUserPosts = async (req, res) => {
     let existingUser;
     try {
-        existingUser = await db.User.findById(req.params.uid);
+        existingUser = await db.User.findById(req.params.uid)
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving existing user has failed, please try again later",
@@ -91,7 +95,13 @@ const getAllUserPosts = async (req, res) => {
     
     let posts;
     try {
-        posts = await db.Post.find({ author: req.params.uid });
+        posts = await db.Post.find({ author: req.params.uid })
+            .sort({ createdAt: -1 })
+            .populate({path: 'comments', 
+                populate: {path: 'comments', 
+                    populate: {path: 'comments',
+                        populate: {path: 'comments'
+            }}}})
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving user posts has failed, please try again later",
