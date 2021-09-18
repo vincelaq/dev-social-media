@@ -1,36 +1,45 @@
-.modal {
-    font-size: 12px;
-    background-color: lightgray;
-    width: 400px;
+.img-upload-wrap {
+    width: 95%;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
 }
-.modal > .header {
-    width: 100%;
-    height: 80px;
-    border-bottom: 1px solid gray;
-    font-size: 36px;
-    text-align: center;
-    padding: 20px;
+
+
+.img-preview {
+    object-fit: cover;
+    object-position: center;
 }
-.modal > .content {
-    width: 100%;
-    padding: 10px 5px;
+
+.icon-wrap {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--grey);
+    overflow: hidden;
+    border-radius: 999px;
+    margin-bottom: 16px;
 }
-.modal > .actions {
-    width: 100%;
-    padding: 10px 5px;
-    margin: auto;
-    text-align: center;
-}
-.modal > .close {
+
+.upload-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    position: absolute;
-    display: block;
-    padding: 5px 8px;
-    line-height: 20px;
-    right: 380px;
-    top: -14px;
-    font-size: 24px;
-    background: #ffffff;
-    border-radius: 18px;
-    border: 1px solid #cfcece;
+    height: 100%;
+    width: 100%;
+    padding: 56px;
+    overflow: hidden;
+    border: 1px solid var(--grey);
+    border-radius: 8px;
+    transition: border 300ms ease-in-out 100ms;
+}
+
+.upload-wrap:hover {
+    border: 1px solid var(--white);
 }

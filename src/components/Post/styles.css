@@ -8,7 +8,7 @@
 
 .post__sidebar {
     background-color: var(--grey);
-    width: 40px;
+    min-width: 40px;
     padding: 24px 0px;
     display: flex;
     flex-direction: column;

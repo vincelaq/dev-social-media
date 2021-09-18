@@ -82,9 +82,9 @@ const FollowProfile = ( {id, fetchUser, fetchPosts } ) => {
             { isUser ?
                 <EditProfile user={user} fetchPosts={() => fetchPosts()} />
                     : isFollowing ?
-                    <button variant="contained" color="secondary" 
+                    <button className="profile__btn active" variant="contained" color="secondary" 
                 onClick={changeFollowing}>unFollow</button>
-                    : <button variant="contained" color="primary"
+                    : <button className="profile__btn" variant="contained" color="primary"
                     onClick={changeFollowing}>Follow</button>
 
             }

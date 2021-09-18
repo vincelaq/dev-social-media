@@ -180,7 +180,7 @@ const Post = ({ post, image, allPosts, id, author, title, user, body, comments, 
             <div className="post__content-wrap">
                 <div className="post__header">
                     <div className="post__profile-img-wrap">
-                        <img className="post__profile-img" src={`${image}`} />
+                        <img className="post__profile-img" src={image} />
                         <img className="post__profile-fav-lang" />
                     </div>
                     <div>
