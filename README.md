@@ -25,24 +25,33 @@ Heroku: https://limitless-lowlands-64983.herokuapp.com/  <br>
 Trello Board : https://trello.com/b/wagAN1Fm/dev-social-media
 
 ## A Guided Walk-through of DevBook
-<h4>Login Page</h4>
+## <h4>Login Page</h4>
 We start here on the Login Page. At DevBook you would create a profile where you would be able to post content, share images, follow your favorite developers and comment on the post of you fellow Developers. But we first need to create a profile.
 
 (image of login Page goes here)
 
-<h4>SignUp Page</h4>
+## <h4>SignUp Page</h4>
 Below the "Sign in" button is the "Register" button or in the top right hand corner of the website is a "Signup" button. Click on either to be re-directed to the Sign up Page. Once on the Sign up Page enter your name, create a username, enter your email and create a password. After filling out the information, click the "Create account" button and you will be redirected to your Home Page.
 
 (image of sign up page)
 
-<h4>Home Page</h4>
-The Home Page is your main page. On your homepage you have your navigation bar. The navigation bar, located on the left hand side of the screen, has the following features. You have the ability to see the developers you are following. You have a profile feature, which takes you to your profile. At the bottom of you navigation bar is the Logout feature. Displayed next to the navigation is the post from other users. Now if you wish to create your own post, you can navigate to the upper right hand corner of the screen and press the "Create a Post" button.
+## <h4>Home Page</h4>
+The Home Page is your main page. On your homepage you have your navigation bar. The navigation bar, located on the left hand side of the screen, has the following features. You have the ability to see the developers you are following. You have a profile feature, which takes you to your profile. At the bottom of you navigation bar is the Logout feature. At the top is the search bar which you can use to find other developers. Displayed next to the navigation is the post from other users. You have access to all post on your homepage. Now if you wish to create your own post, you can navigate to the upper right hand corner of the screen and press the "+Create a Post" button. Lets create our first post.
 
 (image of home page)
 
-<h4>Post Page </h4>
+## <h4>Create a Post Popup</h4>
+After pressing the "+Create a Post" button, a popup will appear on the "Home Page" and you can enter the following information: Title, Description and enter your Language Tags you are using. Now Post don't have to be all about code. You can make any kind of post. Maybe you want to get to know your fellow developers. Its up to you. Now after you create that post, the pop window will disappear and you post will now be at the top of you post section in you homepage.
+
+(image of create a post)
+
+## <h4>Edit Post Popup</h4>
+Need to change your post? You have that ability. Right on your homepage underneath your post is the ability to edit your post. Press that button and it will take you to a similar popup window as the "+Create a Post".
+
+<h4>Delete Post
 
 <h4>User Profile</h4>
+In the Navigation Bar, there is a "Profile button". Pressing this button will take you to your profile. This is what other users would see when selecting your profile. You can see all the post you have created.
 
 <h4>Comment on Post</h4>
 
@@ -77,4 +86,4 @@ List any unsolved issues.
 ## Future Enhancements: 
 - The ability to send private messages to other developers.
 - Add a Messages button to the Navigation Bar.
-- 
+- Have all Post in a library and be able to search for any post in that library.
