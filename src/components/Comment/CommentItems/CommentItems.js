@@ -9,11 +9,11 @@ const CommentItems = ({ comment }) => {
     });
 
     return(
-       <div>
+       <div className="nested-comment__wrapper">
             <div className="comment">
                 <div className="comment--user"> username {comment.username} </div>
                 <div className="comment--create"> createdAt {comment.createdAt} </div>
-                <div className="comment--image"> image {comment.image} </div>
+                <div className="comment--image"> <img className="nav__avatar" src={comment.image} /> </div>
                 <div className="comment--body"> body {comment.body} </div>
             </div>
             <button>Reply</button>

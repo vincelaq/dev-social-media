@@ -10,7 +10,7 @@ const Comment = ({username, createdAt, image, body, comments}) => {
         <div >
           <div classNmae="user"> username {username} </div>
           <div className="create"> createdAt {createdAt} </div>
-          <div className="user_img"> image {image} </div>
+          <div className="user_img"> <img className="nav__avatar" src={image} /> </div>
           <div className="body"> body {body} </div>
     </div>
 
