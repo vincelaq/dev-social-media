@@ -64,7 +64,7 @@ const PostPage = (props) => {
             {comments.map((comment) => {
                 return (
                     <Comment
-                        user={comment.username}
+                        username={comment.username}
                         body={comment.body}
                         image={comment.image}
                         comments={comment.comments}
@@ -72,7 +72,8 @@ const PostPage = (props) => {
                         key={comment._id}
                         likes={comment.voteTotal}
                         id={comment._id}
-                        // getPostsAgain={() => fetchPosts()}
+                        originPostId={post.id}
+                        fetchOnePost={() => fetchOnePost()}
                     />
                 );
             })}
