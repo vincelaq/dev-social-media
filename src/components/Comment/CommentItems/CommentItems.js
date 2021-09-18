@@ -1,9 +1,10 @@
 import React from "react";
+import CommentReply from "../CommentReply";
 
 
 import "./style.css";
 
-const CommentItems = ({ comment }) => {
+const CommentItems = ({ comment, fetchOnePost }) => {
     const nestedComments = ( comment.comments || [] ).map(nestedComment => {
         return <CommentItems comment={nestedComment} key={nestedComment.id} />
     });
@@ -16,7 +17,7 @@ const CommentItems = ({ comment }) => {
                 <div className="comment--image"> <img className="nav__avatar" src={comment.image} /> </div>
                 <div className="comment--body"> body {comment.body} </div>
             </div>
-            <button>Reply</button>
+            <CommentReply originCommentId={comment._id} fetchOnePost={() => fetchOnePost()} />
             <button>Edit</button>
             <div>
                 {nestedComments.length > 0 && <div>{nestedComments}</div>}
