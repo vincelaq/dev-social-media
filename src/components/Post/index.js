@@ -177,6 +177,8 @@ const Post = ({ post, image, allPosts, id, author, title, user, body, comments, 
             </a>
                 
             </div>
+            <Link to={{ pathname: `/profile/${author}`, user, posts: allPosts }}> 
+
             <div className="post__content-wrap">
                 <div className="post__header">
                     <div className="post__profile-img-wrap">
@@ -184,9 +186,8 @@ const Post = ({ post, image, allPosts, id, author, title, user, body, comments, 
                         <img className="post__profile-fav-lang" />
                     </div>
                     <div>
-                     <Link to={{ pathname: `/profile/${author}`, user, posts: allPosts }}> 
                         <p className="post__username">{user}</p>
-                     </Link>   
+                      
                         <p className="post__time-posted">Time Posted: {time}</p>
                     </div>
                 </div>
@@ -203,6 +204,7 @@ const Post = ({ post, image, allPosts, id, author, title, user, body, comments, 
                     </Link>
                 </a>
             </div>
+            </Link>  
 
             {/* If post belongs to you display edit and delete links*/}
             <div className="post__elipses-wrap">
