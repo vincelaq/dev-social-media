@@ -118,11 +118,12 @@ button:active {
 .create{
   margin: 0;
 }
-
-.user, .user-img, .nav__avatar {
-  display: flex;
-  position: relative;
-  grid-template-columns: 30% 1fr 100px;
+.user-img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 999px;
+    margin-right: 24px;
 }
 
 .comment__body {
@@ -135,4 +136,11 @@ button:active {
     position: relative;
     width: 700px;
     height: 200px;
+}
+
+.comment__header{
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+    padding: 6px 10px;
 }
