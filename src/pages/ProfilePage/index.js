@@ -69,7 +69,9 @@ const ProfilePage = (props) => {
         <div className="container">
             {isLoading && <LoadingSpinner asOverlay />}
             <section>
+            <div className="np">
                 <NamePlate
+                    
                     username={user.username}
                     jobTitle={user.jobTitle}
                     image={user.image}
@@ -81,6 +83,7 @@ const ProfilePage = (props) => {
                     fetchPosts={() => fetchPosts()}
                     fetchUser={() => fetchUser()}
                 />
+            </div>
     
                 {posts.map((post) => {
                     return (

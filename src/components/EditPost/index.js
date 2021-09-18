@@ -15,7 +15,6 @@ const EditPost = ({ id, fetchPosts }) => {
             {close => (
             <div className="modal">
                 <div className="header-wrap">
-                    <div></div>
                     <h2 className="header"> Edit a Post </h2>
                     <button className="close" onClick={close}>
                     &times;

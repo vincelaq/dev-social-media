@@ -67,6 +67,7 @@ input[type=submit]{
   font-family: poppins, sans-serif;
   font-weight: 600;
   font-style: normal;
+  margin-top: 24px;
 }
 
 input, textarea {
@@ -144,6 +145,6 @@ button:hover {
   justify-content: space-between;
 }
 
-.--flex-align-center{
+.--flex-row--flex-align-center{
   align-items: center;
 }
