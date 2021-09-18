@@ -7,7 +7,7 @@ import server from '../../api';
 import "./styles.css";
 
 
-const Post = ({ post, allPosts, id, author, title, user, body, comments, time, likes, fetchPosts  }) => {
+const Post = ({ post, image, allPosts, id, author, title, user, body, comments, time, likes, fetchPosts  }) => {
     const auth = useContext(AuthContext);
 
 
