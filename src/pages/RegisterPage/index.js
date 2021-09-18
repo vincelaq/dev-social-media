@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import LoadingSpinner from '../../components/Elements/LoadingSpinner';
@@ -26,6 +25,21 @@ const Register = () => {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
     
+    const handleErrors = (err) => {
+        if (err.response) {
+            console.log("Problem with response")
+            console.log(err.response)
+            alert(err.response.data.message)
+        } else if (err.request) {
+            console.log("Problem with request")
+            console.log(err.request)
+            alert(err.request.data)
+        } else {
+            console.log("Error during login")
+            console.log(err.message)
+        }
+    } 
+
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -56,7 +70,7 @@ const Register = () => {
                 history.push('/');
             } catch (err) {
                 setIsLoading(false);
-                alert(err.response.data.message);
+                handleErrors(err);
                 setFormData({
                     fullName: '',
                     username: '',

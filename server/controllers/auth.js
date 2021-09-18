@@ -72,6 +72,20 @@ const signup = async (req, res, next) => {
             data: existingUser
         })
     }
+    let banner;
+    const rngBg = () => {
+        const allBgs = [
+        'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1631961036382',
+        'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/163196133654',
+        'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1631961406367',
+        'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1631961587339',
+        'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1631961632404',
+        'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1631961659195'
+        ]
+        let i = Math.floor(Math.random() * allBgs.length)
+        banner = allBgs[i];
+    }
+    rngBg();
 
     
     const newUser = new db.User ({
@@ -80,7 +94,7 @@ const signup = async (req, res, next) => {
         email,
         password,
         image,
-        banner: "",
+        banner,
         bio: "",
         skills: "",
         languages: [],

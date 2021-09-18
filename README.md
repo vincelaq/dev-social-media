@@ -67,6 +67,11 @@ In the Navigation Bar, there is a "Profile button". Pressing this button will ta
 - GitHub
 - Insomnia
 
+
+## Getting Started: 
+Heroku: https://devbook-flex525.herokuapp.com/  <br>
+Trello Board : https://trello.com/b/wagAN1Fm/dev-social-media
+
 ## Unsolved Problems: 
 List any unsolved issues.
 
@@ -75,3 +80,41 @@ List any unsolved issues.
 - Add a Messages button to the Navigation Bar.
 - Have all Post in a library and be able to search for any post in that library.
 - 
+
+  
+Identify future features and enhancements planned for the project.
+
+## Routes
+
+| Method 	|              Route             	|  Access  	|                   Descroption                  	|
+|:------:	|:------------------------------:	|:--------:	|:----------------------------------------------:	|
+| GET    	| /api/users                     	| Public   	| Get all users information    |
+| POST   	| /api/auth/signup               	| Public   	| authenticate user signup account               	|
+| POST   	| /api/auth/login                	| Private  	| Post user login credential: email and password 	|
+| GET    	| /api/users/profile             	| Private  	| Get user profile                               	|
+| GET    	| /api/users/profile/:uid        	| Private  	| Get users profile (using user_id)              	|
+| GET    	| api/users/following            	| Private  	| Get user's following (list my followings)      	|
+| PUT    	| /api/users/image                	| Private  	| Post Image                                     	|
+| PUT    	| /api/users/banner               	| Private  	| Post banner                                    	|
+| PUT    	| /api/users/profile              	| Private  	| Upadte my profile                              	|
+| PUT    	| /api/users/follow/:uid          	| Private  	| Update user's follow                           	|
+| DELETE 	| /api/users                      	| Private  	| Delete/destroy users                           	|
+| GET    	| /api/posts/                     	| Private  	| Get users posts                                	|
+| GET    	| /api/posts/:pid                 	| Private  	| Get one user posts                             	|
+| GET    	| /api/users/:uid                 	| Public   	| get all users posts                            	|
+| POST   	| /api/posts/                     	| Private  	| Authentucate user posts                        	|
+| PUT    	| /api/posts/:pid                 	| Private  	| Authenticate user before updating post         	|
+| PUT    	| api/post/like/:pid                | Public   	| update user likes post                         	|
+| PUT    	| /api/posts/dislike/:pid           | Public   	| update user dislike post                       	|
+| DELETE 	| /api/posts/:pid                   | Private  	| Delete/destroy post                            	|
+| POST   	| /api/user/uploads/image-upload 	| Private  	| upload image                                   	|
+| GET    	| /api/comments                  	| Public   	| view comments                                  	|
+| GET    	| /api/comments/:cid             	| Private  	| Get one comment                                	|
+| GET    	| /api/comments/user/:uid        	| Private  	| Get all user comments                          	|
+| POST   	| /api//comments/:pid            	| Private  	| Create a comment                               	|
+| POST   	| /api/comments/orig/:cid        	| Public   	| Create a nested comment                        	|
+| PUT    	| /api/comments/:cid             	| Private  	| Updating a comment                             	|
+| PUT    	| /api/comments/like/:cid        	| Private  	| Update comment likes                           	|
+| PUT    	| /api/comments/dislike/:cid     	| Private  	| Update comment dislikes                        	|
+| DELETE 	| /api/comments/:cid             	| Private  	| Delets comments                                	|
+

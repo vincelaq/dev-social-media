@@ -3,65 +3,74 @@ import { AuthContext } from '../../context/auth-context';
 import server from '../../api';
 import EditProfile from "../EditProfile";
 
-const FollowProfile = ( {id, fetchPosts } ) => {
+const FollowProfile = ( {id, fetchUser, fetchPosts } ) => {
     const auth = useContext(AuthContext);
     const user = auth.user;
     const [isFollowing, setIsFollowing] = useState(false);
     const [isUser, setIsUser] = useState(false);
 
-const determineFollowing = () => {
-    if (user.following.includes(id)) {
-        setIsFollowing(true)
-    } else {
-        setIsFollowing(false)
-    }
-};
+    const determineFollowing = () => {
+        if (auth.user.following.includes(id)) {
+            setIsFollowing(true)
+        } else {
+            setIsFollowing(false)
+        }
+    };
 
-const determineIfUser = () => {
-    if (user._id === id) {
-        setIsUser(true)
-    } else {
-        setIsUser(false)
-    }
-};
+    const determineIfUser = () => {
+        if (auth.user._id === id ) {
+            setIsUser(true)
+        } else {
+            setIsUser(false)
+        }
+    };
 
-const handleErrors = (err) => {
-    if (err.response) {
-        console.log("Problem with response")
-        console.log(err.response)
-        alert(err.response.data.message)
-    } else if (err.request) {
-        console.log("Problem with request")
-        console.log(err.request)
-        alert(err.request.data)
-    } else {
-        console.log("Error during posting")
-        console.log(err.message)
-    }
-} 
+    const handleErrors = (err) => {
+        if (err.response) {
+            console.log("Problem with response")
+            console.log(err.response)
+            alert(err.response.data.message)
+        } else if (err.request) {
+            console.log("Problem with request")
+            console.log(err.request)
+            alert(err.request.data)
+        } else {
+            console.log("Error during posting")
+            console.log(err.message)
+        }
+    } 
 
-const changeFollowing = async (e) => {
-    e.preventDefault();
-    try {
-    
-        const options = {
-            headers: {
-                'Authorization': 'Bearer '+auth.token,
-                'Content-Type': 'application/json'
+    const changeFollowing = async (e) => {
+        e.preventDefault();
+        try {
+        
+            const options = {
+                headers: {
+                    'Authorization': 'Bearer '+auth.token,
+                    'Content-Type': 'application/json'
+                }
+            };
+            
+            const data = {}
+            
+            const res = await server.put(`users/follow/${id}`, data, options);
+
+            console.log(res);
+
+            if(isFollowing) {
+                setIsFollowing(false);
+            } else {
+                setIsFollowing(true);
             }
-        };
-        
-        const data = {}
-        
-        const res = await server.put(`users/follow/${id}`, data, options);
-
-        console.log(res);
-
-        setIsFollowing(false)
-    } catch (err) {
-        handleErrors(err);
+            
+        } catch (err) {
+            handleErrors(err);
+        }
     }
-}
+
+    useEffect(() => {
+        fetchUser();
+     },[isFollowing])
 
     useEffect(() => {
        determineFollowing();

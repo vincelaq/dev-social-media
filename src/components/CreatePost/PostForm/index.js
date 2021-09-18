@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import axios from 'axios';
 import LoadingSpinner from '../../Elements/LoadingSpinner';
 import { AuthContext } from '../../../context/auth-context';
 import server from '../../../api';
@@ -76,13 +75,14 @@ const PostForm = ({ close, fetchPosts }) => {
                         onChange={e => onChange(e)}
                         required
                     />
-                    <input
+                    <textarea
                         className="create-post__input"
-                        type="text"
-                        placeholder="Description"
+                        placeholder="What's on your mind?"
                         name="body"
                         required
                         value={body}
+                        rows="4"
+                        cols="1"
                         onChange={e => onChange(e)}
                     />
                     <input

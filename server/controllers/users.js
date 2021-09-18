@@ -243,8 +243,6 @@ const updateMyProfile = async (req, res) => {
     if (fullName) foundUser.fullName = fullName;
     if (newPassword) foundUser.password = newPassword;
     if (skills) foundUser.skills = skills;
-    if (req.files['image']) foundUser.image = req.files['image'][0].path;
-    if (req.files['banner']) foundUser.banner = req.files['banner'][0].path;
     if (bio) foundUser.bio = bio;
     if (jobTitle) foundUser.jobTitle = jobTitle;
     if (favLanguage) foundUser.favLanguage = favLanguage;
