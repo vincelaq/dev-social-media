@@ -58,25 +58,25 @@ Identify future features and enhancements planned for the project.
 
 | Method 	|              Route             	|  Access  	|                   Descroption                  	|
 |:------:	|:------------------------------:	|:--------:	|:----------------------------------------------:	|
-| GET    	| /api/users                     	| Public   	| Get user : username email and password.        	|
+| GET    	| /api/users                     	| Public   	| Get all users information    |
 | POST   	| /api/auth/signup               	| Public   	| authenticate user signup account               	|
 | POST   	| /api/auth/login                	| Private  	| Post user login credential: email and password 	|
 | GET    	| /api/users/profile             	| Private  	| Get user profile                               	|
 | GET    	| /api/users/profile/:uid        	| Private  	| Get users profile (using user_id)              	|
 | GET    	| api/users/following            	| Private  	| Get user's following (list my followings)      	|
-| PUT    	| api/users/image                	| Private  	| Post Image                                     	|
-| PUT    	| api/users/banner               	| Private  	| Post banner                                    	|
-| PUT    	| api/users/profile              	| Private  	| Upadte my profile                              	|
-| PUT    	| api/users/follow/:uid          	| Private  	| Update user's follow                           	|
-| DELETE 	| api/users                      	| Private  	| Delete/destroy users                           	|
-| GET    	| api/posts/                     	| Private  	| Get users posts                                	|
-| GET    	| api/posts/:pid                 	| Private  	| Get one user posts                             	|
-| GET    	| api/users/:uid                 	| Public   	| get all users posts                            	|
-| POST   	| api/posts/                     	| Private  	| Authentucate user posts                        	|
-| PUT    	| api/posts/:pid                 	| Private  	| Authenticate user before updating post         	|
-| PUT    	| /post/like/:pid                	| Public   	| update user likes post                         	|
-| PUT    	| /posts/dislike/:pid            	| Public   	| update user dislike post                       	|
-| DELETE 	| /posts/:pid                    	| Private  	| Delete/destroy post                            	|
+| PUT    	| /api/users/image                	| Private  	| Post Image                                     	|
+| PUT    	| /api/users/banner               	| Private  	| Post banner                                    	|
+| PUT    	| /api/users/profile              	| Private  	| Upadte my profile                              	|
+| PUT    	| /api/users/follow/:uid          	| Private  	| Update user's follow                           	|
+| DELETE 	| /api/users                      	| Private  	| Delete/destroy users                           	|
+| GET    	| /api/posts/                     	| Private  	| Get users posts                                	|
+| GET    	| /api/posts/:pid                 	| Private  	| Get one user posts                             	|
+| GET    	| /api/users/:uid                 	| Public   	| get all users posts                            	|
+| POST   	| /api/posts/                     	| Private  	| Authentucate user posts                        	|
+| PUT    	| /api/posts/:pid                 	| Private  	| Authenticate user before updating post         	|
+| PUT    	| api/post/like/:pid                | Public   	| update user likes post                         	|
+| PUT    	| /api/posts/dislike/:pid           | Public   	| update user dislike post                       	|
+| DELETE 	| /api/posts/:pid                   | Private  	| Delete/destroy post                            	|
 | POST   	| /api/user/uploads/image-upload 	| Private  	| upload image                                   	|
 | GET    	| /api/comments                  	| Public   	| view comments                                  	|
 | GET    	| /api/comments/:cid             	| Private  	| Get one comment                                	|
