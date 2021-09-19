@@ -71,7 +71,7 @@ const ProfilePage = (props) => {
             <section>
             <div className="np">
                 <NamePlate
-                    
+                    banner={user.banner}
                     username={user.username}
                     jobTitle={user.jobTitle}
                     image={user.image}

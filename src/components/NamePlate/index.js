@@ -35,12 +35,13 @@ const NamePlate = ({
   following,
   id,
   fetchPosts,
-  fetchUser
+  fetchUser,
+  banner
 }) => {
     
   return (     
       <div className="np__container">
-        <div className="np__banner" style={{backgroundImage: `url(${process.env.PUBLIC_URL}/profile-bgs/fakurian-design-E8Ufcyxz514-unsplash.jpg)`}}>
+        <div className="np__banner" style={{backgroundImage: `url(${banner}`}}>
             <FollowProfile id={id} username={username} fetchUser={()=>fetchUser()} fetchPosts={() => fetchPosts()} />
               <div className="np__profile-img"> 
                 <EditImage id={id} image={image} fetchUser={() => fetchUser()} /> 

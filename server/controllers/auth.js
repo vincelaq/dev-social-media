@@ -76,16 +76,17 @@ const signup = async (req, res, next) => {
     const rngBg = () => {
         const allBgs = [
         'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1631961036382',
-        'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/163196133654',
         'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1631961406367',
         'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1631961587339',
         'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1631961632404',
-        'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1631961659195'
+        'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1631961659195',
+        'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1632078772462',
+        'https://devbook-uploads-1.s3.us-west-1.amazonaws.com/1632078808646'
         ]
         let i = Math.floor(Math.random() * allBgs.length)
-        banner = allBgs[i];
+        return allBgs[i];
     }
-    rngBg();
+    banner = rngBg();
 
     
     const newUser = new db.User ({
