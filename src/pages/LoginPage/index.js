@@ -17,15 +17,13 @@ const Login = () => {
     const handleErrors = (err) => {
         if (err.response) {
             console.log("Problem with response")
-            console.log(err.response)
             alert(err.response.data.message)
         } else if (err.request) {
             console.log("Problem with request")
-            console.log(err.request)
-            alert(err.request.data)
+            alert(err.request)
         } else {
-            console.log("Error during login")
             console.log(err.message)
+            alert("Error during login")
         }
     } 
 
