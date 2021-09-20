@@ -10,7 +10,7 @@ router.get("/profile", auth, users.getMyProfile);
 router.get("/profile/:uid", users.getUserProfile);
 router.get("/following", auth, users.getMyFollowing);
 router.post("/image", auth, fileUpload.single('image'), users.postImage);
-router.post("/banner", auth, fileUpload.single('image'), users.postBanner);
+router.post("/banner", auth, fileUpload.single('banner'), users.postBanner);
 router.put("/profile", auth, users.updateMyProfile);
 router.put("/follow/:uid", auth, users.updateFollow);
 router.delete("/", auth, users.destroyUser);

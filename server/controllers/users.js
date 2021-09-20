@@ -8,7 +8,7 @@ const fs = require("fs");
 const index = async (req, res) => {
     let users;
     try {
-        users = await db.User.find({}, '-password').populate('posts').populate('comments');
+        users = await db.User.find({}, '-password');
     } catch (err) {
         return res.status(500).json({
             message: "Error: Retrieving users has failed, please try again later",

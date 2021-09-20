@@ -8,7 +8,7 @@ import './style.css';
 const EditImage = ({ id, image, fetchUser }) => {
     return (
         <Popup
-            trigger={<img className="np__avatar" alt="Your avatar, click to change" src={image}/>}
+            trigger={<a className="button"> Edit Image </a>}
             modal
             nested
         >

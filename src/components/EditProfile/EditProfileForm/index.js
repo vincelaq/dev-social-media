@@ -8,7 +8,8 @@ import './style.css';
 const EditProfileForm = ({ id, close, fetchPosts }) => {
     const auth = useContext(AuthContext);
     const [formData, setFormData] = useState({ 
-        fullName: "", 
+        fullName: "",
+        jobTitle: "", 
         bio: "", 
         skills: "", 
         languages: "", 
@@ -17,7 +18,7 @@ const EditProfileForm = ({ id, close, fetchPosts }) => {
     });
     const [isLoading, setIsLoading] = useState(false);
 
-    const { fullName, bio, skills, languages, favLanguage, password } = formData;
+    const { fullName, jobTitle, bio, skills, languages, favLanguage, password } = formData;
 
     const handleErrors = (err) => {
         if (err.response) {
@@ -44,22 +45,24 @@ const EditProfileForm = ({ id, close, fetchPosts }) => {
         try {
             setIsLoading(true);
             
-            const dataArray = new FormData();
-            dataArray.append("fullName", fullName);
-            dataArray.append("bio", bio);
-            dataArray.append("skills", skills);
-            dataArray.append("languages", languages);
-            dataArray.append("favLanguage", bio);
-            dataArray.append("password", password);
+            const data = {
+                "fullName": fullName,
+                "jobTitle": jobTitle,
+                "bio": bio,
+                "skills": skills,
+                "languages": languages,
+                "favLanguage": favLanguage,
+                "password": password,
+            }
             
             const options = {
                 headers: {
                     'Authorization': 'Bearer '+auth.token,
-                    'Content-Type': 'multipart/form-data; boundary=---DEVBOOK---'
+                    'Content-Type': 'application/json'
                 }
             };
             
-            const res = await server.put(`users/profile`, dataArray, options);
+            const res = await server.put(`users/profile`, data, options);
 
             console.log(res);
             fetchPosts();
@@ -84,6 +87,14 @@ const EditProfileForm = ({ id, close, fetchPosts }) => {
                         value={fullName} 
                         onChange={e => onChange(e)}
                     
+                    />
+                    <input
+                        className="create-post__input"
+                        type="text"
+                        placeholder="Job Title"
+                        name="jobTitle"
+                        value={jobTitle}
+                        onChange={e => onChange(e)}
                     />
                     <input
                         className="create-post__input"

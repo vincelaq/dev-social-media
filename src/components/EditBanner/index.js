@@ -1,6 +1,6 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
-import EditBannerForm from './EditImageForm';
+import EditBannerForm from './EditBannerForm';
 
 import './style.css';
 
@@ -8,7 +8,7 @@ import './style.css';
 const EditBanner = ({ id, banner, fetchUser }) => {
     return (
         <Popup
-            trigger={<img className="np__avatar" alt="Your banner, click to change" src={banner}/>}
+            trigger={<a className="button"> Edit Banner </a>}
             modal
             nested
         >
