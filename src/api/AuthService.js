@@ -1,3 +1,4 @@
+/* ==== Auth Service ==== */
 import server from './index';
 
 const loginUser = (data) => {

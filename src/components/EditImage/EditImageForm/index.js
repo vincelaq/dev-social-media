@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
-import server from '../../../api';
+import * as UserService from '../../../api/UserService';
 
 import './style.css';
+
 
 const EditImageForm = ({ id, close, fetchUser }) => {
     const history = useHistory();
@@ -39,24 +40,15 @@ const EditImageForm = ({ id, close, fetchUser }) => {
         try {
             const formData = new FormData();
             formData.append("image", image.raw);
-            const options = {
-                headers: {
-                    'Authorization': 'Bearer '+auth.token,
-                    'Content-Type': 'multipart/form-data'
-                }
-            };
-            const res= await server.post("users/image", formData, options);
+            const res = await UserService.updateImage(formData, auth.token);
             
             console.log(res);
                 fetchUser();
                 history.push({pathname: `/profile/${auth.user._id}`, state: auth.user })
                 close();
         } catch (err) {
-
                 handleErrors(err);
         }
-        
-
     };
 
   return (

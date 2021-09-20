@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
-import server from '../../../api';
+import * as UserService from '../../../api/UserService';
 
 import './style.css';
 
@@ -39,18 +39,10 @@ const EditBannerForm = ({ id, close, fetchUser }) => {
         try {
             const formData = new FormData();
             formData.append("banner", image.raw);
-            const options = {
-                headers: {
-                    'Authorization': 'Bearer '+auth.token,
-                    'Content-Type': 'multipart/form-data'
-                }
-            };
-            const res= await server.post("users/banner", formData, options);
-            
-            console.log(res);
-                fetchUser();
-                history.push({pathname: `/profile/${auth.user._id}`, state: auth.user })
-                close();
+            const res= await UserService.updateBanner(formData, auth.token);
+            fetchUser();
+            history.push({pathname: `/profile/${auth.user._id}`, state: auth.user })
+            close();
         } catch (err) {
                 handleErrors(err);
         }

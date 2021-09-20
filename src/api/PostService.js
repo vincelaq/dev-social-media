@@ -1,3 +1,4 @@
+/* ==== Post Service ==== */
 import server from './index';
 
 const getAllPosts = () => {

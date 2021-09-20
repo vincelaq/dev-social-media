@@ -1,5 +1,5 @@
+/* ==== API Config ==== */
 import axios from "axios";
-
 
 console.log("ENVIRONMENT:", process.env.NODE_ENV);
 let URL;
