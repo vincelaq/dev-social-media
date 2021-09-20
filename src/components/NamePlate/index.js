@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, Fragment } from "react";
+import { AuthContext } from "../../context/auth-context";
 import FollowProfile from "../FollowProfile";
 import EditImage from "../EditImage";
 import EditBanner from "../EditBanner";
@@ -18,25 +19,30 @@ const NamePlate = ({
   fetchUser,
   banner
 }) => {
-    
+  const auth = useContext(AuthContext);  
   return (     
       <div className="np__container">
         <div className="np__banner" style={{backgroundImage: `url(${banner}`}}>
             <FollowProfile id={id} username={username} fetchUser={()=>fetchUser()} fetchPosts={() => fetchPosts()} />
               <div className="np__profile-img"> 
                 <div className="image__mask">
-                  <img className="np__avatar" alt="Your avatar, click to change" src={image} onClick={(e) => {
-                          e.target.classList.toggle('active');
-                          e.target.nextSibling.classList.toggle('active');
-                  }}/>
-                  <div className="image__drop-down">
-                    <div>
-                      <EditImage id={id} image={image} fetchUser={() => fetchUser()} />
-                    </div>
-                    <div>
-                      <EditBanner id={id} banner={banner} fetchUser={() => fetchUser()} />
-                    </div>
-                  </div>  
+                  {auth.user._id === id ? 
+                    <Fragment>
+                      <img className="np__avatar" alt="Your avatar, click to change" src={image} onClick={(e) => {
+                              e.target.classList.toggle('active');
+                              e.target.nextSibling.classList.toggle('active');
+                      }}/>
+                      <div className="image__drop-down">
+                        <div>
+                          <EditImage id={id} image={image} fetchUser={() => fetchUser()} />
+                        </div>
+                        <div>
+                          <EditBanner id={id} banner={banner} fetchUser={() => fetchUser()} />
+                        </div>
+                      </div>
+                    </Fragment>
+                    :
+                    <img className="np__avatar" alt="Your avatar, click to change" src={image} />}
                 </div>
               </div>
         </div>

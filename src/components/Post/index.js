@@ -4,7 +4,7 @@ import EditPost from "../EditPost";
 import { AuthContext } from "../../context/auth-context";
 import ReactTimeAgo from 'react-time-ago';
 import server from '../../api';
-// import Likes from "../Likes";
+
 import "./styles.css";
 
 
