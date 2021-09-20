@@ -58,7 +58,7 @@ const updateAPostLike = (pid, token) => {
     return server.put(`posts/like/${pid}`, data, options)
 };
  
-const updateAPostLike = (pid, token) => {
+const updateAPostDislike = (pid, token) => {
     const data = {};
     const options = {
         headers: {
@@ -88,4 +88,4 @@ export {
     updateAPostLike,
     updateAPostDislike,
     deleteAPost,
-}
+};

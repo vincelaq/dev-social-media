@@ -6,7 +6,7 @@ import FollowingPage from "../../pages/FollowingPage";
 import ProfilePage from "../../pages/ProfilePage";
 import PostPage from "../../pages/PostPage";
 import CreatePost from "../CreatePost";
-import server from "../../api";
+import * as PostService from "../../api/PostService";
 import "./styles.css";
 
 const Nav = () => {
@@ -32,13 +32,7 @@ const Nav = () => {
 
     const fetchPosts = async () => {
         try {
-            const options = {
-                headers: {
-                    'Authorization': 'Bearer '+auth.token,
-                    'Content-Type': 'application/json'
-                }
-            }
-            let res = await server.get('posts', options);
+            let res = await PostService.getAllPosts();
             setPosts(res.data.data);
             console.log("Nav Fetch Post Response: ", res);
         } catch (err) {

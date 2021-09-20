@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import LoadingSpinner from '../../components/Elements/LoadingSpinner';
 import { AuthContext } from '../../context/auth-context';
-import server from '../../api';
+import * as AuthService from '../../api/AuthService';
 
 import '../LoginPage/style.css';
 
@@ -48,12 +48,6 @@ const Register = () => {
         } else {
             setIsLoading(true);
             try {
-
-                const options = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
                 const data = {
                     fullName: fullName,
                     username: username,
@@ -61,7 +55,7 @@ const Register = () => {
                     password: password,
                 }
                 
-                const res = await server.post('auth/signup', data, options);
+                const res = await AuthService.signupUser(data);
                 if (res.statusText !== 'OK') {
                     throw new Error(res.data.message)
                 }

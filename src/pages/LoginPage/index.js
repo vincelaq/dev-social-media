@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../../components/Elements/LoadingSpinner';
 import { AuthContext } from '../../context/auth-context';
-import server from '../../api';
+import * as AuthService from '../../api/AuthService';
 
 import './style.css';
 
@@ -35,17 +35,11 @@ const Login = () => {
         e.preventDefault();
         try {
             setIsLoading(true);
-            
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
             const data = {
                 email: email,
                 password: password
             }
-            const res = await server.post('auth/login', data, options);
+            const res = await AuthService.loginUser(data);
 
             console.log(res);
             setIsLoading(false);
