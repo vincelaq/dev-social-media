@@ -1,28 +1,28 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
-import EditImageForm from './EditImageForm';
+import EditBannerForm from './EditImageForm';
 
 import './style.css';
 
 
-const EditImage = ({ id, image, fetchUser }) => {
+const EditBanner = ({ id, banner, fetchUser }) => {
     return (
         <Popup
-            trigger={<img className="np__avatar" alt="Your avatar, click to change" src={image}/>}
+            trigger={<img className="np__avatar" alt="Your banner, click to change" src={banner}/>}
             modal
             nested
         >
             {close => (
             <div className="modal">
                 <div className="header-wrap">
-                    <h2 className="header"> Change Avatar </h2>
+                    <h2 className="header"> Change Banner </h2>
                     <button className="close" onClick={close}>
                     &times;
                     </button>
                 </div>
                 <div className="content">
                 {' '}
-                    <EditImageForm close={close} id={id} fetchUser={()=>fetchUser()} />
+                    <EditBannerForm close={close} id={id} fetchUser={()=>fetchUser()} />
                 </div>
             </div>
             )}
@@ -30,4 +30,4 @@ const EditImage = ({ id, image, fetchUser }) => {
     )
 };
 
-export default EditImage;
+export default EditBanner;

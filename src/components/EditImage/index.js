@@ -1,6 +1,6 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
-import EditForm from './EditImageForm';
+import EditImageForm from './EditImageForm';
 
 import './style.css';
 
@@ -22,7 +22,7 @@ const EditImage = ({ id, image, fetchUser }) => {
                 </div>
                 <div className="content">
                 {' '}
-                    <EditForm close={close} id={id} fetchUser={()=>fetchUser()} />
+                    <EditImageForm close={close} id={id} fetchUser={()=>fetchUser()} />
                 </div>
             </div>
             )}

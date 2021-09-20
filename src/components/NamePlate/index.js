@@ -3,28 +3,6 @@ import FollowProfile from "../FollowProfile";
 import EditImage from "../EditImage";
 import "./style.css";
 
-
-// const slug = process.env.PUBLIC_URL + '/profile-bgs/';
-// let bg = '';
-
-// const rngBg = () => { 
-//   const allBgs = [
-//   "fakurian-design-E8Ufcyxz514-unsplash.jpg", 
-//   "fakurian-design-nY14Fs8pxT8-unsplash.jpg",
-//   "fakurian-design-PGdW_bHDbpI-unsplash.jpg",
-//   "li-zhang-Ss0d-DIAtJ0-unsplash.jpg",
-//   "li-zhang-xRRQlR8Qu-Y-unsplash.jpg",
-//   "richard-horvath-is8jWT-mvng-unsplash.jpg"
-//   ]
-//   let i = Math.floor(Math.random() * allBgs.length)
-//   bg = allBgs[i];
-
-//   return bg;
-
-// }
-
-// rngBg();
-
 const NamePlate = ({
   username,
   jobTitle,

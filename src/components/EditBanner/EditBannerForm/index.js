@@ -5,7 +5,7 @@ import server from '../../../api';
 
 import './style.css';
 
-const EditImageForm = ({ id, close, fetchUser }) => {
+const EditBannerForm = ({ id, close, fetchUser }) => {
     const history = useHistory();
     const auth = useContext(AuthContext);
     const [image, setImage] = useState({ preview: "", raw: "" });
@@ -20,7 +20,7 @@ const EditImageForm = ({ id, close, fetchUser }) => {
             console.log(err.request)
             alert(err.request.data)
         } else {
-            console.log("Error during image edit")
+            console.log("Error during banner edit")
             console.log(err.message)
         }
     } 
@@ -38,25 +38,22 @@ const EditImageForm = ({ id, close, fetchUser }) => {
         e.preventDefault();
         try {
             const formData = new FormData();
-            formData.append("image", image.raw);
+            formData.append("banner", image.raw);
             const options = {
                 headers: {
                     'Authorization': 'Bearer '+auth.token,
                     'Content-Type': 'multipart/form-data'
                 }
             };
-            const res= await server.post("users/image", formData, options);
+            const res= await server.post("users/banner", formData, options);
             
             console.log(res);
                 fetchUser();
                 history.push({pathname: `/profile/${auth.user._id}`, state: auth.user })
                 close();
         } catch (err) {
-
                 handleErrors(err);
         }
-        
-
     };
 
   return (
@@ -78,7 +75,7 @@ const EditImageForm = ({ id, close, fetchUser }) => {
                   </svg>
                 </div>
 
-                <h2>Add a Photo</h2>
+                <h2>Add a Banner</h2>
               </div>
             </>
           )}
@@ -97,4 +94,4 @@ const EditImageForm = ({ id, close, fetchUser }) => {
   );
 }
 
-export default EditImageForm;
+export default EditBannerForm;
