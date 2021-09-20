@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
+TimeAgo.addDefaultLocale(en);
 
 
 ReactDOM.render(

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import EditPost from "../EditPost";
 import { AuthContext } from "../../context/auth-context";
+import ReactTimeAgo from 'react-time-ago';
 import server from '../../api';
 // import Likes from "../Likes";
 import "./styles.css";
@@ -150,7 +151,9 @@ const Post = ({ post, image, allPosts, id, author, title, user, body, comments, 
         numberOfComments = Object.keys(comments).length
     } else {
         numberOfComments = 0;
-    }
+    };
+
+   
 
     useEffect(() => {
     },[])
@@ -188,7 +191,7 @@ const Post = ({ post, image, allPosts, id, author, title, user, body, comments, 
                     <div>
                         <p className="post__username">{user}</p>
                       
-                        <p className="post__time-posted">Time Posted: {time}</p>
+                        <p className="post__time-posted"><ReactTimeAgo date={time} locale="en-US"/> </p>
                     </div>
                 </div>
                
