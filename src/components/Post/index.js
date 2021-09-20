@@ -218,10 +218,14 @@ const Post = ({ post, image, allPosts, id, author, title, user, body, comments, 
                         <div></div>
                     </figure>
                     <div className="elipses__drop-down">
-                        <div><EditPost id={id} fetchPosts={() => fetchPosts()} /></div>
+                        <div>
+                            {auth.user._id === author ?
+                                <EditPost id={id} fetchPosts={() => fetchPosts()} />
+                                :
+                                <a onClick={() => alert("You are not authorized to edit this post!")}>Edit</a> }
+                        </div>
                         <div><a onClick={() => handleDelete()}>Delete</a></div>
                     </div>
-
                 </div>
             </div>
 

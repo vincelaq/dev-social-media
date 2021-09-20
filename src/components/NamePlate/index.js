@@ -44,7 +44,11 @@ const NamePlate = ({
           <div className="--flex-row --flex-space-between --flex-align-center">
               <div>
                 <div className="username"> {username} </div>
-                <div className="jobTitle"> {jobTitle} </div>
+                { jobTitle ?
+                  <div className="jobTitle"> {jobTitle} </div>
+                  :
+                  <div className="jobTitle"> No job title yet </div>
+                }
               </div>
               <div className="np__stats">
                 <p className="numberOfPosts"> {numberOfPosts} <span>Posts</span> </p>
@@ -55,7 +59,10 @@ const NamePlate = ({
               </div>
               
           </div>
-          <div className="bio"> " {bio} " </div>
+          { bio ? 
+            <div className="bio"> " {bio} " </div>
+            :
+            <div className="bio"> No bio yet </div> }
         </div>
       </div>
   );

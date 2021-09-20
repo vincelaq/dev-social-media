@@ -69,22 +69,22 @@ const ProfilePage = (props) => {
         <div className="container">
             {isLoading && <LoadingSpinner asOverlay />}
             <section>
-            <div className="np">
-                <NamePlate
-                    banner={user.banner}
-                    username={user.username}
-                    jobTitle={user.jobTitle}
-                    image={user.image}
-                    bio={user.bio}
-                    numberOfPosts={numberOfPosts}
-                    numberOfConnections={numberOfFollowing}
-                    following={user.following}
-                    id={uid}
-                    fetchPosts={() => fetchPosts()}
-                    fetchUser={() => fetchUser()}
-                />
-            </div>
-    
+                <div className="np">
+                    <NamePlate
+                        banner={user.banner}
+                        username={user.username}
+                        jobTitle={user.jobTitle}
+                        image={user.image}
+                        bio={user.bio}
+                        numberOfPosts={numberOfPosts}
+                        numberOfConnections={numberOfFollowing}
+                        following={user.following}
+                        id={uid}
+                        fetchPosts={() => fetchPosts()}
+                        fetchUser={() => fetchUser()}
+                    />
+                </div>
+                {posts.length < 1 && <h3>No posts yet</h3>}
                 {posts.map((post) => {
                     return (
                         <Post
