@@ -2,7 +2,7 @@
 const router = require("express").Router();
 const { users } = require("../controllers");
 const auth = require("../middleware/auth");
-const fileUpload = require("../middleware/file-upload");
+const fileUpload = require("../middleware/upload");
 
 
 router.get("/", users.index);

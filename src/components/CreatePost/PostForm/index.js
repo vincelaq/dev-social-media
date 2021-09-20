@@ -37,10 +37,10 @@ const PostForm = ({ close, fetchPosts }) => {
         try {
             setIsLoading(true);
             
-            const dataArray = new FormData();
-            dataArray.append("title", title);
-            dataArray.append("body", body);
-            dataArray.append("languages", languages);
+            const data = new FormData();
+            data.append("title", title);
+            data.append("body", body);
+            data.append("languages", languages);
             
             const options = {
                 headers: {
@@ -49,7 +49,7 @@ const PostForm = ({ close, fetchPosts }) => {
                 }
             };
             
-            const res = await server.post('posts', dataArray, options);
+            const res = await server.post('posts', data, options);
 
             console.log(res);
             fetchPosts();

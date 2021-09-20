@@ -1,28 +1,37 @@
+const aws = require('aws-sdk');
 const multer = require('multer');
-const uuid = require('uuid').v4;
+const multerS3 = require('multer-s3');
+ 
+aws.config.update({
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    region: 'us-west-1'
+})
 
-const mime_type_map = {
-    'image/png': 'png',
-    'image/jpeg': 'jpeg',
-    'image/jpg': 'jpg',
-};
+const s3 = new aws.S3()
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
+        cb(null, true)
+    } else {
+        cb(new Error('Invalid file type, JPG and PNG accepted'), false);
+    }
+}
+
 
 const upload = multer({
-    limit: 500000,
-    storage: multer.diskStorage({
-        destination: (req, file, cb) => {
-            cb(null, 'uploads/images')
-        },
-        filename: (req, file, cb) => {
-            const ext = mime_type_map[file.mimetype];
-            cb(null, uuid() + '.' + ext)
-        }
-    }),
-    fileFilter: (req, file, cb) => {
-        const isValid = !!mime_type_map[file.mimetype];
-        let error = isValid ? null : new Error('Invalid mime type!');
-        cb(error, isValid);
+  fileFilter,
+  storage: multerS3({
+    s3,
+    bucket: 'devbook-uploads-1',
+    acl: 'public-read',
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: file.fieldname});
+    },
+    key: function (req, file, cb) {
+      cb(null, Date.now().toString())
     }
-});
+  })
+})
 
 module.exports = upload;
