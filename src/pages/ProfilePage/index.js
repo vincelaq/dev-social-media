@@ -1,14 +1,17 @@
-import React, {useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../../context/auth-context";
 import NamePlate from "../../components/NamePlate";
 import Post from "../../components/Post";
-import server from "../../api";
+import * as UserService from "../../api/UserService";
+import * as PostService from "../../api/PostService";
 import LoadingSpinner from '../../components/Elements/LoadingSpinner';
 
 import './style.css';
 
 
 const ProfilePage = (props) => {
+    const auth = useContext(AuthContext); 
     const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState(props.location.posts);
     const [user, setUser] = useState(props.location.user);
@@ -17,7 +20,7 @@ const ProfilePage = (props) => {
     const fetchUser = async () => {
         try {
         
-            let res = await server.get(`users/profile/${uid}`);
+            let res = await UserService.getUserProfile(uid, auth.token);
             console.log("fetchuser", res.data)
             if (res.status === 200) {
                 setUser(res.data.data);
@@ -32,7 +35,7 @@ const ProfilePage = (props) => {
 
     const fetchPosts = async () => {
         try {
-            let res = await server.get(`posts/user/${uid}`);
+            let res = await PostService.getAllPostsFromOneUser(uid);
             console.log("fetchpost", res.data)
             if (res.status === 200) {
                 setPosts(res.data.data);
@@ -88,6 +91,7 @@ const ProfilePage = (props) => {
                 {posts.map((post) => {
                     return (
                         <Post
+                            post={post}
                             user={post.username}
                             author={post.author}
                             body={post.body}
@@ -96,7 +100,8 @@ const ProfilePage = (props) => {
                             comments={post.comments}
                             time={post.createdAt}
                             key={post._id}
-                            likes={post.voteTotal}
+                            likes={post.likes}
+                            dislikes={post.dislikes}
                             id={post._id}
                             getPostsAgain={ () => fetchPosts ()}
                             />

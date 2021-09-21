@@ -48,6 +48,28 @@ const updateAPost = (pid, data, token) => {
     return server.put(`posts/${pid}`, data, options)
 };
 
+const handleLike = (pid, token) => {
+    const data = {};
+    const options = {
+        headers: {
+            'Authorization': 'Bearer '+token,
+            'Content-Type': 'application/json'
+        }
+    };
+    return server.put(`posts/liked/${pid}`, data, options)
+};
+
+const handleDislike = (pid, token) => {
+    const data = {};
+    const options = {
+        headers: {
+            'Authorization': 'Bearer '+token,
+            'Content-Type': 'application/json'
+        }
+    };
+    return server.put(`posts/disliked/${pid}`, data, options)
+};
+
 const updateAPostLike = (pid, token) => {
     const data = {};
     const options = {
@@ -77,7 +99,7 @@ const deleteAPost = (pid, token) => {
             'Content-Type': 'application/json'
         }
     };
-    return server.put(`posts/${pid}`, options)
+    return server.delete(`posts/${pid}`, options)
 };
 
 export { 
@@ -86,6 +108,8 @@ export {
     getAllPostsFromOneUser,
     createAPost,
     updateAPost,
+    handleLike,
+    handleDislike,
     updateAPostLike,
     updateAPostDislike,
     deleteAPost,

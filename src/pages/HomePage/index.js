@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/auth-context';
 
 import "../../index.css"
 
-const HomePage = ({posts, fetchPosts}) => {
+const HomePage = ({posts, handleLike, handleDislike, fetchPosts}) => {
     const auth = useContext(AuthContext);
     const user = auth.user;
     
@@ -36,8 +36,8 @@ const HomePage = ({posts, fetchPosts}) => {
                                 dislikeArray={post.dislikes}
                                 likes={post.voteTotal}
                                 id={post._id}
-                                initialIsInLikes={post.likes.includes(auth.user._id)}
-                                initialIsInDislikes={post.dislikes.includes(auth.user._id)}
+
+
                                 fetchPosts={() => fetchPosts()}
                             />
                         );

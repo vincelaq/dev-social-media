@@ -241,6 +241,125 @@ const updatePost = async (req, res) => {
 };
 
 // Likes - PUT - Update likes from current user
+const updateLike = async (req, res) => {
+    let foundPost;
+    try {
+        foundPost = await db.Post.findById(req.params.pid)
+    } catch (err) {
+        if (err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "Failed: Post not found",
+                data: foundPost
+            });
+        }
+        return res.status(500).json({
+            message: "Error: Finding post has failed, please try again later",
+            data: err
+        });
+    }
+
+    if (foundPost.likes.includes(req.user.id)) {
+        try {
+            await db.Post.findByIdAndUpdate(req.params.pid, {
+                $pull: {likes: req.user.id},
+            }, { new: true });
+            return res.json({
+                message: "Success: Post unliked",
+            });
+        } catch (err) {
+            if (err.kind === "ObjectId") {
+                return res.status(404).json({
+                    message: "Failed: Post not found",
+                });
+            }
+            return res.status(500).json({
+                message: "Error: Finding post has failed, please try again later",
+                data: err
+            });
+        }
+    } else {
+        try {
+            await db.Post.findByIdAndUpdate(req.params.pid, {
+                $addToSet: {likes: req.user.id},
+            }, { new: true });
+            return res.json({
+                message: "Success: Post liked",
+            });
+        } catch (err) {
+            if (err.kind === "ObjectId") {
+                return res.status(404).json({
+                    message: "Failed: Post not found",
+                });
+            }
+            return res.status(500).json({
+                message: "Error: Finding post has failed, please try again later",
+                data: err
+            });
+        }
+    };
+};
+
+// Likes - PUT - Update likes from current user
+const updateDislike = async (req, res) => {
+    let foundPost;
+    try {
+        foundPost = await db.Post.findById(req.params.pid)
+    } catch (err) {
+        if (err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "Failed: Post not found",
+                data: foundPost
+            });
+        }
+        return res.status(500).json({
+            message: "Error: Finding post has failed, please try again later",
+            data: err
+        });
+    }
+
+    if (foundPost.dislikes.includes(req.user.id)) {
+        try {
+            await db.Post.findByIdAndUpdate(req.params.pid, {
+                $pull: {dislikes: req.user.id},
+            }, { new: true });
+            return res.json({
+                message: "Success: Post undisliked",
+            });
+        } catch (err) {
+            if (err.kind === "ObjectId") {
+                return res.status(404).json({
+                    message: "Failed: Post not found",
+                });
+            }
+            return res.status(500).json({
+                message: "Error: Finding post has failed, please try again later",
+                data: err
+            });
+        }
+    } else {
+        try {
+            await db.Post.findByIdAndUpdate(req.params.pid, {
+                $addToSet: {dislikes: req.user.id},
+            }, { new: true });
+            return res.json({
+                message: "Success: Post disliked",
+            });
+        } catch (err) {
+            if (err.kind === "ObjectId") {
+                return res.status(404).json({
+                    message: "Failed: Post not found",
+                });
+            }
+            return res.status(500).json({
+                message: "Error: Finding post has failed, please try again later",
+                data: err
+            });
+        }
+    };
+}
+
+
+// Likes - PUT - Update likes from current user
 const updatePostLike = async (req, res) => {
     let foundPost;
     try {
@@ -412,4 +531,4 @@ const destroyPost = async (req, res) => {
     
 };
 
-module.exports = { index, getOnePost, getAllUserPosts, createPost, updatePost, updatePostLike, updatePostDislike, destroyPost };
+module.exports = { index, getOnePost, getAllUserPosts, createPost, updatePost, updateLike, updateDislike, updatePostLike, updatePostDislike, destroyPost };

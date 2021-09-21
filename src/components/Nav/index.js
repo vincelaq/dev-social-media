@@ -29,7 +29,6 @@ const Nav = () => {
         }
     }
 
-
     const fetchPosts = async () => {
         try {
             let res = await PostService.getAllPosts();
@@ -39,8 +38,6 @@ const Nav = () => {
             handleErrors(err);
         }
     };
-
-
 
     useEffect(() => {
         fetchPosts();

@@ -3,6 +3,8 @@ import { useHistory, useParams } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
 import server from '../../../api';
 
+import './style.css';
+
 const CommentForm = ({fetchOnePost}) => {
     const history = useHistory();
     const { pid } = useParams();
@@ -56,17 +58,23 @@ const CommentForm = ({fetchOnePost}) => {
     }
     
     return (
-        <div>
-            
-            <input
-                type="textarea"
-                placeholder="Add comment"
-                name="comment"
-                minLength={6}
-                value={comment}
-                onChange={e => onChange(e)}
-                onKeyPress={onKeyPress}
-            />
+        <div className="comment__wrapper">
+            <img className="comment__profile-image" src={auth.user.image} />
+            <div className="comment__input-wrapper">
+                <textarea
+                    className="comment__text-input"
+                    type="textarea"
+                    placeholder="Add comment"
+                    name="comment"
+                    minLength={6}
+                    value={comment}
+                    onChange={e => onChange(e)}
+                    onKeyPress={onKeyPress}
+                    rows="8"
+                    cols="1"
+                />
+                <p className="comment__instructions">Press enter to post</p>
+            </div>
         </div>
     )
 }

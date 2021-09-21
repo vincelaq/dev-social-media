@@ -9,6 +9,8 @@ router.get("/:pid", posts.getOnePost);
 router.get("/user/:uid", posts.getAllUserPosts);
 router.post("/", auth, postRules(), posts.createPost);
 router.put("/:pid", auth, posts.updatePost);
+router.put("/liked/:pid", auth, posts.updateLike);
+router.put("/disliked/:pid", auth, posts.updateDislike);
 router.put("/like/:pid", auth, posts.updatePostLike);
 router.put("/dislike/:pid", auth, posts.updatePostDislike);
 router.delete("/:pid", auth, posts.destroyPost);

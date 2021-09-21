@@ -48,6 +48,7 @@ const PostPage = (props) => {
         <div className="container">
             <section>
             <Post 
+                post={post}
                 user={post.username}
                 author={post.author}
                 body={post.body}
