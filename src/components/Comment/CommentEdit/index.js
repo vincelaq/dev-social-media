@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
-import server from '../../../api';
+import * as CommentService from '../../../api/CommentService';
 
 import './style.css';
 
@@ -38,14 +38,10 @@ const CommentEdit = ( { comment, fetchOnePost } ) => {
             const data = {
                 "body": commentText
             }
-            const options = {
-                headers: {
-                    'Authorization': 'Bearer '+auth.token,
-                }
-            };
-            const res = await server.put(`comments/${comment._id}`, data, options);
+            const res = await CommentService.updateComment(comment._id, data, auth.token);
             fetchOnePost();
             setFormData({ commentText: ''});
+            console.log("Comment Edit data: ", res.data.data);
             history.push(`/post/${pid}`);
         } catch (err) {
             handleErrors(err);
