@@ -95,7 +95,7 @@ const ProfilePage = (props) => {
                             likes={post.likes}
                             dislikes={post.dislikes}
                             id={post._id}
-                            getPostsAgain={ () => fetchPosts ()}
+                            fetchPosts={ () => fetchPosts ()}
                             />
                         );
                 })}
