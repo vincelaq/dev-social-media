@@ -1,11 +1,13 @@
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router';
 import LoadingSpinner from '../../Elements/LoadingSpinner';
 import { AuthContext } from '../../../context/auth-context';
 import server from '../../../api';
 
 import './style.css';
 
-const EditProfileForm = ({ id, close, fetchPosts }) => {
+const EditProfileForm = ({ id, close, fetchPosts, fetchUser }) => {
+    const history = useHistory();
     const auth = useContext(AuthContext);
     const [formData, setFormData] = useState({ 
         fullName: "",
@@ -65,9 +67,9 @@ const EditProfileForm = ({ id, close, fetchPosts }) => {
             const res = await server.put(`users/profile`, data, options);
 
             console.log(res);
-            fetchPosts();
+            fetchUser();
             setIsLoading(false);
-            close()
+            close();
         } catch (err) {
             setIsLoading(false);
             handleErrors(err);
