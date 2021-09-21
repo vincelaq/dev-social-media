@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react';
 import { useHistory, useParams } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
+import LoadingSpinner from '../../../components/Elements/LoadingSpinner';
 import server from '../../../api';
 
 import './style.css';
@@ -10,7 +11,7 @@ const CommentForm = ({fetchOnePost}) => {
     const { pid } = useParams();
     const auth = useContext(AuthContext);
     const [formData, setFormData] = useState({ comment: '' });
-
+    const [isLoading, setIsLoading] = useState(false);
     const { comment } = formData;
 
     const onChange = (e) => {
@@ -59,6 +60,7 @@ const CommentForm = ({fetchOnePost}) => {
     
     return (
         <div className="comment__wrapper">
+            {isLoading && <LoadingSpinner asOverlay />}
             <img className="comment__profile-image" src={auth.user.image} />
             <div className="comment__input-wrapper">
                 <textarea

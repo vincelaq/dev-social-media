@@ -19,33 +19,24 @@ const ProfilePage = (props) => {
 
     const fetchUser = async () => {
         try {
-        
             let res = await UserService.getUserProfile(uid, auth.token);
             console.log("fetchuser", res.data)
-            if (res.status === 200) {
-                setUser(res.data.data);
-            }
-            console.log("Post Incoming", res);
-            
+            setUser(res.data.data);
         } catch (err) {
             alert(err)
         }
-    }
+    };
 
 
     const fetchPosts = async () => {
         try {
             let res = await PostService.getAllPostsFromOneUser(uid);
             console.log("fetchpost", res.data)
-            if (res.status === 200) {
-                setPosts(res.data.data);
-            }
-            console.log("Post Incoming", res);
-    
+            setPosts(res.data.data);
         } catch (err) {
             alert(err)
         }
-    }
+    };
 
 
     useEffect(() => {
@@ -74,6 +65,7 @@ const ProfilePage = (props) => {
             <section>
                 <div className="np">
                     <NamePlate
+                        user={user}
                         banner={user.banner}
                         username={user.username}
                         jobTitle={user.jobTitle}

@@ -9,10 +9,10 @@ const CommentEdit = ( { comment, fetchOnePost } ) => {
     const history = useHistory();
     const { pid } = useParams();
     const auth = useContext(AuthContext);
-    const [formData, setFormData] = useState({ commentText: '' });
+    const [formData, setFormData] = useState({ body: '' });
     const [isEditing, setIsEditing] = useState(false);
     
-    const { commentText } = formData;
+    const { body } = formData;
 
     const onChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
@@ -36,7 +36,7 @@ const CommentEdit = ( { comment, fetchOnePost } ) => {
     const onSubmit = async () => {
         try {
             const data = {
-                "body": commentText
+                "body": body
             }
             const res = await CommentService.updateComment(comment._id, data, auth.token);
             fetchOnePost();
@@ -73,9 +73,9 @@ const CommentEdit = ( { comment, fetchOnePost } ) => {
                     className="edit"
                     type="text"
                     placeholder="Edit comment"
-                    name="comment"
+                    name="body"
                     minLength={6}
-                    value={commentText}
+                    value={body}
                     onChange={e => onChange(e)}
                     onKeyPress={onKeyPress}
                 />

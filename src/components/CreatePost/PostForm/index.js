@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import LoadingSpinner from '../../Elements/LoadingSpinner';
 import { AuthContext } from '../../../context/auth-context';
-import server from '../../../api';
+import * as PostService from '../../../api/PostService';
 
 import './style.css';
 
@@ -37,19 +37,13 @@ const PostForm = ({ close, fetchPosts }) => {
         try {
             setIsLoading(true);
             
-            const data = new FormData();
-            data.append("title", title);
-            data.append("body", body);
-            data.append("languages", languages);
-            
-            const options = {
-                headers: {
-                    'Authorization': 'Bearer '+auth.token,
-                    'Content-Type': 'multipart/form-data; boundary=---DEVBOOK---'
-                }
-            };
-            
-            const res = await server.post('posts', data, options);
+            const data = {
+            "title": title,
+            "body": body,
+            "languages": languages
+            }
+    
+            const res = await PostService.createAPost(data, auth.token);
 
             console.log(res);
             fetchPosts();
@@ -90,7 +84,6 @@ const PostForm = ({ close, fetchPosts }) => {
                         type="text"
                         placeholder="Language Tags (space in between, no commas)"
                         name="languages"
-                        required
                         value={languages}
                         onChange={e => onChange(e)}
                     />

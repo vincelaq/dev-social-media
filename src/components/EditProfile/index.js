@@ -5,7 +5,7 @@ import EditProfileForm from './EditProfileForm';
 import './style.css';
 
 
-const EditProfile = ({ user, fetchPosts }) => {
+const EditProfile = ({ user, fetchPosts, fetchUser }) => {
     return (
         <Popup
             trigger={<button className="profile__btn"> Edit Profile </button>}
@@ -22,7 +22,7 @@ const EditProfile = ({ user, fetchPosts }) => {
                 </div>
                 <div className="content">
                 {' '}
-                    <EditProfileForm close={close} user={user} fetchPosts={() => fetchPosts()} />
+                    <EditProfileForm close={close} user={user} fetchPosts={() => fetchPosts()} fetchUser={() => fetchUser()} />
                 </div>
             </div>
             )}

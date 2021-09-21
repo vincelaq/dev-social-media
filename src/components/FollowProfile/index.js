@@ -1,11 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from '../../context/auth-context';
-import server from '../../api';
+import * as UserService from '../../api/UserService';
 import EditProfile from "../EditProfile";
 
-const FollowProfile = ( {id, fetchUser, fetchPosts } ) => {
+const FollowProfile = ( {id, user, fetchUser, fetchPosts } ) => {
     const auth = useContext(AuthContext);
-    const user = auth.user;
     const [isFollowing, setIsFollowing] = useState(false);
     const [isUser, setIsUser] = useState(false);
 
@@ -42,20 +41,10 @@ const FollowProfile = ( {id, fetchUser, fetchPosts } ) => {
 
     const changeFollowing = async (e) => {
         e.preventDefault();
-        try {
-        
-            const options = {
-                headers: {
-                    'Authorization': 'Bearer '+auth.token,
-                    'Content-Type': 'application/json'
-                }
-            };
-            
-            const data = {}
-            
-            const res = await server.put(`users/follow/${id}`, data, options);
+        try { 
+            const res = await UserService.updateFollow(id, auth.token);
 
-            console.log(res);
+            console.log("Change Following response: ", res);
 
             if(isFollowing) {
                 setIsFollowing(false);

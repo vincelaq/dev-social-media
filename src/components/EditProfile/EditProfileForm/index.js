@@ -2,11 +2,11 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import LoadingSpinner from '../../Elements/LoadingSpinner';
 import { AuthContext } from '../../../context/auth-context';
-import server from '../../../api';
+import * as UserService from '../../../api/UserService';
 
 import './style.css';
 
-const EditProfileForm = ({ id, close, fetchPosts, fetchUser }) => {
+const EditProfileForm = ({ id, close, user, fetchPosts, fetchUser }) => {
     const history = useHistory();
     const auth = useContext(AuthContext);
     const [formData, setFormData] = useState({ 
@@ -57,19 +57,13 @@ const EditProfileForm = ({ id, close, fetchPosts, fetchUser }) => {
                 "password": password,
             }
             
-            const options = {
-                headers: {
-                    'Authorization': 'Bearer '+auth.token,
-                    'Content-Type': 'application/json'
-                }
-            };
-            
-            const res = await server.put(`users/profile`, data, options);
+            const res = await UserService.updateMyProfile(data, auth.token);
 
             console.log(res);
             fetchUser();
             setIsLoading(false);
             close();
+            history.push(`/profile/${id}`)
         } catch (err) {
             setIsLoading(false);
             handleErrors(err);

@@ -7,51 +7,46 @@ import EditBanner from "../EditBanner";
 import "./style.css";
 
 const NamePlate = ({
-  username,
-  jobTitle,
-  image,
-  bio,
+  user,
   numberOfPosts,
   numberOfConnections,
-  following,
   id,
   fetchPosts,
   fetchUser,
-  banner
 }) => {
   const auth = useContext(AuthContext);  
   return (     
       <div className="np__container">
-        <div className="np__banner" style={{backgroundImage: `url(${banner}`}}>
-            <FollowProfile id={id} username={username} fetchUser={()=>fetchUser()} fetchPosts={() => fetchPosts()} />
+        <div className="np__banner" style={{backgroundImage: `url(${user.banner}`}}>
+            <FollowProfile user={user} id={id} username={user.username} fetchUser={() => fetchUser()} fetchPosts={() => fetchPosts()} />
               <div className="np__profile-img"> 
                 <div className="image__mask">
                   {auth.user._id === id ? 
                     <Fragment>
-                      <img className="np__avatar" alt="Your avatar, click to change" src={image} onClick={(e) => {
+                      <img className="np__avatar" alt="Your avatar, click to change" src={user.image} onClick={(e) => {
                               e.target.classList.toggle('active');
                               e.target.nextSibling.classList.toggle('active');
                       }}/>
                       <div className="image__drop-down">
                         <div>
-                          <EditImage id={id} image={image} fetchUser={() => fetchUser()} />
+                          <EditImage id={id} image={user.image} fetchUser={() => fetchUser()} />
                         </div>
                         <div>
-                          <EditBanner id={id} banner={banner} fetchUser={() => fetchUser()} />
+                          <EditBanner id={id} banner={user.banner} fetchUser={() => fetchUser()} />
                         </div>
                       </div>
                     </Fragment>
                     :
-                    <img className="np__avatar" alt="Your avatar, click to change" src={image} />}
+                    <img className="np__avatar" alt="Your avatar, click to change" src={user.image} />}
                 </div>
               </div>
         </div>
         <div className="np__content">
           <div className="--flex-row --flex-space-between --flex-align-center">
               <div>
-                <div className="username"> {username} </div>
-                { jobTitle ?
-                  <div className="jobTitle"> {jobTitle} </div>
+                <div className="username"> {user.username} </div>
+                { user.jobTitle ?
+                  <div className="jobTitle"> {user.jobTitle} </div>
                   :
                   <div className="jobTitle"> No job title yet </div>
                 }
@@ -65,8 +60,8 @@ const NamePlate = ({
               </div>
               
           </div>
-          { bio ? 
-            <div className="bio"> " {bio} " </div>
+          { user.bio ? 
+            <div className="bio"> " {user.bio} " </div>
             :
             <div className="bio"> No bio yet </div> }
         </div>
