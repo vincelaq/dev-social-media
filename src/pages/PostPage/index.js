@@ -8,7 +8,8 @@ import server from '../../api';
 const PostPage = (props) => {
     const { pid } = useParams();
     const [post, setPost] = useState(props.location.post);
-    const [comments, setComments] = useState(props.location.comments)
+    const comments = post.comments;
+    const posts = props.location.posts;
 
     const handleErrors = (err) => {
         if (err.response) {
@@ -31,9 +32,6 @@ const PostPage = (props) => {
 
             console.log("fetch one post: ", res.data.data);
             setPost(res.data.data);
-            if (res.data.data.comments) {
-                setComments(res.data.data.comments)
-            }
         } catch (err) {
             handleErrors(err);
         }
@@ -47,7 +45,8 @@ const PostPage = (props) => {
     return (
         <div className="container">
             <section>
-            <Post 
+            <Post
+                allPosts={posts} 
                 post={post}
                 user={post.username}
                 author={post.author}

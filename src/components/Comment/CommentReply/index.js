@@ -72,7 +72,7 @@ const CommentReply = ({ originCommentId, fetchOnePost, originAuthor }) => {
             
             {isReplying &&
                 <input
-                    id="reply"
+                    className="reply"
                     type="text"
                     placeholder="Reply to comment"
                     name="comment"

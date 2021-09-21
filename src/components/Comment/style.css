@@ -116,6 +116,7 @@ textarea::placeholder {
   font-family: nimbus-sans, sans-serif;
   font-size: 12px;
   font-weight: 100;
+  margin-bottom: 12px;
 }
 .comment-thread__username-time {
   display: flex;

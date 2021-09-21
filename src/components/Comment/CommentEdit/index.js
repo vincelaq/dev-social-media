@@ -3,16 +3,16 @@ import { useHistory, useParams } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
 import server from '../../../api';
 
-const CommentEdit = ( {originCommentId, fetchOnePost, originAuthor} ) => {
+import './style.css';
+
+const CommentEdit = ( { comment, fetchOnePost } ) => {
     const history = useHistory();
     const { pid } = useParams();
     const auth = useContext(AuthContext);
-    const [formData, setFormData] = useState({ comment: '' });
+    const [formData, setFormData] = useState({ commentText: '' });
     const [isEditing, setIsEditing] = useState(false);
     
-    const { comment } = formData;
-
-    console.log(auth.user._id, originAuthor);
+    const { commentText } = formData;
 
     const onChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
@@ -36,16 +36,16 @@ const CommentEdit = ( {originCommentId, fetchOnePost, originAuthor} ) => {
     const onSubmit = async () => {
         try {
             const data = {
-                "body": comment
+                "body": commentText
             }
             const options = {
                 headers: {
                     'Authorization': 'Bearer '+auth.token,
                 }
             };
-            const res = await server.put(`comments/${originCommentId}`, data, options);
+            const res = await server.put(`comments/${comment._id}`, data, options);
             fetchOnePost();
-            setFormData({ comment: ''});
+            setFormData({ commentText: ''});
             history.push(`/post/${pid}`);
         } catch (err) {
             handleErrors(err);
@@ -53,10 +53,11 @@ const CommentEdit = ( {originCommentId, fetchOnePost, originAuthor} ) => {
     }
 
     const handleEdit = () => {
-        if(auth.user._id !== originAuthor) {
+        if(auth.user._id === comment.author) {
+            setIsEditing(true);
+        } else {
             return alert("You are not authorized to edit this comment")
-        }
-        setIsEditing(true);
+        } 
     };
 
     const onKeyPress = (e) => {
@@ -73,11 +74,12 @@ const CommentEdit = ( {originCommentId, fetchOnePost, originAuthor} ) => {
             
             {isEditing &&
                 <input
+                    className="edit"
                     type="text"
                     placeholder="Edit comment"
                     name="comment"
                     minLength={6}
-                    value={comment}
+                    value={commentText}
                     onChange={e => onChange(e)}
                     onKeyPress={onKeyPress}
                 />

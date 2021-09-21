@@ -1,17 +1,13 @@
-import React, { useEffect, useContext } from "react";
-import { useFieldArray } from "react-hook-form";
+import React, { useContext } from "react";
 import Post from "../../components/Post";
 import { AuthContext } from '../../context/auth-context';
 
 import "../../index.css"
 
-const HomePage = ({posts, handleLike, handleDislike, fetchPosts}) => {
+const HomePage = ({posts, fetchPosts}) => {
     const auth = useContext(AuthContext);
     const user = auth.user;
     
-
-  
-
     return (
         <div>
             <section>

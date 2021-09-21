@@ -5,3 +5,16 @@
     font-size: 12px;
   
 }
+.reply {
+    width: 100%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 18px;
+    outline: none; 
+    border-radius: 24px;
+    background-color: var(--grey);
+    border: none;
+    color: var(--white);
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
