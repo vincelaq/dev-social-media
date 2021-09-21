@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
 import server from '../../../api';
 
+import './style.css';
 
 const CommentReply = ({ originCommentId, fetchOnePost, originAuthor }) => {
     const history = useHistory();
@@ -67,12 +68,13 @@ const CommentReply = ({ originCommentId, fetchOnePost, originAuthor }) => {
 
     return (
         <div>
-            {!isReplying && <button onClick={handleReply}>Reply</button>}
+            {!isReplying && <button className="comment__button" onClick={handleReply}>Reply</button>}
             
             {isReplying &&
                 <input
+                    id="reply"
                     type="text"
-                    placeholder="Add comment"
+                    placeholder="Reply to comment"
                     name="comment"
                     minLength={6}
                     value={comment}

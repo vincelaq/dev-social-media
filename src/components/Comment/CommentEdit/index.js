@@ -69,7 +69,7 @@ const CommentEdit = ( {originCommentId, fetchOnePost, originAuthor} ) => {
     }
     return (
         <div>
-            {!isEditing && <button onClick={handleEdit}>Edit</button>}
+            {!isEditing && <button className="comment__button" onClick={handleEdit}>Edit</button>}
             
             {isEditing &&
                 <input

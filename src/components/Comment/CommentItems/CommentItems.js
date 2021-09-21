@@ -1,6 +1,7 @@
 import React from "react";
 import CommentReply from "../CommentReply";
 import CommentEdit from "../CommentEdit";
+import ReactTimeAgo from 'react-time-ago';
 
 
 import "./style.css";
@@ -12,14 +13,22 @@ const CommentItems = ({ comment, fetchOnePost, author }) => {
 
     return(
        <div className="nested-comment__wrapper">
-            <div className="comment">
-                <div className="comment--user"> username {comment.username} </div>
-                <div className="comment--create"> createdAt {comment.createdAt} </div>
-                <div className="comment--image"> <img className="nav__avatar" src={comment.image} /> </div>
-                <div className="comment--body"> body {comment.body} </div>
+            <div className="comment-thread__main">
+                <div className="user_img"> 
+                    <img className="comment__profile-image" src={comment.image} /> 
+                </div>
+                <div className="comment-thread__wrapper">
+                    <div className="comment-thread__username-time">
+                        <div className="user"> {comment.username} </div>
+                        <div className="create"> <ReactTimeAgo date={comment.createdAt} locale="en-US"/> </div>
+                    </div>
+                    <div className="body"> body {comment.body} </div>
+                </div>
             </div>
-            <CommentReply originCommentId={comment._id} fetchOnePost={() => fetchOnePost()} />
-            <CommentEdit originCommentId={comment._id} fetchOnePost={() => fetchOnePost()} />
+            <div className="comment-button">
+                <CommentReply originCommentId={comment._id} fetchOnePost={() => fetchOnePost()} />
+                <CommentEdit originCommentId={comment._id} fetchOnePost={() => fetchOnePost()} />
+            </div>
             <div>
                 {nestedComments.length > 0 && <div>{nestedComments}</div>}
             </div>

@@ -62,9 +62,13 @@ const PostPage = (props) => {
             
             />
            <CommentForm postId={post.id} fetchOnePost={()=>fetchOnePost()} />
+            
+           <h2>Comments</h2>
+            {comments.length < 1 && <h3>No comments yet</h3>}
             {comments.map((comment) => {
                 return (
                     <Comment
+                        comment={comment}
                         author={comment.author}
                         username={comment.username}
                         body={comment.body}
