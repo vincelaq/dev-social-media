@@ -76,7 +76,7 @@ textarea::placeholder {
   width: 100%;
   background-color: transparent;
   border-radius: 2px solid transparent;
-  
+  margin-bottom: 24px;
 }
 
 .comment-thread__main {
@@ -124,9 +124,6 @@ textarea::placeholder {
   justify-content: left;
 }
 
-.user {
-  font-size: 12px;
-}
 
 .create {
   padding-top: 6px;
