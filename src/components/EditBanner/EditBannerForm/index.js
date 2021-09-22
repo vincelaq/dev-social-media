@@ -40,6 +40,7 @@ const EditBannerForm = ({ id, close, fetchUser }) => {
             const formData = new FormData();
             formData.append("banner", image.raw);
             const res= await UserService.updateBanner(formData, auth.token);
+            console.log("Banner update response =>", res)
             fetchUser();
             history.push({pathname: `/profile/${auth.user._id}`, state: auth.user })
             close();

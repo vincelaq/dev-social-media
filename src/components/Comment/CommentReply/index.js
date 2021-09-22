@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
-import server from '../../../api';
+import * as CommentService from '../../../api/CommentService';
 
 import './style.css';
 
@@ -42,12 +42,8 @@ const CommentReply = ({ originCommentId, fetchOnePost, originAuthor }) => {
             const data = {
                 "body": comment
             }
-            const options = {
-                headers: {
-                    'Authorization': 'Bearer '+auth.token,
-                }
-            };
-            const res = await server.post(`comments/orig/${originCommentId}`, data, options);
+            const res = await CommentService.createNestedComment(originCommentId, data, auth.token);
+            console.log("Nested Comment response => ", res)
             fetchOnePost();
             setFormData({ comment: ''});
             history.push(`/post/${pid}`);

@@ -59,12 +59,12 @@ const FollowProfile = ( {id, user, following, fetchUser, fetchPosts } ) => {
 
     useEffect(() => {
         fetchUser();
-     },[isFollowing])
+     },[isFollowing]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
     useEffect(() => {
        determineFollowing();
        determineIfUser();
-    },[])
+    },[]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
     return (
         <div>

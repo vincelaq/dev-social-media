@@ -15,7 +15,7 @@ const Comment = ({comment, id, fetchOnePost}) => {
       <div className="comment-thread">
         <div className="comment-thread__main">
           <div className="user_img"> 
-            <img className="comment__profile-image" src={comment.image} /> 
+            <img className="comment__profile-image" alt="user avatar" src={comment.image} /> 
           </div>
           <div className="comment-thread__wrapper">
             <div className="comment-thread__username-time">
