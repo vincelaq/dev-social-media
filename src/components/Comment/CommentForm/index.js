@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import { useHistory, useParams } from 'react-router';
 import { AuthContext } from '../../../context/auth-context';
 import LoadingSpinner from '../../../components/Elements/LoadingSpinner';
-import server from '../../../api';
+import * as CommentService from '../../../api/CommentService';
 
 import './style.css';
 
@@ -35,17 +35,15 @@ const CommentForm = ({fetchOnePost}) => {
 
     const onSubmit = async () => {
         try {
+            setIsLoading(true);
             const data = {
                 "body": comment
             }
-            const options = {
-                headers: {
-                    'Authorization': 'Bearer '+auth.token,
-                }
-            };
-            const res = await server.post(`comments/${pid}`, data, options);
+            const res = await CommentService.createComment(pid, data, auth.token);
+            console.log("Create comment response => ", res);
             fetchOnePost();
             setFormData({ comment: ''});
+            setIsLoading(false);
             history.push(`/post/${pid}`);
         } catch (err) {
             handleErrors(err);
@@ -61,7 +59,7 @@ const CommentForm = ({fetchOnePost}) => {
     return (
         <div className="comment__wrapper">
             {isLoading && <LoadingSpinner asOverlay />}
-            <img className="comment__profile-image" src={auth.user.image} />
+            <img className="comment__profile-image" alt="user avatar" src={auth.user.image} />
             <div className="comment__input-wrapper">
                 <textarea
                     className="comment__text-input"

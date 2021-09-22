@@ -123,13 +123,13 @@ const Post = ({
 
             <div className="post__content-wrap">
                 <div className="post__header">
-                <Link to={{ pathname: `/profile/${post.author}`, user, posts: allPosts }}> 
+                <Link to={{ pathname: `/profile/${post.author}`, user, posts: allPosts, fetchPosts }}> 
                     <div className="post__profile-img-wrap">
                         <img className="post__profile-img" src={post.image} />
                         <img className="post__profile-fav-lang" />
                     </div>
                 </Link>
-                <Link to={{ pathname: `/profile/${post.author}`, user, posts: allPosts }}>
+                <Link to={{ pathname: `/profile/${post.author}`, user, posts: allPosts, fetchPosts }}>
                     <div>
                         <p className="post__username">{post.username}</p>
                       

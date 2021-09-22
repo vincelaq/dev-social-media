@@ -3,13 +3,13 @@ import { AuthContext } from '../../context/auth-context';
 import * as UserService from '../../api/UserService';
 import EditProfile from "../EditProfile";
 
-const FollowProfile = ( {id, user, fetchUser, fetchPosts } ) => {
+const FollowProfile = ( {id, user, following, fetchUser, fetchPosts } ) => {
     const auth = useContext(AuthContext);
     const [isFollowing, setIsFollowing] = useState(false);
     const [isUser, setIsUser] = useState(false);
 
     const determineFollowing = () => {
-        if (user.followers.includes(auth.user._id)) {
+        if (following.includes(id)) {
             setIsFollowing(true)
         } else {
             setIsFollowing(false)

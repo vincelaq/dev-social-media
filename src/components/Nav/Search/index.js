@@ -14,6 +14,7 @@ const Search = () => {
         try {
             const res = await UserService.searchUser(query);
             console.log('Search user response =>', res.data);
+            if (res.data.length < 1) alert("No user matches found")
             setResult(res.data);
         } catch (err) {
             console.log(err);

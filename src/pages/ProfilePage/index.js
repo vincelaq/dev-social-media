@@ -74,6 +74,7 @@ const ProfilePage = (props) => {
                         numberOfPosts={numberOfPosts}
                         numberOfConnections={numberOfFollowing}
                         following={user.following}
+                        followers={user.followers}
                         id={uid}
                         fetchPosts={() => fetchPosts()}
                         fetchUser={() => fetchUser()}
