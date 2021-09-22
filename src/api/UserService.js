@@ -40,6 +40,15 @@ const getMyFollowing = (token) => {
     return server.get(`users/following`, options)
 };
 
+const searchUser = (query) => {
+    const options = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    return server.get(`users/search/${query}`, options)
+}
+
 const updateImage = (data, token) => {
     const options = {
         headers: {
@@ -96,6 +105,7 @@ export {
     getMyProfile,
     getUserProfile,
     getMyFollowing,
+    searchUser,
     updateImage,
     updateBanner,
     updateMyProfile,

@@ -1,14 +1,15 @@
-import React, {useState,useEffect,  useContext} from "react";
+import React, {useState,useEffect, useContext} from "react";
 import { AuthContext } from "../../context/auth-context";
+import { useLocation } from "react-router";
 import * as UserService from "../../api/UserService";
-import FollowingItem from "./FollowingItem";
+import SearchItem from "./SearchItem"
 import './style.css';
 
-const FollowingPage = () => {
+const SearchPage = () => {
     const auth = useContext(AuthContext);
-
+    const location = useLocation();
     const [following, setFollowing] = useState([]);
-
+    const result = location.state;
 
     const handleErrors = (err) => {
       if (err.response) {
@@ -27,14 +28,21 @@ const FollowingPage = () => {
 
 
     const fetchFollowing = async () => {
-      try {
-          let res = await UserService.getMyFollowing(auth.token)
-          setFollowing(res.data.data.following)
-          console.log("GET SERVICE RESPONSE: ", res)
-      } catch (err) {
-          handleErrors(err);    
-      }
-  }
+        try {
+            let res = await UserService.getMyFollowing(auth.token)
+            setFollowing(res.data.data.following)
+            console.log("GET SERVICE RESPONSE: ", res)
+        } catch (err) {
+            handleErrors(err);    
+        }
+    }
+
+    useEffect(() => {
+      console.log(location.pathname)
+      console.log(location.search)
+      console.log(result)
+    }, [location])
+
     useEffect(() => {
         fetchFollowing()
     }, [])
@@ -44,12 +52,12 @@ const FollowingPage = () => {
       <div>
         <section>
           <div className="container">
-            <h1>Following</h1>
-            {following.length < 1 && <h3>You are not following anyone yet</h3>}
-              {following.map((user) => {
+            <h1>Search Results</h1>
+            {result.length < 1 && <h3>No users matching search</h3>}
+              {result.map((user) => {
                   return (
-                      <FollowingItem user={user} auth={auth}
-                    fetchFollowing={() => fetchFollowing()}  />
+                      <SearchItem user={user} auth={auth} fetchFollowing={() => fetchFollowing()}
+                      />
                 );
               })}
           </div>
@@ -58,4 +66,4 @@ const FollowingPage = () => {
     );
 }
 
-export default FollowingPage;
+export default SearchPage;

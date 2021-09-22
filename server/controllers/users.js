@@ -86,6 +86,25 @@ const getUserProfile = async (req, res) => {
     }
 };
 
+// Search - GET - Search for user
+const searchUser = async (req, res) => {
+    const {query} = req.params;
+    if (!query) return;
+    try {
+        const user = await db.User.find({
+            $or: [
+                { fullName: { $regex: query, $options: 'i' }},
+                { username: { $regex: query, $options: 'i' }}
+            ]
+        }).select("-password");
+        res.json(user);
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: User search failed, please try again later",
+            data: err
+        })
+    }
+};
 
 // Following - GET - Retrieved data of current user following
 const getMyFollowing = async (req, res) => {
@@ -400,4 +419,4 @@ const destroyUser = async (req, res) => {
         data: foundUser});
 };
 
-module.exports = { index, getMyProfile, getUserProfile, getMyFollowing, postImage, postBanner, updateMyProfile, updateFollow, destroyUser };
+module.exports = { index, getMyProfile, getUserProfile, getMyFollowing, searchUser, postImage, postBanner, updateMyProfile, updateFollow, destroyUser };

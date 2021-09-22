@@ -9,7 +9,7 @@ const FollowProfile = ( {id, user, fetchUser, fetchPosts } ) => {
     const [isUser, setIsUser] = useState(false);
 
     const determineFollowing = () => {
-        if (auth.user.following.includes(id)) {
+        if (user.followers.includes(auth.user._id)) {
             setIsFollowing(true)
         } else {
             setIsFollowing(false)
