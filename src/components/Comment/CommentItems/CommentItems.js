@@ -29,7 +29,7 @@ const CommentItems = ({ comment, fetchOnePost }) => {
             </div>
             <div className="comment-button">
                 <CommentReply originCommentId={comment._id} fetchOnePost={() => fetchOnePost()} />
-                { auth.user._id === comment.author && <CommentEdit originCommentId={comment._id} fetchOnePost={() => fetchOnePost()} /> }
+                { auth.user._id === comment.author && <CommentEdit comment={comment} originCommentId={comment._id} fetchOnePost={() => fetchOnePost()} /> }
             </div>
             <div>
                 {nestedComments.length > 0 && <div>{nestedComments}</div>}
