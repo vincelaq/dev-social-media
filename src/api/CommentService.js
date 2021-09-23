@@ -45,7 +45,7 @@ const createNestedComment = (cid, data, token) => {
             'Content-Type': 'application/json'
         }
     };
-    return server.post(`comments/origin/${cid}`, data, options);
+    return server.post(`comments/orig/${cid}`, data, options);
 };
 
 const updateComment = (cid, data, token) => {
