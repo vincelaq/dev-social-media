@@ -28,6 +28,16 @@ const getAllPostsFromOneUser = (uid) => {
     return server.get(`posts/user/${uid}`, options)
 };
 
+const getAllFollowingPosts = (token) => {
+    const options = {
+        headers: {
+            'Authorization': 'Bearer '+token,
+            'Content-Type': 'application/json'
+        }
+    };
+    return server.get("posts/following", options)
+};
+
 const createAPost = (data, token) => {
     const options = {
         headers: {
@@ -106,6 +116,7 @@ export {
     getAllPosts, 
     getOnePosts, 
     getAllPostsFromOneUser,
+    getAllFollowingPosts,
     createAPost,
     updateAPost,
     handleLike,

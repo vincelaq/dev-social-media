@@ -5,6 +5,7 @@ const auth = require("../middleware/auth");
 const { postRules } = require("../middleware/validator");
 
 router.get("/", posts.index);
+router.get("/following", auth, posts.getAllFollowingPosts);
 router.get("/:pid", posts.getOnePost);
 router.get("/user/:uid", posts.getAllUserPosts);
 router.post("/", auth, postRules(), posts.createPost);

@@ -50,7 +50,7 @@ const getOnePost = async (req, res) => {
     } catch (err) {
         if (err.kind === "ObjectId") {
             return res.status(404).json({
-                message: "Failed: Post not found",
+                message: "Failed: Post not found (getOnePost)",
                 data: post
             });
         }
@@ -62,7 +62,7 @@ const getOnePost = async (req, res) => {
 
     if (!post) {
         return res.status(404).json({
-            message: "Failed: Post not found",
+            message: "Failed: Post not found (getOnePost)",
             data: post
         });
     } else {
@@ -121,6 +121,56 @@ const getAllUserPosts = async (req, res) => {
         });
     }
 };
+
+// Following - GET - Get all following user posts
+const getAllFollowingPosts = async (req, res) => {
+    let user;
+    try {
+        user = await db.User.findById(req.user.id).select('-password').populate('following')
+    } catch (err) {
+        return res.status(500).json({
+            message: "Error: Retrieving user for post creation has failed, please try again later",
+            data: err
+        });
+    }
+
+    let followingArray = user.following;
+    
+    let result = [];
+    followingArray.forEach(async (user) => {
+      
+        try {
+            let foundPosts = await db.Post.find({ author: user.id })
+                .populate({path: 'comments', 
+                    populate: {path: 'comments', 
+                        populate: {path: 'comments',
+                            populate: {path: 'comments'
+                }}}})
+            result.concat(foundPosts)
+
+        } catch (err) {
+            return res.status(500).json({
+                message: "Error: Retrieving posts has failed, please try again later",
+                data: err
+            });
+        }
+    })
+    console.log(result)
+
+    if (Object.keys(result) !== 0) {
+        return res.json({
+            message: "Success: Found posts by following",
+            data: result
+        });
+    } else {
+        return res.json({
+            message: "Failed: No posts yet",
+            data: result
+        });
+    }
+
+
+}
 
 // Create Post - POST - Creation of new post
 const createPost = async (req, res) => {
@@ -248,7 +298,7 @@ const updateLike = async (req, res) => {
     } catch (err) {
         if (err.kind === "ObjectId") {
             return res.status(404).json({
-                message: "Failed: Post not found",
+                message: "Failed: Post not found (updateLike)",
                 data: foundPost
             });
         }
@@ -269,7 +319,7 @@ const updateLike = async (req, res) => {
         } catch (err) {
             if (err.kind === "ObjectId") {
                 return res.status(404).json({
-                    message: "Failed: Post not found",
+                    message: "Failed: Post not found (updateLike)",
                 });
             }
             return res.status(500).json({
@@ -288,7 +338,7 @@ const updateLike = async (req, res) => {
         } catch (err) {
             if (err.kind === "ObjectId") {
                 return res.status(404).json({
-                    message: "Failed: Post not found",
+                    message: "Failed: Post not found (updateLike)",
                 });
             }
             return res.status(500).json({
@@ -307,7 +357,7 @@ const updateDislike = async (req, res) => {
     } catch (err) {
         if (err.kind === "ObjectId") {
             return res.status(404).json({
-                message: "Failed: Post not found",
+                message: "Failed: Post not found (updateLike)",
                 data: foundPost
             });
         }
@@ -328,7 +378,7 @@ const updateDislike = async (req, res) => {
         } catch (err) {
             if (err.kind === "ObjectId") {
                 return res.status(404).json({
-                    message: "Failed: Post not found",
+                    message: "Failed: Post not found (updateDislike)",
                 });
             }
             return res.status(500).json({
@@ -347,7 +397,7 @@ const updateDislike = async (req, res) => {
         } catch (err) {
             if (err.kind === "ObjectId") {
                 return res.status(404).json({
-                    message: "Failed: Post not found",
+                    message: "Failed: Post not found (updateDislike)",
                 });
             }
             return res.status(500).json({
@@ -367,7 +417,7 @@ const updatePostLike = async (req, res) => {
     } catch (err) {
         if (err.kind === "ObjectId") {
             return res.status(404).json({
-                message: "Failed: Post not found",
+                message: "Failed: Post not found (updatePostLike)",
                 data: foundPost
             });
         }
@@ -426,7 +476,7 @@ const updatePostDislike = async (req, res) => {
     } catch (err) {
         if (err.kind === "ObjectId") {
             return res.status(404).json({
-                message: "Failed: Post not found",
+                message: "Failed: Post not found (updatePostDislike)",
                 data: foundPost
             });
         }
@@ -486,7 +536,7 @@ const destroyPost = async (req, res) => {
     } catch (err) {
         if (err.kind === "ObjectId") {
             return res.status(404).json({
-                message: "Failed: Post not found",
+                message: "Failed: Post not found (destroyPost)",
                 data: foundPost
             });
         }
@@ -531,4 +581,4 @@ const destroyPost = async (req, res) => {
     
 };
 
-module.exports = { index, getOnePost, getAllUserPosts, createPost, updatePost, updateLike, updateDislike, updatePostLike, updatePostDislike, destroyPost };
+module.exports = { index, getOnePost, getAllUserPosts, getAllFollowingPosts, createPost, updatePost, updateLike, updateDislike, updatePostLike, updatePostDislike, destroyPost };

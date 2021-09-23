@@ -42,6 +42,16 @@ const Nav = () => {
         }
     };
 
+    const fetchFollowingPosts = async () => {
+        try {
+            let res = await PostService.getAllFollowingPosts(auth.token);
+            setPosts(res.data.data);
+            console.log("Nav Fetch Follwoing Post Response: ", res);
+        } catch (err) {
+            handleErrors(err);
+        }
+    }
+
     useEffect(() => {
         fetchPosts();
     }, []);
