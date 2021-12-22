@@ -18,10 +18,10 @@ Most resources that Software Developers use to find answers, can be out of date.
 When coming up with the idea of DevBook, we wanted to make a platform that had up to date answers for not only students of Software Development but Senior Developers as well. We wanted a place where all types of developers can share and help one another. 
 To make us different, we first looked at our competitors. Most used out of date syntax or had a timestamp that made you uncomfortable about the answers you found. In the technology world, updates occur on a regular basis and can make code obsolete. 
 To further our study we asked Software Developers and Student Software Developers a number of questions. Some of the most important questions were, "Do you find the answer you were looking for on the first try? Do you trust those answers? Are they up to date with industry standards? Do you use multiple sources to locate you answers? If you can find multiple answers to a single question and be assured it up to industry standards, would you look for a different source?" A high percentage of responses stated that if a website was able to provide an industry standard answer consistently, that was current, they would use that resource before any others. 
-It is with this research we came up with a simple yet effective Social Media Platform to be that one website that all Developers are looking for. Lets show you around...
+It is with this research we came up with a simple yet effective Social Media Platform to be that one website that all Developers are looking for.
 
 ## Getting Started: 
-Heroku: https://limitless-lowlands-64983.herokuapp.com/  <br>
+Heroku: https://devbook-flex525.herokuapp.com/  <br>
 Trello Board : https://trello.com/b/wagAN1Fm/dev-social-media
 
 ## A Guided Walk-through of DevBook
